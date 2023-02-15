@@ -1,6 +1,6 @@
 # hana_novel
 
-This template should help get you started developing with Vue 3 in Vite.
+简单小说系统
 
 ## Recommended IDE Setup
 
@@ -10,13 +10,13 @@ This template should help get you started developing with Vue 3 in Vite.
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## 项目设置
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发设置
 
 ```sh
 npm run dev
