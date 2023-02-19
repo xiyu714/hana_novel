@@ -4,7 +4,8 @@ dotenv.config()
 
 import Koa from "koa"
 
-import {knex} from "config/knex.mjs"
+import {knex} from "./config/knex.mjs"
+import {api} from "./router.mjs"
 
 // 服务器配置
 const app = new Koa();
@@ -15,12 +16,8 @@ app.use(async (ctx, next) => {
     const ms = Date.now() - start;
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
-
-// response
-app.use(ctx => {
-    ctx.body = 'Hello Koa';
-});
-
+// 加载路由
+app.use(api.middleware())
 
 let port = 30000;
 
