@@ -1,7 +1,7 @@
 <template>
     <div class="header_container">
       <div class="header">
-        <img src="src/assets/logo.png" alt="Novel logo" class="header_logo">
+        <img src="@/assets/logo.png" alt="Novel logo" class="header_logo">
         <div class="header_nav">
           <ul>
             <li v-for="item in NavList" >
