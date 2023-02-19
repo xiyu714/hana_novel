@@ -1,4 +1,12 @@
+// 先处理环境变量
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
+
 import Koa from "koa"
+
+import {knex} from "config/knex.mjs"
+
+// 服务器配置
 const app = new Koa();
 
 app.use(async (ctx, next) => {

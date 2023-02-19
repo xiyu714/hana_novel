@@ -9,6 +9,7 @@ lerna-debug.log*
 
 front_end/node_modules
 back_end/node_modules
+back_end/.env
 .DS_Store
 dist
 dist-ssr
