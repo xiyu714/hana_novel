@@ -1,0 +1,18 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.mjs",
+  "scripts": {
+    "server": "node main.mjs"
+  },
+  "author": "",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "knex": "^2.4.2",
+    "koa": "^2.14.1",
+    "koa-better-router": "^2.1.1",
+    "koa-better-serve": "^2.0.7",
+    "mysql2": "^3.1.2"
+  }
+}
