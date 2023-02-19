@@ -4,14 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="body">
-    <header>
-      <HomeView/>
       <RouterView />
-    </header>
-
-
-  </div>
 </template>
 
 <style scoped>
@@ -20,11 +13,13 @@ import { RouterLink, RouterView } from 'vue-router'
   margin: 0;
   box-sizing: border-box;
 }
-header{
-  background-color: blue;
-  width: auto;
-  height: 71px;
-}
+/*header{*/
+/*  !*background-color: #f7f4ee;*!*/
+/*  !*background-color: #fff;*!*/
+/*  border-bottom:1px solid #DCDCDC ;*/
+/*  width: auto;*/
+/*  height: 71px;*/
+/*}*/
 
 /*header {*/
 /*  line-height: 1.5;*/
