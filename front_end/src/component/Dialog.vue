@@ -14,7 +14,7 @@
 <script setup>
 import {ref} from "vue";
 
-let dialog_visible = ref(true);
+let dialog_visible = ref(false);
 
 defineExpose({
   dialog_visible

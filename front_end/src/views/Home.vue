@@ -22,6 +22,9 @@
           <a class="header_font" href="#" @click="login" >登录</a>
           &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
           <a class="header_font" href="#" @click="register" >注册</a>
+          <Dialog ref="dialog">
+            12
+          </Dialog>
         </div>
       </div>
     </div>
@@ -101,9 +104,6 @@
                 </div>
               </div>
 
-
-
-
             </div>
           </div>
         </div>
@@ -118,89 +118,78 @@
 
 </template>
 
-<script>
-import {reactive} from "vue";
-export default {
-  name:'Home',
-  setup(){
-    //数据
-    var booklist1 = reactive([
-      {
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      },{
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      },{
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      },{
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      },{
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      },{
-        title:'反骨',
-        url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-        author:'Aarhus',
-        desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-      }
-    ])
-    var NavList = reactive([
-      {
-        title:'首页',
-        url:'/'
-      },
-      {
-        title:'书库',
-        url:'/library'
-      },{
-        title:'排行榜',
-        url:'/ranking'
-      }, {
-        title: '分类',
-        url:'/sort'
-      },{
-        title: '作家专区',
-        url:'/authorcolumn'
-      }
-      // ,{
-      //   title: '话题',
-      //   url:'/'
-      // }
-    ])
-
-
-    //方法
-
-    //登录
-    function login(){
-      alert("登录")
-    }
-    //注册
-    function register(){
-      alert("注册")
-    }
-
-    //返回对象
-    return{
-      NavList,
-      login,
-      register,
-      booklist1
-    }
+<script setup>
+import {reactive, ref} from "vue";
+import Dialog from "../component/Dialog.vue";
+//数据
+let dialog = ref(null)
+var booklist1 = reactive([
+  {
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
+  },{
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
+  },{
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
+  },{
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
+  },{
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
+  },{
+    title:'反骨',
+    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
+    author:'Aarhus',
+    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
   }
+])
+var NavList = reactive([
+  {
+    title:'首页',
+    url:'/'
+  },
+  {
+    title:'书库',
+    url:'/library'
+  },{
+    title:'排行榜',
+    url:'/ranking'
+  }, {
+    title: '分类',
+    url:'/sort'
+  },{
+    title: '作家专区',
+    url:'/authorcolumn'
+  }
+  // ,{
+  //   title: '话题',
+  //   url:'/'
+  // }
+])
+
+
+//方法
+
+//登录
+function login(){
+  alert("登录")
+}
+//注册
+function register(){
+  dialog.value.dialog_visible = true
 }
 </script>
 
