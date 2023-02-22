@@ -26,7 +26,36 @@
             <div style="padding: 30px 40px 30px 40px;">
               <!--  切换登录和注册-->
               <div style="font-size: 25px;font-family: PingFangSC">
-                <div>登录</div>
+                <div style="display: flex; cursor: pointer" >
+                  <div class="login" @click="isLogin = true" :class="{active: isLogin}" style="padding-bottom: 8px;margin-right: 30px;">登录</div>
+                  <div class="register" @click="isLogin = false" :class="{active: !isLogin}" style="padding-bottom: 8px;">注册</div>
+                </div>
+<!--                登录-->
+                <div v-if="isLogin" class="dialog_desc">
+                  <div class="login_input1">
+                    <input type="text" placeholder="请输入用户名">
+                  </div>
+                  <div class="login_input2">
+                    <input type="text" placeholder="请输入密码">
+                  </div>
+                  <button @click="Login_button">登录</button>
+
+                </div>
+<!--                注册-->
+                <div v-else class="dialog_desc">
+                  <div class="login_input1">
+                    <input type="text" placeholder="请输入用户名">
+                  </div>
+                  <div class="login_input1">
+                    <input type="text" placeholder="请输入邮箱">
+                  </div>
+                  <div class="login_input1">
+                    <input type="text" placeholder="请输入密码">
+                  </div>
+                  <button>注册</button>
+                </div>
+
+
               </div>
             </div>
           </Dialog>
@@ -112,8 +141,15 @@
             </div>
           </div>
         </div>
+<!--       本周推荐 -->
         <div class="recommend_right">
-
+          <p class="recommend_left_title">本周推荐</p>
+          <div class="recommend_weeklist_group">
+            <div class="weeklist_one" v-for="item in weeklist">
+              <span>{{item.type}}</span>
+              <a>{{item.title}}</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -127,7 +163,38 @@
 import {reactive, ref} from "vue";
 import Dialog from "../component/Dialog.vue";
 //数据
+let isLogin = ref(true)
 let dialog = ref(null)
+var weeklist = reactive([
+  {
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  },{
+    title:'啊热哈日哈热键埃尔加',
+    type:'阿哈尔'
+  }
+])
 var booklist1 = reactive([
   {
     title:'反骨',
@@ -190,10 +257,17 @@ var NavList = reactive([
 
 //登录
 function login(){
+  isLogin.value = true
   dialog.value.dialog_visible = true
+}
+function Login_button(){
+  dialog.value.dialog_visible = false
+  //消息弹窗
+
 }
 //注册
 function register(){
+  isLogin.value = false
   dialog.value.dialog_visible = true
 }
 </script>
@@ -274,6 +348,45 @@ a:hover{
 /*.icon-search a:hover{*/
 /*  fill: chocolate;*/
 /*}*/
+
+.active{
+  color: chocolate;
+  border-bottom: 2px solid chocolate;
+}
+.dialog_desc{
+  margin-top: 20px;
+  /*background-color: chocolate;*/
+}
+.login_input1,.login_input2{
+  width: 100%;
+  /*float: left;*/
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  /*padding-right: 25px;*/
+  height: 40px;
+  /*background-color:#fafafa;*/
+  margin-right: 60px;
+  margin-top: 20px;
+}
+
+.login_input1 input,.login_input2 input{
+  width: 94%;
+  height: 23px;
+  margin-left: 10px;
+  outline: none;
+  border: 0;
+  font-size: 16px;
+  /*background-color:#fafafa;*/
+}
+.dialog_desc button{
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 6px;
+  border-color: chocolate;
+  background-color: chocolate;
+  color: #fafafa;
+}
 
 .header_icon{
   float: right;
@@ -560,6 +673,37 @@ a:hover{
   text-overflow: ellipsis;
   color: #999;
   text-align: left;
+}
+.recommend_right{
+  width: 250px;
+  height: 500px;
+}
+.recommend_weeklist_group{
+  padding-top: 25px;
+}
+.weeklist_one{
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  padding: 14px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.weeklist_one span{
+  width: 90px;
+  color: #999;
+  display: inline-block;
+  white-space: nowrap;
+}
+.weeklist_one a{
+  width: 100%;
+  word-wrap: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
 }
 
 </style>

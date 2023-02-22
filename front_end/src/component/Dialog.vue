@@ -1,6 +1,6 @@
 <template>
   <div :class="{dialog_visible: dialog_visible}" class="dialog">
-    <div class="dialog__body" style="width: 500px;height: 450px; margin-left: 30%;">
+    <div class="dialog__body" style="width: 420px;height: 360px; margin-left: 37%;margin-top: 11%">
       <div>
         <slot></slot>
       </div>
