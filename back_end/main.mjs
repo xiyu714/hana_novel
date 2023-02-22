@@ -17,14 +17,20 @@ app.use(async (ctx, next) => {
     const ms = Date.now() - start;
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
-// 设置静态资源路径
+
+// 处理路由
+let static_server = server("../front_end/dist", "/");
 app.use(async (ctx, next) => {
-    if(ctx.url === "/") {
-        ctx.url = "/index.html"
+    if (ctx.url.startsWith("/api")) {
+        await next();
+    } else {
+        if(ctx.url === "/") {
+            ctx.url = "/index.html"
+        }
+        await static_server(ctx, next)
     }
-    await next();
 });
-app.use(server("../front_end/dist", "/"))
+
 // 加载路由
 app.use(api.middleware())
 
