@@ -23,7 +23,12 @@
           &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
           <a class="header_font" href="#" @click="register" >注册</a>
           <Dialog ref="dialog">
-            12
+            <div style="padding: 30px 40px 30px 40px;">
+              <!--  切换登录和注册-->
+              <div style="font-size: 25px;font-family: PingFangSC">
+                <div>登录</div>
+              </div>
+            </div>
           </Dialog>
         </div>
       </div>
@@ -185,7 +190,7 @@ var NavList = reactive([
 
 //登录
 function login(){
-  alert("登录")
+  dialog.value.dialog_visible = true
 }
 //注册
 function register(){
