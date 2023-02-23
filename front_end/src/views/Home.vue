@@ -152,6 +152,38 @@
           </div>
         </div>
       </div>
+<!--      新锐作家-->
+      <div class="author_block">
+        <p class="recommend_left_title">新锐作家</p>
+        <div class="author_wrapper">
+          <div class="authorlist">
+            <div class="author_item">
+              <span class="author_avatar">
+                <img src="https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image">
+              </span>
+              <div class="author_bottom">
+                <div class="author_name">燕北</div>
+                <div class="author_desc">代表作《口袋里海风》</div>
+              </div>
+            </div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+            <div class="author_item"></div>
+
+          </div>
+        </div>
+      </div>
+<!--      男频精选-->
+<!--      <div class="man_block">-->
+<!--        <p class="recommend_left_title">男频精选</p>-->
+<!--        <div class="manlist"></div>-->
+<!--      </div>-->
     </div>
 
     <RouterView />
@@ -263,7 +295,6 @@ function login(){
 function Login_button(){
   dialog.value.dialog_visible = false
   //消息弹窗
-
 }
 //注册
 function register(){
@@ -443,7 +474,7 @@ a:hover{
 }
 .notice_left{
   position: relative;
-  overflow: hidden;
+  /*overflow: hidden;*/
   width: 680px;
   height: 250px;
   border-radius: 15px;
@@ -453,7 +484,10 @@ a:hover{
   width: 340px;
   height: 250px;
   background-color: #fbf6ea;
-  float: left;
+  border-radius: 15px 0 0 15px;
+  /*overflow: hidden;*/
+  /*float: left;*/
+  /*display: flex;*/
 }
 .woman_bg{
   width: 340px;
@@ -482,8 +516,10 @@ a:hover{
   position: relative;
   width: 340px;
   height: 250px;
-  float: left;
   background-color: #eaf5f4;
+  top: -250px;
+  left: 340px;
+  border-radius:0 15px 15px 0;
 }
 .man_bg{
   width: 340px;
@@ -496,14 +532,15 @@ a:hover{
 
 .notice_right{
   position: relative;
-  margin-left: 5%;
+  margin-left: 70px;
   background-color: #fcfcfc;
+  /*background-color: blue;*/
   border-radius: 15px;
   width: 380px;
   height: 200px;
   padding: 20px 40px 30px 40px;
-  /*float: right;*/
   top: -30px;
+  overflow: hidden;
 }
 .notice_title{
   float: left;
@@ -703,7 +740,52 @@ a:hover{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
 }
+.author_wrapper{
+  width: 1220px;
+  height: 220px;
+  background-color: blue;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.authorlist{
+  position: relative;
+  width: 1830px;
+  height: 180px;
+  top: 0;
+  right: 0;
+  margin-top: 30px;
+  /*animation: authormove 10s infinite alternate;*/
+}
+.author_item{
+  width: 168px;
+  height: 180px;
+  margin-right: 15px;
+  background-color: maroon;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 180px;
+  float: left;
+}
+@keyframes authormove {
+  from{right: 0px;}
+  to{right: 600px}
+}
+.author_avatar{
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: inline-block;
+}
+.author_avatar img{
+  width: 72px;
+  height: 72px;
+  border-radius: 0%;
+}
+
+
 
 </style>
