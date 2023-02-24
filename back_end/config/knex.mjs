@@ -1,3 +1,7 @@
+
+// 先处理环境变量
+import 'dotenv/config'
+
 let {
   NODE_ENV, mysql_host, mysql_port, mysql_user, mysql_password, mysql_database
 }  = process.env
