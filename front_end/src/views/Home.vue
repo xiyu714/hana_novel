@@ -157,36 +157,186 @@
         <p class="recommend_left_title">新锐作家</p>
         <div class="author_wrapper">
           <div class="authorlist">
-            <div class="author_item">
+            <div class="author_item" v-for="item in Authorlist">
               <span class="author_avatar">
-                <img src="https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image">
+<!--                <img src="https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image">-->
+                <img :src="item.url">
               </span>
-              <div class="author_bottom">
-                <div class="author_name">燕北</div>
-                <div class="author_desc">代表作《口袋里海风》</div>
+
+              <div class="author_bottom" :style="item.bgColor">
+<!--                <div class="author_name">燕北</div>-->
+<!--                <div class="author_desc">代表作《口袋里海风》</div>-->
+                <div class="author_name">{{item.name}}</div>
+                <div class="author_desc">{{item.desc}}</div>
               </div>
             </div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
-            <div class="author_item"></div>
 
           </div>
         </div>
       </div>
 <!--      男频精选-->
-<!--      <div class="man_block">-->
-<!--        <p class="recommend_left_title">男频精选</p>-->
-<!--        <div class="manlist"></div>-->
-<!--      </div>-->
+      <div class="man">
+        <div class="man_list">
+          <p class="recommend_left_title">男频精选</p>
+          <div class="manlist">
+
+            <div class="manlist_item" v-for="item in booklist1">
+              <div class="manlist_item_top">
+                <img :src="item.url">
+              </div>
+              <div class="manlist_item_bottom">
+                <div class="title">{{ item.title }}</div>
+                <div class="author">{{ item.author }}</div>
+                <div class="desc">{{ item.desc }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="man_rank">
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--女频精选-->
+      <div class="man">
+        <div class="man_list">
+          <p class="recommend_left_title">女频精选</p>
+          <div class="manlist">
+
+            <div class="manlist_item" v-for="item in booklist1">
+              <div class="manlist_item_top">
+                <img :src="item.url">
+              </div>
+              <div class="manlist_item_bottom">
+                <div class="title">{{ item.title }}</div>
+                <div class="author">{{ item.author }}</div>
+                <div class="desc">{{ item.desc }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="man_rank">
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="man_rank_block">
+            <div class="rank_block_title">
+              都市榜
+              <a href="#">
+                更多<icon-right theme="outline" size="13" fill="#999"/>
+              </a>
+            </div>
+            <div class="rank_booklist">
+              <div class="rank_item" v-for="item in manranklist">
+                <a>
+                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <span class="rank_item_title">
+                    {{ item.title }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <RouterView />
+  </div>
+  <div class="footer">
+    footer
   </div>
 
 </template>
@@ -197,6 +347,112 @@ import Dialog from "../component/Dialog.vue";
 //数据
 let isLogin = ref(true)
 let dialog = ref(null)
+
+var manranklist = reactive([
+  {
+    title:'都市无敌傻医',
+    rank:'1',
+    bgColor:'background-color:rgb(191, 44, 36)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'2',
+    bgColor:'background-color:rgb(230, 114, 37)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'3',
+    bgColor:'background-color:rgb(230, 191, 37)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'4',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'5',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'6',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'7',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'8',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'9',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  },
+  {
+    title:'都市无敌傻医',
+    rank:'10',
+    bgColor:'background-color:rgb(204, 204, 204)'
+  }
+])
+var Authorlist = reactive([
+  {
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(248, 247, 241)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(241, 248, 242)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(248, 242, 240)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(243, 246, 250)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(249, 248, 247)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(241, 248, 242)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(248, 247, 241)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(248, 242, 240)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(243, 246, 250)'
+  },{
+    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
+    name:'燕北',
+    desc:'代表作 《天神殿》',
+    bgColor:'background-color:rgb(243, 246, 250)'
+  }
+])
 var weeklist = reactive([
   {
     title:'啊热哈日哈热键埃尔加',
@@ -286,6 +542,8 @@ var NavList = reactive([
 
 
 //方法
+
+
 
 //登录
 function login(){
@@ -743,8 +1001,8 @@ a:hover{
 }
 .author_wrapper{
   width: 1220px;
-  height: 220px;
-  background-color: blue;
+  height: 260px;
+  /*background-color: blue;*/
   overflow: hidden;
   margin: 0 auto;
 }
@@ -755,13 +1013,13 @@ a:hover{
   top: 0;
   right: 0;
   margin-top: 30px;
-  /*animation: authormove 10s infinite alternate;*/
+  animation: authormove 10s infinite alternate;
 }
 .author_item{
   width: 168px;
   height: 180px;
   margin-right: 15px;
-  background-color: maroon;
+  /*background-color: maroon;*/
   vertical-align: middle;
   text-align: center;
   line-height: 180px;
@@ -779,13 +1037,176 @@ a:hover{
   z-index: 1;
   overflow: hidden;
   display: inline-block;
+  top: -24px;
 }
 .author_avatar img{
+  display: flex;
   width: 72px;
   height: 72px;
-  border-radius: 0%;
+
+}
+.author_bottom{
+  position: absolute;
+  bottom: 0;
+  width: 168px;
+  height: 150px;
+  border-radius: 12px;
+}
+.author_name{
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 68px;
+  color: #000;
+}
+.author_desc{
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  box-sizing: border-box;
+  width: 140px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 6px;
+  color: #666;
+}
+.man{
+  line-height: 1.5;
+  margin-bottom: 20px;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+.manlist{
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.manlist_item{
+  width: 128px;
+  height: 270px;
+  display: inline-block;
+  text-align: left;
+  cursor: pointer;
+  margin-right: 90px;
+}
+.manlist_item_top{
+  width: 120px;
+  height: 156px;
+  border-radius: 3px;
+}
+.manlist_item_top img{
+  width: 120px;
+  height: 156px;
+  border-radius: 3px;
+}
+.manlist_item_bottom{
+  width: 128px;
+  height: 96px;
+  padding-top: 18px;
+}
+.manlist_item_bottom .title{
+  width: 100%;
+  font-size: 18px;
+  overflow: hidden;
+  line-height: 28px;
+  font-weight: 500;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.manlist_item_bottom .author{
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+  line-height: 17px;
+}
+.manlist_item_bottom .desc{
+  height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #999;
+  text-align: left;
+  font-size: 12px;
+  margin-top: 10px;
+}
+.man_rank{
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  /*background-color: blue;*/
+}
+.man_rank_block{
+  width: 27%;
+  /*height: 640px;*/
+  padding: 17px 1px;
+  display: inline-block;
+  vertical-align: top;
+  /*background-color: chocolate;*/
+}
+.rank_block_title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+  font-size: 20px;
+  padding-bottom: 20px;
+  /*border-bottom: 1px solid #DCDCDC;*/
+}
+.rank_block_title a{
+  color: #999;
+  font-size: 14px;
+}
+.rank_booklist{
+  /*margin-top: 12px;*/
+  /*background-color: chartreuse;*/
+}
+.rank_item{
+  border-top: 0;
+  border-top: 1px solid #DCDCDC;
+/*  background-color: darkolivegreen;*/
+}
+.rank_item a{
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  padding: 14px 0 14px 3px;
+  font-size: 16px;
+  line-height: 22px;
+}
+.rank{
+  width: 20px;
+  height: 20px;
+  font-weight: bold;
+  background-color: rgb(191, 44, 36);
+  color: white;
+  text-align: center;
+  margin-right: 10px;
 }
 
 
+.footer{
+  margin-top: 40px;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  padding-top: 40px;
+  background-color: rgb(250, 250, 250);
+}
 
 </style>
