@@ -5,8 +5,8 @@
       <div class="header_nav">
         <ul>
           <li v-for="item in NavList" >
-            <span class="nav_a">
-              <router-link :to="item.url">{{item.title}}</router-link>
+            <span class="nav_a" :class="{nav_active:item.name === route.name}">
+              <router-link :to="item.url" >{{item.title}}</router-link>
             </span>
           </li>
         </ul>
@@ -342,8 +342,12 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router'
 import {reactive, ref} from "vue";
 import Dialog from "../component/Dialog.vue";
+
+const route = useRoute()
+
 //数据
 let isLogin = ref(true)
 let dialog = ref(null)
@@ -519,20 +523,25 @@ var booklist1 = reactive([
 var NavList = reactive([
   {
     title:'首页',
-    url:'/'
+    url:'/',
+    name: "home"
   },
   {
     title:'书库',
-    url:'/library'
+    url:'/library',
+    name: "library"
   },{
     title:'排行榜',
-    url:'/ranking'
+    url:'/ranking',
+    name: "ranking"
   }, {
     title: '分类',
-    url:'/sort'
+    url:'/sort',
+    name: "sort"
   },{
     title: '作家专区',
-    url:'/authorcolumn'
+    url:'/authorcolumn',
+    name: "authorcolumn"
   }
   // ,{
   //   title: '话题',
@@ -562,6 +571,10 @@ function register(){
 </script>
 
 <style scoped>
+.nav_active > a{
+  color: chocolate !important;
+  border-bottom: 2px solid chocolate;
+}
 .header_container{
   height: 60px;
   border-bottom: 1px solid #DCDCDC ;
@@ -592,6 +605,7 @@ function register(){
   /*width: 90px;*/
   margin-right: 50px;
 }
+
 .nav_a{
   margin-top: 17px;
   height: 43px;
@@ -599,14 +613,14 @@ function register(){
   text-align: center;
   letter-spacing: 3px;
 }
-.router-link-active {
-  text-decoration: none;
-  color: black;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
+/*.router-link-active {*/
+/*  text-decoration: none;*/
+/*  color: black;*/
+/*}*/
+/*a {*/
+/*  text-decoration: none;*/
+/*  color: black;*/
+/*}*/
 a:hover{
   color: chocolate;
 }
@@ -737,6 +751,7 @@ a:hover{
   height: 250px;
   border-radius: 15px;
   top: -30px;
+  flex-shrink: 0;
 }
 .notice_left_woman{
   width: 340px;
@@ -792,13 +807,13 @@ a:hover{
   position: relative;
   margin-left: 70px;
   background-color: #fcfcfc;
-  /*background-color: blue;*/
   border-radius: 15px;
   width: 380px;
   height: 200px;
   padding: 20px 40px 30px 40px;
   top: -30px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .notice_title{
   float: left;
