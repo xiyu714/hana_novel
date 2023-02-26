@@ -65,7 +65,7 @@
   </div>
   <!--    主要显示区域-->
 
-  <div class="banner" v-if="this.$route.path === '/'">
+  <div class="banner" v-if="$route.path === '/'">
     <ul class="banner_list">
       <li><img src="https://p1-tt.byteimg.com/origin/novel-static/8687331804a7858aa0ab37dbdb7095dc"></li>
       <li><img src="https://p1-tt.byteimg.com/origin/novel-static/4b1a463683e5e2f34408260b230cab67"></li>
@@ -74,7 +74,7 @@
     </ul>
   </div>
   <div class="main_container">
-    <div class="main_notice" v-if="this.$route.path === '/'">
+    <div class="main_notice" v-if="$route.path === '/'">
 <!--      专区小框-->
       <div class="notice_left">
         <div class="notice_left_woman">
@@ -109,7 +109,7 @@
         </div>
       </div>
     </div>
-    <div class="home_container" v-if="this.$route.path === '/'">
+    <div class="home_container" v-if="$route.path === '/'">
       <div class="recommend_block">
 <!--        主编力荐-->
         <div class="recommend_left">
