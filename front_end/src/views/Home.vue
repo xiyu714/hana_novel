@@ -573,7 +573,10 @@ function register(){
 <style scoped>
 .nav_active > a{
   color: chocolate !important;
-  border-bottom: 2px solid chocolate;
+  font-weight: bold;
+}
+.nav_active {
+  border-bottom:1px solid rgb(250, 103, 37) ;
 }
 .header_container{
   height: 60px;
@@ -681,12 +684,13 @@ a:hover{
   font-size: 16px;
   /*background-color:#fafafa;*/
 }
+
 .dialog_desc button{
   width: 100%;
   height: 40px;
   margin-top: 20px;
   border-radius: 6px;
-  border-color: chocolate;
+  border-color: #fafafa;
   background-color: chocolate;
   color: #fafafa;
 }
