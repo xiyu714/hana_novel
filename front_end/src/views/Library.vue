@@ -64,6 +64,7 @@ export default {
 .library_container{
   padding: 40px;
   background-color: chocolate;
+  margin: 0px 9%;
 }
 .library_typeblock{
   padding: 12px 0 0px 0;
@@ -75,15 +76,16 @@ background-color: #fafafa;
 .block_condition{
   width: 1180px;
   display: flex;
-  flex-shrink: 0;
   font-size: 14px;
 }
 .block_title{
   color: rgb(153, 153, 153);
   margin-right: 45px;
+  flex-shrink: 0;
 }
 .block_item{
   margin-right: 50px;
+  flex-shrink: 0;
 }
 
 .library_main{

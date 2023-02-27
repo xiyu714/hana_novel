@@ -127,7 +127,9 @@
             </div>
             <div class="recommend_booklist_group" >
 <!--              小书集-->
-              <div class="booklist_one"  v-for="item in booklist1">
+              <div class="booklist_one" v-for="item in booklist1"
+                @click="$router.push({ path: `/book/${item.title}` }) "
+                >
                 <div class="booklist_one_left">
                   <img :src="item.url">
                 </div>
@@ -687,12 +689,25 @@ a:hover{
 
 .dialog_desc button{
   width: 100%;
-  height: 40px;
+  /*height: 40px;*/
   margin-top: 20px;
   border-radius: 6px;
-  border-color: #fafafa;
-  background-color: chocolate;
-  color: #fafafa;
+  /*border-color: #fafafa;*/
+  /*background-color: chocolate;*/
+  /*color: #fafafa;*/
+
+  background-color: rgb(250, 103, 37);
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+
+
+
 }
 
 .header_icon{
@@ -739,7 +754,7 @@ a:hover{
 }
 
 .main_container{
-  margin: 0px 9%;
+  /*margin: 0px 9%;*/
 }
 
 .main_notice{
@@ -747,6 +762,7 @@ a:hover{
   /*background-color: maroon;*/
   height: 250px;
   padding: 0 20px;
+  margin: 0px 9%;
 }
 .notice_left{
   position: relative;
@@ -847,9 +863,10 @@ a:hover{
 .home_container{
   position: relative;
   width: 1220px;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   color: #333;
   padding: 0 20px;
+  margin: 0px 9%;
 }
 .recommend_block{
   margin-top: 40px;
