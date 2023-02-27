@@ -33,7 +33,7 @@
         <span>2023-02-26 19:00</span>
       </div>
       <div class="book_button">
-        <button>开始阅读</button>
+        <button @click="$router.push({ path: `/book/${$route.params.id}/1` })">开始阅读</button>
         <button>加入书架</button>
       </div>
     </div>
@@ -189,6 +189,7 @@ export default {
   font-size: 14px;
   border-radius: 20px;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 
