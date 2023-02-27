@@ -86,10 +86,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Book"
-}
+<script setup>
+import {ref} from "vue";
+
+import {axios} from "../api";
+
+axios.get("get_book").then(respone => {
+  console.log(respone)
+})
+
+let book_details = ref(null);
+
 </script>
 
 <style scoped>
