@@ -9,7 +9,7 @@ let {
 import k from 'knex'
 
 /**
- * @type {Knex}
+ * @type {knex<any,unknown[]>}
  */
 export const knex = k({
   client: 'mysql2',
