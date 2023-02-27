@@ -2,12 +2,16 @@
 import 'dotenv/config'
 import Koa from "koa"
 import server from "koa-better-serve"
+import cors from '@koa/cors'
 
 import {knex} from "./config/knex.mjs"
 import {api} from "./router.mjs"
 
 // 服务器配置
 const app = new Koa();
+
+// 允许跨域请求
+app.use(cors());
 
 app.use(async (ctx, next) => {
     const start = Date.now();
