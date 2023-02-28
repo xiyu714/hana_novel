@@ -4,7 +4,7 @@ import Library from "../views/Library.vue"
 import Ranking from "../views/Ranking.vue"
 import Sort from "../views/Sort.vue";
 import AuthorColumn from "../views/AuthorColumn.vue";
-import Book from "../views/Book.vue";
+import BookDetail from "../views/BookDetail.vue";
 import Admin from "../views/Admin.vue";
 import Chapter from "../views/Chapter.vue";
 import Author from "../views/Author.vue";
@@ -36,7 +36,7 @@ const router = createRouter({
         },{
           path: '/book/:id',
           name: 'book',
-          component: Book,
+          component: BookDetail,
         },{
           path:'/author/:id',
           name:'author',
