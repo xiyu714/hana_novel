@@ -34,7 +34,7 @@
             <span>2023-02-26 19:00</span>
           </div>
           <div class="book_button">
-            <button @click="$router.push({ path: `/book/${$route.params.id}/1` })">开始阅读</button>
+            <button @click="$router.push({ path: `/book/${$route.params.id}/${book_details.chapter[0].id}` })">开始阅读</button>
             <button>加入书架</button>
           </div>
         </div>
@@ -57,7 +57,7 @@
 
           <div class="chapter_list">
             <div v-for="item in book_details.chapter" class="list_item">
-              <a>{{item.title}}</a>
+              <a  @click="$router.push({ path: `/book/${$route.params.id}/${item.id}` })">{{item.title}}</a>
             </div>
 
           </div>

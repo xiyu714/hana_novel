@@ -22,6 +22,7 @@ router.post('/book/details', async (ctx, next) => {
     if(book !== undefined) {
         let chapter = await knex("chapter")
             .select("title")
+            .select("id")
             .where("book_id", id)
             .orderBy('updated_time', 'asc');
         book.chapter = chapter;
@@ -29,6 +30,19 @@ router.post('/book/details', async (ctx, next) => {
     } else {
         err(ctx, "不能找到对应的书籍！")
     }
+    return next()
+})
+
+router.post('/book/content', async (ctx, next) => {
+    let { book_id, id } = ctx.request.body;
+
+    let chapter = await knex("chapter")
+        .select("title")
+        .select("content")
+        .where("book_id", book_id)
+        .where("id", id)
+        .first();
+    success(ctx, chapter)
     return next()
 })
 
