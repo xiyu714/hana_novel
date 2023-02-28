@@ -9,8 +9,7 @@ import { JSDOM } from "jsdom"
 import {knex} from "./config/knex.mjs";
 import {get_book_id, get_chapter_id} from "./id.mjs";
 
-async function get_book_details() {
-    let base_url = "https://www.xbiquge.so/book/7059/";
+async function get_book_details(base_url) {
     let dom = await JSDOM.fromURL(base_url);
     let document = dom.window.document;
     let book = {};
@@ -51,9 +50,9 @@ async function get_book_details() {
     }
     return book
 }
-
-async function main() {
-    let bookDetails = await get_book_details();
+let baseUrl = "https://www.xbiquge.so/book/";
+async function get_and_save_book(book_id) {
+    let bookDetails = await get_book_details(baseUrl + book_id);
     let bookId = get_book_id();
     await knex("book").insert({
         id: bookId,
@@ -76,4 +75,22 @@ async function main() {
     }
 }
 
+async function main() {
+    await Promise.all([
+        get_and_save_book("14399"),
+        get_and_save_book("54591"),
+        get_and_save_book("50506"),
+        get_and_save_book("49848"),
+
+    ])
+}
+
+// 用于测试
+async function test_main() {
+    let bookDetails = await get_book_details( baseUrl + "52201");
+    console.log(bookDetails)
+}
+
 await main()
+
+
