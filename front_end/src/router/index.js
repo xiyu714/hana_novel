@@ -7,6 +7,7 @@ import AuthorColumn from "../views/AuthorColumn.vue";
 import Book from "../views/Book.vue";
 import Admin from "../views/Admin.vue";
 import Chapter from "../views/Chapter.vue";
+import Author from "../views/Author.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,10 @@ const router = createRouter({
           path: '/book/:id',
           name: 'book',
           component: Book,
+        },{
+          path:'/author/:id',
+          name:'author',
+          component:Author
         }
       ]
     },{

@@ -10,7 +10,7 @@ import {knex} from "./config/knex.mjs";
 import {get_book_id, get_chapter_id} from "./id.mjs";
 
 async function get_book_details() {
-    let base_url = "https://www.xbiquge.so/book/45525/";
+    let base_url = "https://www.xbiquge.so/book/7059/";
     let dom = await JSDOM.fromURL(base_url);
     let document = dom.window.document;
     let book = {};

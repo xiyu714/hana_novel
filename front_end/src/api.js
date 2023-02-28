@@ -7,3 +7,6 @@ export const axios = Axios.create({
     timeout: 60000, // 超时
     baseURL: 'http://localhost:30000/api/'
 })
+
+export class api {
+}

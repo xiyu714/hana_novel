@@ -115,7 +115,9 @@
         <div class="recommend_left">
           <p class="recommend_left_title">主编力荐</p>
           <div class="recommend_left_booklist">
-            <div class="recommend_booklist_first">
+            <div class="recommend_booklist_first"
+              @click="$router.push({ path: `/book/1` }) "
+            >
               <div class="booklist_first_top">
                 <img src="https://p1-tt.byteimg.com/img/novel-pic/2e9dbaef02e682e88dd606aee1ff6e5d~600x828.jpg">
               </div>
@@ -147,7 +149,9 @@
         <div class="recommend_right">
           <p class="recommend_left_title">本周推荐</p>
           <div class="recommend_weeklist_group">
-            <div class="weeklist_one" v-for="item in weeklist">
+            <div class="weeklist_one" v-for="item in weeklist"
+                 @click="$router.push({ path: `/book/${item.title}` }) "
+            >
               <span>{{item.type}}</span>
               <a>{{item.title}}</a>
             </div>
@@ -159,7 +163,9 @@
         <p class="recommend_left_title">新锐作家</p>
         <div class="author_wrapper">
           <div class="authorlist">
-            <div class="author_item" v-for="item in Authorlist">
+            <div class="author_item" v-for="item in Authorlist"
+                 @click="$router.push({ path: `/author/${item.name}` }) "
+            >
               <span class="author_avatar">
 <!--                <img src="https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image">-->
                 <img :src="item.url">
@@ -182,7 +188,7 @@
           <p class="recommend_left_title">男频精选</p>
           <div class="manlist">
 
-            <div class="manlist_item" v-for="item in booklist1">
+            <div class="manlist_item" v-for="item in booklist1" @click="$router.push({ path: `/book/${item.title}` }) ">
               <div class="manlist_item_top">
                 <img :src="item.url">
               </div>
@@ -204,7 +210,9 @@
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in manranklist"
+                   @click="$router.push({ path: `/book/${item.title}` }) "
+              >
                 <a>
                   <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
                   <span class="rank_item_title">
@@ -223,7 +231,9 @@
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in manranklist"
+                   @click="$router.push({ path: `/book/${item.title}` }) "
+              >
                 <a>
                   <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
                   <span class="rank_item_title">
@@ -242,7 +252,9 @@
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in manranklist"
+                   @click="$router.push({ path: `/book/${item.title}` }) "
+              >
                 <a>
                   <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
                   <span class="rank_item_title">
@@ -260,7 +272,7 @@
           <p class="recommend_left_title">女频精选</p>
           <div class="manlist">
 
-            <div class="manlist_item" v-for="item in booklist1">
+            <div class="manlist_item" v-for="item in booklist1" >
               <div class="manlist_item_top">
                 <img :src="item.url">
               </div>
@@ -901,7 +913,7 @@ a:hover{
   background-color: #f4f4f4;
   float: left;
   border-radius: 3px;
-
+  cursor: pointer;
 }
 .booklist_first_top{
   width: 214px;
@@ -1060,6 +1072,7 @@ a:hover{
   text-align: center;
   line-height: 180px;
   float: left;
+  cursor: pointer;
 }
 @keyframes authormove {
   from{right: 0px;}
