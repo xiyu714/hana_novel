@@ -73,7 +73,7 @@
       <li><img src="https://p6-novel.byteimg.com/img/novel-static/9a490d64772ab5d9be8f2835dd2e50e8~2880x0.jpeg"></li>
     </ul>
   </div>
-  <div class="main_container">
+  <div v-if="!isLoading" class="main_container">
     <div class="main_notice" v-if="$route.path === '/'">
 <!--      专区小框-->
       <div class="notice_left">
@@ -116,29 +116,29 @@
           <p class="recommend_left_title">主编力荐</p>
           <div class="recommend_left_booklist">
             <div class="recommend_booklist_first"
-              @click="$router.push({ path: `/book/1` }) "
+              @click="$router.push({ path: `/book/${books[0].id}` }) "
             >
               <div class="booklist_first_top">
-                <img src="https://p1-tt.byteimg.com/img/novel-pic/2e9dbaef02e682e88dd606aee1ff6e5d~600x828.jpg">
+                <img :src="books[0].cover_url">
               </div>
               <div class="booklist_first_bottom">
-                <div class="title">特工易冷</div>
-                <div class="author">骁骑校</div>
-                <div class="desc">爱国好武功好好公关稿考拉海购规划阿罗汉果考入，这边仓库</div>
+                <div class="title">{{books[0].title}}</div>
+                <div class="author">{{books[0].author}}</div>
+                <div class="desc">{{books[0].description}}</div>
               </div>
             </div>
             <div class="recommend_booklist_group" >
 <!--              小书集-->
-              <div class="booklist_one" v-for="item in booklist1"
-                @click="$router.push({ path: `/book/${item.title}` }) "
+              <div class="booklist_one" v-for="item in books.slice(1)"
+                @click="$router.push({ path: `/book/${item.id}` }) "
                 >
                 <div class="booklist_one_left">
-                  <img :src="item.url">
+                  <img :src="item.cover_url">
                 </div>
                 <div class="booklist_one_right">
                   <div class="title">{{item.title}}</div>
                   <div class="author">{{item.author}}</div>
-                  <div class="desc">{{item.desc}}</div>
+                  <div class="desc">{{item.description}}</div>
                 </div>
               </div>
 
@@ -358,6 +358,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import {reactive, ref} from "vue";
+import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
 
 const route = useRoute()
@@ -365,6 +366,15 @@ const route = useRoute()
 //数据
 let isLogin = ref(true)
 let dialog = ref(null)
+
+
+let books = ref([])
+let isLoading = ref(true)
+axios.post("book/list").then(({data}) => {
+
+  books.value = data.data;
+}).finally(() => isLoading = false)
+
 
 var manranklist = reactive([
   {
