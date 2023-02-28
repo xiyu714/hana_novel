@@ -10,6 +10,7 @@
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "axios": "^1.3.4",
+    "element-plus": "^2.2.32",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
