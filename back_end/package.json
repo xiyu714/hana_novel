@@ -5,7 +5,7 @@
   "main": "main.mjs",
   "scripts": {
     "server": "cross-env NODE_ENV=production node main.mjs",
-    "server-test": "cross-env NODE_ENV=development node main.mjs"
+    "server-dev": "cross-env NODE_ENV=development node main.mjs"
   },
   "author": "",
   "dependencies": {
