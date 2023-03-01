@@ -15,7 +15,6 @@
         <div class="search">
           <input placeholder="请输入书名或者作者名" />
           <span class="icon-search">
-              <icon-search theme="outline" size="18" fill="#000"/>
             </span>
         </div>
         <div style="float: right;padding: 5px 8px 0 8px">
@@ -80,14 +79,14 @@
         <div class="notice_left_woman">
           <div class="woman_bg">
             <div class="woman_title">
-              <p>女生专区</p><icon-right-c theme="outline" size="20" fill="#333"/>
+              <p>女生专区</p>
             </div>
           </div>
         </div>
         <div class="notice_left_man">
           <div class="man_bg">
             <div class="man_title">
-              <p>男生专区</p><icon-right-c theme="outline" size="20" fill="#333"/>
+              <p>男生专区</p>
             </div>
           </div>
         </div>
@@ -97,7 +96,7 @@
         <div class="notice_title">
           <p>最新资讯</p>
           <a href="#">
-            更多<icon-right theme="outline" size="12" fill="#333"/>
+            更多
           </a>
         </div>
 <!--        公告内容-->
@@ -206,7 +205,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">
@@ -227,7 +226,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">
@@ -248,7 +247,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">
@@ -290,7 +289,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">
@@ -309,7 +308,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">
@@ -328,7 +327,7 @@
             <div class="rank_block_title">
               都市榜
               <a href="#">
-                更多<icon-right theme="outline" size="13" fill="#999"/>
+                更多
               </a>
             </div>
             <div class="rank_booklist">

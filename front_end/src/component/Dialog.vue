@@ -5,7 +5,7 @@
         <slot></slot>
       </div>
       <div class="close_button" @click="dialog_visible = false" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-        <icon-close theme="outline" size="24" fill="#333"/>
+
       </div>
     </div>
   </div>

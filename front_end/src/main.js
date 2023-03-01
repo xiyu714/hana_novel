@@ -5,7 +5,6 @@ import 'element-plus/dist/index.css'
 
 import App from './App.vue'
 import router from './router'
-import {install} from '@icon-park/vue-next/es/all';
 import { api } from "./api"
 
 import './assets/main.css'
@@ -13,7 +12,6 @@ import './assets/main.css'
 const app = createApp(App)
 // 使用element ui
 app.use(ElementPlus)
-install(app);
 
 
 app.use(router)
