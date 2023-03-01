@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.mjs",
   "scripts": {
-    "server": "node main.mjs"
+    "server": "set NODE_ENV=production&&node main.mjs",
+    "server-test": "set NODE_ENV=development&&node main.mjs"
   },
   "author": "",
   "dependencies": {

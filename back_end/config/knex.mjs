@@ -15,7 +15,7 @@ export const knex = k({
   client: 'mysql2',
   connection: {
     host: mysql_host,
-    port: mysql_port,
+    port: NODE_ENV === 'production' ? "3306" : mysql_port,
     user: mysql_user,
     password: mysql_password,
     database: mysql_database,
