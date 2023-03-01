@@ -10,7 +10,7 @@ import k from 'knex'
 
 let port = NODE_ENV === 'production' ? "3306" : mysql_port;
 
-console.log(`数据库端口: ${port}`)
+console.log(`NODE_ENV: ${NODE_ENV} 数据库端口: ${port}`)
 
 /**
  * @type {knex<any,unknown[]>}
