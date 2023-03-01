@@ -128,7 +128,7 @@
             </div>
             <div class="recommend_booklist_group" >
 <!--              小书集-->
-              <div class="booklist_one" v-for="item in books.slice(1)"
+              <div class="booklist_one" v-for="item in books.slice(1,7)"
                 @click="$router.push({ path: `/book/${item.id}` }) "
                 >
                 <div class="booklist_one_left">
@@ -965,6 +965,10 @@ a:hover{
   font-size: 12px;
   line-height: 17px;
   margin-top: 6px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .recommend_booklist_group{
