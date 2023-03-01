@@ -29,7 +29,7 @@ app.use(async (ctx, next) => {
     if (ctx.url.startsWith("/api")) {
         await next();
     } else {
-        if(ctx.url === "/") {
+        if(ctx.url === "/" || (!ctx.url.startsWith("/assets/") && ctx.url !== "/favicon.ico")) {
             ctx.url = "/index.html"
         }
         await static_server(ctx, next)
