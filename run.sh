@@ -1,3 +1,4 @@
+
 echo "git pull"
 git pull
 echo "front_end"
@@ -8,3 +9,5 @@ echo ""
 cd ../back_end
 npm install
 pm2 restart novel
+# 第一次执行
+# pm2 start npm --name "novel" -- run server
