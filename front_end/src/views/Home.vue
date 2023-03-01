@@ -372,7 +372,7 @@ let isLoading = ref(true)
 axios.post("book/list").then(({data}) => {
 
   books.value = data.data;
-}).finally(() => isLoading = false)
+}).finally(() => isLoading.value = false)
 
 
 var manranklist = reactive([
