@@ -8,6 +8,10 @@ let {
 
 import k from 'knex'
 
+let port = NODE_ENV === 'production' ? "3306" : mysql_port;
+
+console.log(`数据库端口: ${port}`)
+
 /**
  * @type {knex<any,unknown[]>}
  */
@@ -15,7 +19,7 @@ export const knex = k({
   client: 'mysql2',
   connection: {
     host: mysql_host,
-    port: NODE_ENV === 'production' ? "3306" : mysql_port,
+    port: port,
     user: mysql_user,
     password: mysql_password,
     database: mysql_database,
