@@ -1,5 +1,4 @@
 <template>
-  222222222
   <div class="header_container">
     <div class="header">
       <img src="@/assets/logo.png" alt="Novel logo" class="header_logo">
