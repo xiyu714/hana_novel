@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.mjs",
   "scripts": {
-    "server": "set NODE_ENV=production&&node main.mjs",
-    "server-test": "set NODE_ENV=development&&node main.mjs"
+    "server": "cross-env NODE_ENV=production node main.mjs",
+    "server-test": "cross-env NODE_ENV=development node main.mjs"
   },
   "author": "",
   "dependencies": {
@@ -24,5 +24,8 @@
     "koa-send": "^5.0.1",
     "mysql2": "^3.1.2",
     "nanoid": "^4.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
