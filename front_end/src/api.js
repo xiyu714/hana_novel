@@ -5,7 +5,7 @@ export const axios = Axios.create({
         'Content-Type': 'application/json'
     },
     timeout: 60000, // 超时
-    baseURL: 'http://localhost:30000/api/'
+    baseURL:  import.meta.env.PROD?'/api/':'http://localhost:30000/api/'
 })
 
 export class api {
