@@ -8,6 +8,9 @@ import BookDetail from "../views/BookDetail.vue";
 import Admin from "../views/Admin.vue";
 import Chapter from "../views/Chapter.vue";
 import Author from "../views/Author.vue";
+import UserManage from "../views/admin/UserManage.vue";
+import AuthorManage from "../views/admin/AuthorMange.vue";
+import AddnovelManage from "../views/admin/AddnovelManage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,11 +32,13 @@ const router = createRouter({
           path:'/sort',
           name:'sort',
           component: Sort
-        },{
+        },
+        {
           path:'/authorcolumn',
           name:'authorcolumn',
           component: AuthorColumn
-        },{
+        },
+        {
           path: '/book/:id',
           name: 'book',
           component: BookDetail,
@@ -47,6 +52,20 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: Admin,
+      children:[
+        {
+          path:'author_manage',
+          component: AuthorManage
+        },
+        {
+          path:'user_manage',
+          component: UserManage
+        },
+        {
+          path:'addnovel_manage',
+          component: AddnovelManage
+        }
+      ]
     },{
       path: '/book/:id/:chapter_id',
       name: 'chapter',
