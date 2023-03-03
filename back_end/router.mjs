@@ -1,6 +1,7 @@
 
 import Router from "koa-better-router"
 import {knex} from "./config/knex.mjs";
+import {web_get_book_details} from "./book_source.mjs";
 
 let router = Router().loadMethods();
 // 添加一个路由
@@ -34,6 +35,37 @@ router.post('/book/details', async (ctx, next) => {
 })
 
 router.post('/book/content', async (ctx, next) => {
+    let { book_id, id } = ctx.request.body;
+
+    let chapter = await knex("chapter")
+        .select("title")
+        .select("content")
+        .where("book_id", book_id)
+        .where("id", id)
+        .first();
+    success(ctx, chapter)
+    return next()
+})
+
+router.post('/book/craw/details', async (ctx, next) => {
+    let { book_id } = ctx.request.body;
+    // 首先 爬取书籍的详细信息
+    let details = await web_get_book_details(book_id);
+    //
+    success(ctx, details)
+    return next()
+})
+
+router.post('/book/craw/start', async (ctx, next) => {
+    let { book_id } = ctx.request.body;
+    // 首先 爬取书籍的详细信息
+    let details = await web_get_book_details(book_id);
+    //
+    success(ctx, chapter)
+    return next()
+})
+
+router.post('/book/craw/getStatus', async (ctx, next) => {
     let { book_id, id } = ctx.request.body;
 
     let chapter = await knex("chapter")
