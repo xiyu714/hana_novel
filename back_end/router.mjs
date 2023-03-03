@@ -1,7 +1,7 @@
 
 import Router from "koa-better-router"
 import {knex} from "./config/knex.mjs";
-import {web_get_book_details} from "./book_source.mjs";
+import {web_craw_book, web_get_book_details} from "./book_source.mjs";
 
 let router = Router().loadMethods();
 // 添加一个路由
@@ -56,25 +56,24 @@ router.post('/book/craw/details', async (ctx, next) => {
     return next()
 })
 
+let task_map = {}
+
 router.post('/book/craw/start', async (ctx, next) => {
-    let { book_id } = ctx.request.body;
-    // 首先 爬取书籍的详细信息
-    let details = await web_get_book_details(book_id);
+    let { book_details } = ctx.request.body;
+    // 新建一个任务
+    task_map[book_details.标题] = book_details;
+    web_craw_book(task_map, book_details.标题)
     //
-    success(ctx, chapter)
+    success(ctx, {
+        task_id : book_details.标题
+    })
     return next()
 })
 
 router.post('/book/craw/getStatus', async (ctx, next) => {
-    let { book_id, id } = ctx.request.body;
+    let { task_id } = ctx.request.body;
 
-    let chapter = await knex("chapter")
-        .select("title")
-        .select("content")
-        .where("book_id", book_id)
-        .where("id", id)
-        .first();
-    success(ctx, chapter)
+    success(ctx, task_map[task_id])
     return next()
 })
 
