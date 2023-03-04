@@ -957,6 +957,7 @@ a:hover{
   line-height: 17px;
 }
 .booklist_first_bottom .desc{
+  width: 190px;
   height: 34px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1023,12 +1024,18 @@ a:hover{
   line-height: 17px;
 }
 .booklist_one_right .desc{
+  width: 150px;
+  height: 50px;
   font-size: 12px;
   margin-top: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #999;
   text-align: left;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 .recommend_right{
   width: 250px;
@@ -1206,6 +1213,10 @@ a:hover{
   text-align: left;
   font-size: 12px;
   margin-top: 10px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 .man_rank{
   margin-top: 28px;
