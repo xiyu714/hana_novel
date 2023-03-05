@@ -16,7 +16,7 @@ user_router.post("/user/register", async (ctx, next) => {
         const { name, email, password } = ctx.request.body;
         // 用户是否注册
         if (await knex('user').where('name', name).isExist()) {
-            return this.error('此用户名已被使用');
+            return err(ctx,'此用户名已被使用');
         }
         const hash_password = await bcrypt.hash(password, saltRounds);
 
