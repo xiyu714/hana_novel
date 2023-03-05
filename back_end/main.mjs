@@ -5,7 +5,7 @@ import server from "koa-better-serve"
 import cors from '@koa/cors'
 
 import {knex} from "./config/knex.mjs"
-import {api} from "./router.mjs"
+import {api} from "./router/router.mjs"
 import { koaBody } from "koa-body";
 
 // 服务器配置

@@ -1,23 +1,24 @@
-
 import Router from "koa-better-router"
-import {knex} from "./config/knex.mjs";
-import {web_craw_book, web_get_book_details} from "./book_source.mjs";
-
-let router = Router().loadMethods();
 // 添加一个路由
-router.get('/', (ctx, next) => {
+import {knex} from "../config/knex.mjs";
+import {web_craw_book, web_get_book_details} from "../book_source.mjs";
+import {success, err} from "../utils.mjs";
+
+export let book_router = Router().loadMethods();
+
+book_router.get('/', (ctx, next) => {
     ctx.body = `Hello world! Prefix: ${ctx.route.prefix}`
     return next()
 })
 
 // 添加一个路由
-router.post('/book/list', async (ctx, next) => {
+book_router.post('/book/list', async (ctx, next) => {
     let books = await knex("book").select();
     success(ctx, books)
     return next()
 })
 
-router.post('/book/details', async (ctx, next) => {
+book_router.post('/book/details', async (ctx, next) => {
     let { id } = ctx.request.body;
     let book = await knex("book").where("id", id).first();
     if(book !== undefined) {
@@ -34,7 +35,7 @@ router.post('/book/details', async (ctx, next) => {
     return next()
 })
 
-router.post('/book/content', async (ctx, next) => {
+book_router.post('/book/content', async (ctx, next) => {
     let { book_id, id } = ctx.request.body;
 
     let chapter = await knex("chapter")
@@ -47,7 +48,7 @@ router.post('/book/content', async (ctx, next) => {
     return next()
 })
 
-router.post('/book/craw/details', async (ctx, next) => {
+book_router.post('/book/craw/details', async (ctx, next) => {
     let { book_id } = ctx.request.body;
     // 首先 爬取书籍的详细信息
     let details = await web_get_book_details(book_id);
@@ -58,7 +59,7 @@ router.post('/book/craw/details', async (ctx, next) => {
 
 let task_map = {}
 
-router.post('/book/craw/start', async (ctx, next) => {
+book_router.post('/book/craw/start', async (ctx, next) => {
     let { book_details } = ctx.request.body;
     // 新建一个任务
     task_map[book_details.标题] = book_details;
@@ -70,29 +71,9 @@ router.post('/book/craw/start', async (ctx, next) => {
     return next()
 })
 
-router.post('/book/craw/getStatus', async (ctx, next) => {
+book_router.post('/book/craw/getStatus', async (ctx, next) => {
     let { task_id } = ctx.request.body;
 
     success(ctx, task_map[task_id])
     return next()
 })
-
-function success(ctx, data) {
-    ctx.body = {
-        data,
-        status_code: 200
-    }
-}
-
-function err(ctx, message) {
-    ctx.body = {
-        message,
-        status_code: -1
-    }
-}
-
-// 添加api路由，所有api都在路由下面
-export let api = Router({ prefix: '/api' })
-
-// add `router`'s routes to api router
-api.extend(router)
