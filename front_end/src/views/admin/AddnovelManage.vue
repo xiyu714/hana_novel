@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div style="margin-bottom: 20px;">当前支持的小说网站：<a href="https://www.xbiquge.so/" target="_blank">https://www.xbiquge.so/</a></div>
 <!--    搜索区域-->
     <el-input
       placeholder="输入id爬取"
@@ -11,18 +12,22 @@
     <el-button v-loading="is_get_book_details" @click="craw_book">爬取</el-button>
     <div>
       <div v-if="book_details != null">
-        <div>
+        <div class="flex">
           <img :src="book_details.封面_URL" alt="">
-          <div>{{book_details.标题}}</div>
-          <div>{{book_details.简介}}</div>
+          <div>
+            <div class="h2">{{book_details.标题}}</div>
+            <div>{{book_details.简介}}</div>
+          </div>
         </div>
-        <div>
+        <div class="chapter_list">
           <div v-for="chapter in book_details.章节列表">
             {{chapter.title}}
           </div>
         </div>
-        <div>
-          <div style="background-color: #95d475" v-html="book_details.log"></div>
+<!--        日志-->
+        <div style="background-color: #95d475;">
+          <div class="h2">日志</div>
+          <div v-html="book_details.log"></div>
         </div>
       </div>
     </div>
@@ -68,5 +73,8 @@ const craw_book = async () => {
 </script>
 
 <style scoped>
-
+.chapter_list {
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+}
 </style>
