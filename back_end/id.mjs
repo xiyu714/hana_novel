@@ -15,3 +15,7 @@ export let get_chapter_id = () => {
 export let get_user_id = () => {
     return Number(userId())
 }
+
+export let get_session_id = () => {
+    return nanoid()
+}

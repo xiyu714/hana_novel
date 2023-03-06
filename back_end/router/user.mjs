@@ -42,7 +42,32 @@ user_router.post("/user/login", async (ctx, next) => {
         return this.error('密码不正确');
     }
 
-    this.ctx.session.user = user;
-    return this.info();
+    ctx.session.set("user", user);
+    return success(ctx, user);
 })
+
+user_router.post("/user/base_info", async (ctx, next) => {
+    let session_user = ctx.session.get("user");
+    if (!session_user) {
+        return err(ctx, "用户没有登录，请先登录")
+    }
+    const user = await knex('user').where({ name: session_user.name }).first();
+    if (!user) {
+        return this.error('用户不存在');
+    }
+
+    ctx.session.set("user", user);
+    return success(ctx, user);
+})
+
+user_router.post("/user/logout", async (ctx, next) => {
+    let session_user = ctx.session.get("user");
+    if (session_user) {
+        ctx.session.set("user", undefined);
+        return success(ctx, true)
+    } else {
+        return success(ctx, false)
+    }
+})
+
 

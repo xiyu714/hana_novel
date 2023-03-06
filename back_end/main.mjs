@@ -7,9 +7,45 @@ import cors from '@koa/cors'
 import {knex} from "./config/knex.mjs"
 import {api} from "./router/router.mjs"
 import { koaBody } from "koa-body";
+import {get_session_id} from "./id.mjs";
 
 // 服务器配置
 const app = new Koa();
+
+let session_store = {};
+// session
+app.use(async (ctx, next) => {
+    let sessionId = ctx.cookies.get("session_id");
+    let create_session = () => {
+        sessionId = get_session_id();
+        let session = {
+            is_Login: false
+        }
+        session_store[sessionId] = session
+        ctx.cookies.set("session_id", sessionId)
+        return session
+    }
+    // 如果sessionId 为空
+    if (!sessionId) {
+        create_session()
+    }
+    let current_session = session_store[sessionId]
+    if(!current_session) {
+        console.log(`${sessionId} 已过期！`)
+        current_session = create_session()
+    }
+    ctx.session = {
+        current_session,
+        store: session_store,
+        get: (key) => {
+            return current_session[key]
+        },
+        set: (key, value) => {
+            current_session[key] = value
+        }
+    }
+    await next();
+});
 
 // 允许跨域请求
 app.use(cors());
