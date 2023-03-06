@@ -518,14 +518,19 @@ const register_in = (registerForm) =>{
           .then(res => {
             //注册成功
             console.log(res)
-            proxy.$message({
-              message:'账号注册成功',
-              type:"success"
-            });
+            if(res.data.status_code === 200){
+              proxy.$message({
+                message:'账号注册成功',
+                type:"success"
+              });
+            }else {
+              proxy.$message.error({
+                message:res.data.message
+              });
+            }
 
-            // proxy.$message({
-            //   message:res.data.message
-            // });
+
+
 
           })
           .catch(err => {
