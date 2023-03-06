@@ -519,10 +519,12 @@ const register_in = (registerForm) =>{
             //注册成功
             console.log(res)
             if(res.data.status_code === 200){
+              registerForm.resetFields()
               proxy.$message({
-                message:'账号注册成功',
+                message:'账号注册成功，请登录！',
                 type:"success"
               });
+              isLogin.value = true
             }else {
               proxy.$message.error({
                 message:res.data.message
