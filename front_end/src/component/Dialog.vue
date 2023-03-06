@@ -5,7 +5,7 @@
         <slot></slot>
       </div>
       <div class="close_button" @click="dialog_visible = false" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
-
+        <el-icon><CloseBold /></el-icon>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script setup>
 import {ref} from "vue";
-
+import {CloseBold} from '@element-plus/icons-vue'
 let dialog_visible = ref(false);
 
 defineExpose({
