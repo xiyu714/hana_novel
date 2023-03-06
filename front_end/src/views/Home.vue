@@ -496,6 +496,17 @@ const route = useRoute()
 const { proxy } = getCurrentInstance();
 //数据
 
+//判断有没有登录
+axios.post("/user/base_info").then(res =>{
+  console.log(res)
+  if(res.data.status_code === 200){
+    globalStore.user = res.data.data
+  }else {
+    globalStore.user = undefined
+  }
+})
+
+
 //登录
 const loginForm = ref(null);
 const loginUser = reactive({
