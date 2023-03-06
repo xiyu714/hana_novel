@@ -22,7 +22,9 @@ app.use(async (ctx, next) => {
             is_Login: false
         }
         session_store[sessionId] = session
-        ctx.cookies.set("session_id", sessionId)
+        ctx.cookies.set("session_id", sessionId,{
+            maxAge:30 * 24 *60*60*1000
+        })
         return session
     }
     // 如果sessionId 为空

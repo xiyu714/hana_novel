@@ -53,7 +53,7 @@ user_router.post("/user/base_info", async (ctx, next) => {
     }
     const user = await knex('user').where({ name: session_user.name }).first();
     if (!user) {
-        return this.error('用户不存在');
+        return err(ctx,'用户不存在');
     }
 
     ctx.session.set("user", user);
