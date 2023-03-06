@@ -18,6 +18,12 @@
             </span>
         </div>
         <div style="float: right;padding: 5px 8px 0 8px">
+          <div v-if="globalStore.user == undefined">
+            未登录
+          </div>
+          <div v-else>
+            登录成功
+          </div>
           <a class="header_font" href="#" @click="login" >登录</a>
           &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
           <a class="header_font" href="#" @click="register" >注册</a>
@@ -480,6 +486,9 @@ import { useRoute } from 'vue-router'
 import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
+import {useGlobalStore} from "../store";
+
+const globalStore = useGlobalStore();
 
 
 const route = useRoute()
@@ -493,6 +502,10 @@ const loginUser = reactive({
   name:'',
   password:''
 })
+
+
+let isLogin = ref(true)
+let dialog = ref(null)
 const login_in = (loginForm) =>{
   loginForm.validate((valid) =>{
     if(valid){
@@ -504,7 +517,10 @@ const login_in = (loginForm) =>{
             message:'登陆成功',
             type:"success"
           });
-
+          // 保存登录状态
+          globalStore.user = res.data.data
+          // 关闭
+          dialog.value.dialog_visible = false
         }else {
 
         }
@@ -569,10 +585,6 @@ const confirmPass2 = (rule,value, callback) =>{
       callback()
     }
 }
-
-
-let isLogin = ref(true)
-let dialog = ref(null)
 
 
 let books = ref([])
