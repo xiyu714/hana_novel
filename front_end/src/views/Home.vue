@@ -31,27 +31,148 @@
                 </div>
 <!--                登录-->
                 <div v-if="isLogin" class="dialog_desc">
-                  <div class="login_input1">
-                    <input type="text" placeholder="请输入用户名">
-                  </div>
-                  <div class="login_input2">
-                    <input type="text" placeholder="请输入密码">
-                  </div>
-                  <button @click="Login_button">登录</button>
+                  <el-form
+                      ref="loginForm"
+                      label-width="90px"
+                      :model="loginUser"
+                      class="demo-dynamic"
+                      style="margin-top: 55px"
+                  >
+                    <el-form-item
+                        prop="name"
+                        label="用户名:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请输入用户名',
+                        trigger: 'blur',
+                      }
+                    ]"
+                    >
+                      <el-input style="width: 220px;" v-model="loginUser.name" />
+                    </el-form-item>
+                    <el-form-item
+                        prop="password"
+                        label="密码:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur',
+                      }
+                    ]"
+                    >
+                      <el-input type="password" style="width: 220px;" v-model="loginUser.password" />
+                    </el-form-item>
+                    <el-button style="width: 220px;margin:8px 0 10px 90px;" @click="login_in(loginForm)">登录</el-button>
+                  </el-form>
+
+
+<!--                  <div class="login_input1">-->
+<!--                    <input type="text" placeholder="请输入用户名">-->
+<!--                  </div>-->
+<!--                  <div class="login_input2">-->
+<!--                    <input type="text" placeholder="请输入密码">-->
+<!--                  </div>-->
+<!--                  <button @click="Login_button">登录</button>-->
 
                 </div>
 <!--                注册-->
                 <div v-else class="dialog_desc">
-                  <div class="login_input1">
-                    <input type="text" placeholder="请输入用户名">
-                  </div>
-                  <div class="login_input1">
-                    <input type="text" placeholder="请输入邮箱">
-                  </div>
-                  <div class="login_input1">
-                    <input type="text" placeholder="请输入密码">
-                  </div>
-                  <button>注册</button>
+                  <el-form
+                      ref="registerForm"
+                      label-width="90px"
+                      :model="registerUser"
+                      class="demo-dynamic"
+                  >
+                    <el-form-item
+                        prop="name"
+                        label="用户名:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请输入用户名',
+                        trigger: 'blur',
+                      }
+                    ]"
+                    >
+                      <el-input style="width: 220px;" v-model="registerUser.name" />
+                    </el-form-item>
+
+
+                    <el-form-item
+                        prop="email"
+                        label="邮箱:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请输入邮箱',
+                        trigger: 'blur',
+                      },
+                      {
+                        type: 'email',
+                        message: '请输入正确的邮箱格式',
+                        trigger: ['blur', 'change'],
+                      },
+                    ]"
+                    >
+                      <el-input style="width: 220px;" v-model="registerUser.email" />
+                    </el-form-item>
+
+                    <el-form-item
+                        prop="password"
+                        label="密码:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请输入6-8位密码',
+                        trigger: 'blur',
+                      },{
+                          min:6,
+                          max:10,
+                          trigger: 'blur',
+                          message: '请输入6-8位密码',
+                      }
+                    ]"
+                    >
+                      <el-input type="password" style="width: 220px;" v-model="registerUser.password" />
+                    </el-form-item>
+
+                    <el-form-item
+                        prop="password2"
+                        label="确认密码:"
+                        :rules="[
+                      {
+                        required: true,
+                        message: '请再次输入密码',
+                        trigger: 'blur',
+                      },{
+                          validator: confirmPass2,
+                          trigger: 'blur'
+                      }]"
+                    >
+                      <el-input type="password" style="width: 220px;" v-model="registerUser.password2" />
+                    </el-form-item>
+
+
+                    <el-button style="width: 220px;margin:8px 0 10px 90px;" @click="register_in(registerForm)">注册</el-button>
+                  </el-form>
+
+
+
+<!--                  <div class="login_input1">-->
+<!--                    <input type="text" placeholder="请输入用户名">-->
+<!--                  </div>-->
+<!--                  <div class="login_input1">-->
+<!--                    <input type="text" placeholder="请输入邮箱">-->
+<!--                  </div>-->
+<!--                  <div class="login_input1">-->
+<!--                    <input type="text" placeholder="请输入密码">-->
+<!--                  </div>-->
+<!--                  <button>注册</button>-->
+
+
+
                 </div>
 
 
@@ -356,13 +477,81 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
-import {reactive, ref} from "vue";
+import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
 
+
 const route = useRoute()
 
+const { proxy } = getCurrentInstance();
 //数据
+
+//登录
+const loginForm = ref(null);
+const loginUser = reactive({
+  name:'',
+  password:''
+})
+const login_in = (loginForm) =>{
+  loginForm.validate((valid) =>{
+    if(valid){
+
+    }
+  })
+}
+
+
+//注册
+const registerForm = ref(null);
+const registerUser = reactive({
+  email:'',
+  name:'',
+  password:'',
+  password2:''
+})
+
+const register_in = (registerForm) =>{
+  registerForm.validate((valid) => {
+    if(valid){
+      axios.post("/user/register",registerUser)
+          .then(res => {
+            //注册成功
+            console.log(res)
+            proxy.$message({
+              message:'账号注册成功',
+              type:"success"
+            });
+
+            // proxy.$message({
+            //   message:res.data.message
+            // });
+
+          })
+          .catch(err => {
+            console.log(err)
+            proxy.$message.error("注册失败！")
+          });
+    }else {
+      proxy.$message({
+        type:"error",
+        message:"表单填写错误"
+      });
+      return false
+    }
+  })
+}
+
+//校验password2
+const confirmPass2 = (rule,value, callback) =>{
+    if (value !== registerUser.password){
+      callback(new Error('两次输入的密码不一致！'))
+    }else {
+      callback()
+    }
+}
+
+
 let isLogin = ref(true)
 let dialog = ref(null)
 
@@ -370,7 +559,6 @@ let dialog = ref(null)
 let books = ref([])
 let isLoading = ref(true)
 axios.post("book/list").then(({data}) => {
-
   books.value = data.data;
 }).finally(() => isLoading.value = false)
 
