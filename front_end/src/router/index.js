@@ -11,6 +11,7 @@ import Author from "../views/Author.vue";
 import UserManage from "../views/admin/UserManage.vue";
 import AuthorManage from "../views/admin/AuthorMange.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
+import NovelManage from "../views/admin/NovelManage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +65,10 @@ const router = createRouter({
         {
           path:'addnovel_manage',
           component: AddnovelManage
+        },
+        {
+          path:'novel_manage',
+          component: NovelManage
         }
       ]
     },{

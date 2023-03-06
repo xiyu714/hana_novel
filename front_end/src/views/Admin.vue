@@ -19,9 +19,9 @@
                 <el-icon><location /></el-icon>
                 <span>小说管理</span>
               </template>
-              <el-menu-item index="/addnovel_manage">小说</el-menu-item>
-              <el-menu-item index="2">小说分类管理</el-menu-item>
-              <el-menu-item index="3">item three</el-menu-item>
+              <el-menu-item index="/addnovel_manage">添加小说</el-menu-item>
+              <el-menu-item index="/novel_manage">小说增删改查</el-menu-item>
+              <el-menu-item index="3">小说分类管理</el-menu-item>
             </el-sub-menu>
 
             <el-menu-item index="/author_manage">
