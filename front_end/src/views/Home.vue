@@ -496,7 +496,19 @@ const loginUser = reactive({
 const login_in = (loginForm) =>{
   loginForm.validate((valid) =>{
     if(valid){
+      axios.post("/user/login",loginUser)
+      .then(res =>{
+        if(res.data.status_code === 200){
+          loginForm.resetFields()
+          proxy.$message({
+            message:'登陆成功',
+            type:"success"
+          });
 
+        }else {
+
+        }
+      })
     }
   })
 }
