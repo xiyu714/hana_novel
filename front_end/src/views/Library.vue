@@ -1,78 +1,101 @@
 <template>
-  <div class="library_container">
-    <div class="library_typeblock">
-      <div class="block">
-        <div class="block_condition">
-          <div class="block_title">读者：</div>
-          <div class="block_item">全部</div>
-          <div class="block_item">男生</div>
-          <div class="block_item">女生</div>
+  <div class="library_container" style="padding: 40px;margin: 0 9%;">
+    <div class="library_typeblock" style="padding: 12px 0 6px 0;background-color: #fafafa;">
+
+      <div class="block" v-for="item in blocklist">
+        <div class="block_condition" >
+          <div class="block_title">{{item.title}}：</div>
+          <span v-for="childitem in item.tags" >
+<!--        :class="{block_active}"    -->
+          	<div class="block_item"  >{{childitem}}</div>
+          </span>
         </div>
       </div>
-      <div class="block">
-        <div class="block_condition">
-          <div class="block_title">分类：</div>
-          <div class="block_item">全部</div>
-          <div class="block_item">全部</div>
-          <div class="block_item">全部</div>
-        </div>
-      </div>
-      <div class="block">
-        <div class="block_condition">
-          <div class="block_title">状态：</div>
-          <div class="block_item">全部</div>
-          <div class="block_item">已完结</div>
-          <div class="block_item">连载中</div>
-        </div>
-      </div>
-      <div class="block">
-        <div class="block_condition">
-          <div class="block_title">字数：</div>
-          <div class="block_item">全部</div>
-          <div class="block_item">30万以下</div>
-          <div class="block_item">30-50万</div>
-          <div class="block_item">50-100万</div>
-          <div class="block_item">100-200万</div>
-          <div class="block_item">200万以上</div>
-         </div>
-      </div>
+
     </div>
 <!--    主要内容-->
-    <div class="library_main">
+    <div class="library_main" style="margin-top: 50px;">
       <div class="main_type">
-        <div class="type">
+        <div class="type" style="border-bottom: 1px solid #999999">
           <div class="type_title">最热</div>
           <div class="type_title">最新</div>
           <div class="type_title">字数</div>
         </div>
       </div>
-<!--      <div class="main_block">-->
-<!--        -->
-<!--      </div>-->
-    </div>
-<!--&lt;!&ndash;    分页&ndash;&gt;-->
-<!--    <div>-->
+<!--      具体书本-->
+      <div class="main_block" style="display: inline-block;
+      width: 100%;">
 
-<!--    </div>-->
+        <div class="booklist_one" v-for="item in books"
+             @click="$router.push({ path: `/book/${item.id}` }) "
+        >
+          <div class="booklist_one_left">
+            <img :src="item.cover_url">
+          </div>
+          <div class="booklist_one_right">
+            <div class="title">{{item.title}}</div>
+            <div class="author">作者：{{item.author}}</div>
+            <div class="desc">{{item.description}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
   </div>
 </template>
 
-<script>
-export default {
-  name: "Library"
-}
+<script setup>
+import { ref } from 'vue'
+import {useRoute} from "vue-router";
+import {axios} from "../api";
+
+//分页
+// const currentPage1 = ref(5)
+// const small = ref(false)
+// const background = ref(false)
+// const disabled = ref(false)
+// const handleSizeChange = (val) => {
+//   console.log(`${val} items per page`)
+// }
+// const handleCurrentChange = (val) => {
+//   console.log(`current page: ${val}`)
+// }
+
+
+
+const route = useRoute()
+const blocklist = ref([
+  {
+    title:"读者",
+    tags:["全部","男生","女生"]
+  },
+  {
+    title:"分类",
+    tags:["全部","全部","全部"]
+  },
+  {
+    title:"状态",
+    tags:["全部","连载中","已完结"]
+  },
+  {
+    title:"字数",
+    tags:["全部","30万以下","30-50万","50-100万","100-200万","200万以上"]
+  }
+])
+const books = ref([])
+axios.post("book/list").then(({data}) => {
+  books.value = data.data;
+})
 </script>
 
 <style scoped>
-.library_container{
-  padding: 40px;
-  background-color: chocolate;
-  margin: 0 9%;
-}
-.library_typeblock{
-  padding: 12px 0 6px 0;
-  background-color: #fafafa;
-}
+
 .block{
   margin-bottom: 25px;
 }
@@ -93,10 +116,76 @@ export default {
   cursor: pointer;
 }
 
-.library_main{
-  margin-top: 50px;
+.type_title{
+  display: inline-block;
+  margin:10px 20px;
+  font-size: 14px;
+  cursor: pointer;
 }
-.main_type{
+.block_active{
+  color: #fa6725;
+  background-color: #fef0e9;
+  border-radius: 8px;
+  padding:3px 8px;
+}
 
+
+
+
+.booklist_one{
+  width: 388px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  cursor: pointer;
+  /*margin-right: 22px;*/
+  margin-top: 40px;
+}
+.booklist_one_left{
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 130px;
+}
+.booklist_one_left img{
+  width: 100px;
+  height: 130px;
+}
+.booklist_one_right{
+  position: relative;
+  float: left;
+  width: 210px;
+  height: 130px;
+  cursor: pointer;
+  /*background-color: darkgreen;*/
+  padding-left: 20px;
+}
+.booklist_one_right .title{
+  font-size: 18px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.booklist_one_right .author{
+  font-size: 12px;
+  margin-top: 10px;
+  color: #666;
+  font-weight: 400;
+  line-height: 17px;
+}
+.booklist_one_right .desc{
+  width: 210px;
+  height: 50px;
+  font-size: 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #999;
+  text-align: left;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 </style>
