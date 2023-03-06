@@ -1,6 +1,7 @@
 import Axios from 'axios'
 
 export const axios = Axios.create({
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
     },

@@ -50,7 +50,9 @@ app.use(async (ctx, next) => {
 });
 
 // 允许跨域请求
-app.use(cors());
+app.use(cors({
+    credentials:true
+}));
 
 app.use(koaBody());
 
