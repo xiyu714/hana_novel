@@ -16,5 +16,8 @@ export default defineConfig({
   },
   build: {
     sourcemap: true // 是否需要生成 sourcemap
+  },
+  server: {
+    port: 7174
   }
 })
