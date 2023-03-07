@@ -31,7 +31,7 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item>Action 1</el-dropdown-item>
-                  <el-dropdown-item>Action 2</el-dropdown-item>
+                  <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
 
@@ -512,6 +512,13 @@ const route = useRoute()
 const { proxy } = getCurrentInstance();
 //数据
 
+//退出登录
+const logout = async () =>{
+  await axios.post("/user/logout")
+  globalStore.user = undefined
+}
+
+
 // let users = ref([])
 //判断有没有登录
 axios.post("/user/base_info").then(res =>{
@@ -586,10 +593,6 @@ const register_in = (registerForm) =>{
                 message:res.data.message
               });
             }
-
-
-
-
           })
           .catch(err => {
             console.log(err)
