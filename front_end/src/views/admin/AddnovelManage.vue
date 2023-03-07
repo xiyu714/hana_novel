@@ -64,7 +64,7 @@ const craw_book = async () => {
     });
     console.log(statusResponse.data)
     book_details.value = statusResponse.data.data;
-    if(book_details.is_完成 === true || book_details == undefined) {
+    if(book_details.value.is_完成 === true || book_details.value == undefined) {
       break
     }
     await new Promise(r => setTimeout(r, 300));
