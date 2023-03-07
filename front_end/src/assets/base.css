@@ -16,3 +16,4 @@ a {
     font-size: 1.5em;
     font-weight: bold;
 }
+:focus{outline:0;}

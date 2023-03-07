@@ -18,15 +18,30 @@
             </span>
         </div>
         <div style="float: right;padding: 5px 8px 0 8px">
-          <div v-if="globalStore.user == undefined">
+          <div v-if="globalStore.user === undefined">
             未登录
           </div>
-          <div v-else>
-            登录成功
+          <div v-else >
+            <el-dropdown>
+              <div class="el-dropdown-link" style="display: flex;align-items: center">
+                <img :src="globalStore.user.avatar" style="width: 32px;height: 32px;border-radius: 50%;">
+                <span style="margin:0 7px 0 6px" >{{globalStore.user.name}}</span>
+                <el-icon><CaretBottom /></el-icon>
+              </div>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item>Action 1</el-dropdown-item>
+                  <el-dropdown-item>Action 2</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+
+            </el-dropdown>
           </div>
-          <a class="header_font" href="#" @click="login" >登录</a>
-          &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-          <a class="header_font" href="#" @click="register" >注册</a>
+          <div v-if="globalStore.user === undefined">
+            <a class="header_font" href="#" @click="login" >登录</a>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a class="header_font" href="#" @click="register" >注册</a>
+          </div>
           <Dialog ref="dialog">
             <div style="padding: 30px 40px 30px 40px;">
               <!--  切换登录和注册-->
@@ -487,6 +502,7 @@ import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
 import {useGlobalStore} from "../store";
+import {CaretBottom} from '@element-plus/icons-vue'
 
 const globalStore = useGlobalStore();
 
@@ -496,6 +512,7 @@ const route = useRoute()
 const { proxy } = getCurrentInstance();
 //数据
 
+// let users = ref([])
 //判断有没有登录
 axios.post("/user/base_info").then(res =>{
   console.log(res)
@@ -824,6 +841,13 @@ function register(){
 </script>
 
 <style scoped>
+
+/*.example-showcase .el-dropdown-link {*/
+/*  cursor: pointer;*/
+/*  color: var(--el-color-primary);*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
 .nav_active > a{
   color: chocolate !important;
   font-weight: bold;
