@@ -807,15 +807,15 @@ var NavList = reactive([
     title:'排行榜',
     url:'/ranking',
     name: "ranking"
-  }, {
-    title: '分类',
-    url:'/sort',
-    name: "sort"
   },{
     title: '作家专区',
     url:'/authorcolumn',
     name: "authorcolumn"
-  }
+  },{
+    title: '我的书架',
+    url:'/sort',
+    name: "sort"
+  },
   // ,{
   //   title: '话题',
   //   url:'/'
@@ -874,7 +874,7 @@ function register(){
 }
 .header_nav{
   float: left;
-  width: 500px;
+  /*width: 500px;*/
   height: 60px;
 }
 .header_nav ul{
