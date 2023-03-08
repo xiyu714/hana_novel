@@ -41,10 +41,17 @@ book_router.post('/book/content', async (ctx, next) => {
     let chapter = await knex("chapter")
         .select("title")
         .select("content")
+        .select("updated_time")
         .where("book_id", book_id)
         .where("id", id)
         .first();
-    success(ctx, chapter)
+    let book = await knex("book")
+        .select("title")
+        .select("author")
+        .where("id",book_id)
+        .first()
+    book.chapter = chapter
+    success(ctx, book)
     return next()
 })
 
