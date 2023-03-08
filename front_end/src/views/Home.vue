@@ -19,7 +19,10 @@
         </div>
         <div style="float: right;padding: 5px 8px 0 8px">
           <div v-if="globalStore.user === undefined">
-            未登录
+
+            <a class="header_font" href="#" @click="login" >登录</a>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a class="header_font" href="#" @click="register" >注册</a>
           </div>
           <div v-else >
             <el-dropdown>
@@ -37,11 +40,7 @@
 
             </el-dropdown>
           </div>
-          <div v-if="globalStore.user === undefined">
-            <a class="header_font" href="#" @click="login" >登录</a>
-            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
-            <a class="header_font" href="#" @click="register" >注册</a>
-          </div>
+
           <Dialog ref="dialog">
             <div style="padding: 30px 40px 30px 40px;">
               <!--  切换登录和注册-->
