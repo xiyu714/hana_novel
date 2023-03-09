@@ -25,7 +25,7 @@ user_router.post("/user/register", async (ctx, next) => {
         await knex('user').insert({
             id: userId,
             name, email, password: hash_password, created_time: new Date(), permission: '[]',
-            avatar: 'https://p3-novel.byteimg.com/img/novel-static/3abe6a50e39b4bf1ba7c29f33074e1a8~tplv-1yzifmftcy-expand:200:0:0.png',
+            avatar: '/statics/default_avatar.png',
         })
         return success(ctx, {
             id: userId,
