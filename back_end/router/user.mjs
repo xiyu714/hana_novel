@@ -70,4 +70,43 @@ user_router.post("/user/logout", async (ctx, next) => {
     }
 })
 
+//根据用户id 编辑用户信息
+user_router.post("/user/edit", async (ctx, next) =>{
+    const {id,name,email} = ctx.request.body;
+
+    await knex('user')
+        .update({
+            name: name,
+            email: email,
+            updated_time: new Date()
+        })
+        .where("id",id)
+
+    return success(ctx,{
+
+    })
+
+})
+
+//删除用户
+user_router.post("/user/delete", async (ctx, next) =>{
+    const {id} = ctx.request.body;
+
+    await knex('user')
+        .del()
+        .where("id",id)
+
+    return success(ctx,{})
+})
+
+//查询用户
+user_router.post("/user/inquire", async (ctx, next) =>{
+    const {name} = ctx.request.body;
+
+    const inquire = await knex('user')
+        .select()
+        .where("name",name)
+    return success(ctx,inquire)
+})
+
 
