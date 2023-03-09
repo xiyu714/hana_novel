@@ -22,7 +22,9 @@ book_router.post('/book/list', async (ctx, next) => {
 //查找书籍详情内容 章节名
 book_router.post('/book/details', async (ctx, next) => {
     let { id } = ctx.request.body;
-    let book = await knex("book").where("id", id).first();
+    let book = await knex("book")
+        .where("id", id)
+        .first();
     if(book !== undefined) {
         let chapter = await knex("chapter")
             .select("title")
@@ -30,6 +32,11 @@ book_router.post('/book/details', async (ctx, next) => {
             .where("book_id", id)
             .orderBy('updated_time', 'asc');
         book.chapter = chapter;
+
+        await knex('book')
+            .where('id',id)
+            .increment('visit_count',1)
+
         success(ctx, book)
     } else {
         err(ctx, "不能找到对应的书籍！")
