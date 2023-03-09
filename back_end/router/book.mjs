@@ -12,12 +12,14 @@ book_router.get('/', (ctx, next) => {
 })
 
 // 添加一个路由
+//查找书籍列表
 book_router.post('/book/list', async (ctx, next) => {
     let books = await knex("book").select();
     success(ctx, books)
     return next()
 })
 
+//查找书籍详情内容 章节名
 book_router.post('/book/details', async (ctx, next) => {
     let { id } = ctx.request.body;
     let book = await knex("book").where("id", id).first();
@@ -34,7 +36,7 @@ book_router.post('/book/details', async (ctx, next) => {
     }
     return next()
 })
-
+//查找小说章节内容
 book_router.post('/book/content', async (ctx, next) => {
     let { book_id, id } = ctx.request.body;
 
@@ -54,7 +56,7 @@ book_router.post('/book/content', async (ctx, next) => {
     success(ctx, book)
     return next()
 })
-
+//爬取书籍（未完成）
 book_router.post('/book/craw/details', async (ctx, next) => {
     let { book_id } = ctx.request.body;
     // 首先 爬取书籍的详细信息
@@ -83,4 +85,31 @@ book_router.post('/book/craw/getStatus', async (ctx, next) => {
 
     success(ctx, task_map[task_id])
     return next()
+})
+
+
+
+//删除小说
+book_router.post("/book/delete", async (ctx, next) =>{
+    const {id} = ctx.request.body;
+
+    await knex('book')
+        .del()
+        .where("id",id)
+
+    await knex('chapter')
+        .del()
+        .where("book_id",id)
+
+    return success(ctx,{})
+})
+
+//查找小说 书名
+book_router.post("/book/inquire", async (ctx, next) =>{
+    const {title} = ctx.request.body;
+
+    const inquire = await knex('book')
+        .select()
+        .where("title",title)
+    return success(ctx,inquire)
 })
