@@ -15,7 +15,8 @@
         <div class="search">
           <input placeholder="请输入书名或者作者名" />
           <span class="icon-search">
-            </span>
+            <el-icon ><Search /></el-icon>
+          </span>
         </div>
         <div style="float: right;padding: 5px 8px 0 8px">
           <div v-if="globalStore.user === undefined">
@@ -221,6 +222,9 @@
           <div class="woman_bg">
             <div class="woman_title">
               <p>女生专区</p>
+
+                <el-icon size="20"><ArrowRightBold /></el-icon>
+
             </div>
           </div>
         </div>
@@ -228,6 +232,7 @@
           <div class="man_bg">
             <div class="man_title">
               <p>男生专区</p>
+              <el-icon size="20"><ArrowRightBold /></el-icon>
             </div>
           </div>
         </div>
@@ -238,7 +243,12 @@
           <p>最新资讯</p>
           <a href="#">
             更多
+            <span >
+              <el-icon size="10" ><ArrowRight /></el-icon>
+              <el-icon size="10" ><ArrowRight /></el-icon>
+            </span>
           </a>
+
         </div>
 <!--        公告内容-->
         <div class="notice_list">
@@ -345,7 +355,7 @@
           <div class="man_rank_block">
             <div class="rank_block_title">
               都市榜
-              <a href="#">
+              <a>
                 更多
               </a>
             </div>
@@ -501,7 +511,7 @@ import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
 import {useGlobalStore} from "../store";
-import {CaretBottom} from '@element-plus/icons-vue'
+import {Search,ArrowRightBold,ArrowRight,CaretBottom} from '@element-plus/icons-vue'
 
 const globalStore = useGlobalStore();
 
@@ -930,9 +940,9 @@ a:hover{
   cursor: pointer;
   fill: #000;
 }
-/*.icon-search a:hover{*/
-/*  fill: chocolate;*/
-/*}*/
+.icon-search :hover{
+  color: chocolate;
+}
 
 .active{
   color: chocolate;
