@@ -131,10 +131,11 @@
       <el-table-column prop="created_time" label="创建时间" width="220" />
 
       <el-table-column fixed="right" width="200" label="操作">
-        <template v-slot="scope">
-          <el-button style="padding: 3px;width: 70px;margin-right: 10px" v-model="scope.row.Id" type="primary">编辑</el-button>
-          <el-button style="padding: 3px;width: 70px" type="danger" @click="Delete_User">删除</el-button>
+        <template #default="scope">
+          <el-button style="padding: 3px;width: 70px;margin-right: 10px" type="primary">编辑</el-button>
+          <el-button style="padding: 3px;width: 70px" type="danger" @click="Delete_User(scope.$index, scope.row)">删除</el-button>
         </template>
+
       </el-table-column>
     </el-table>
 <!--    编辑弹窗-->
@@ -143,16 +144,25 @@
 </template>
 
 <script setup>
-import {reactive, ref,getCurrentInstance} from "vue";
+import {reactive, ref, getCurrentInstance, onMounted} from "vue";
 import {useRoute} from "vue-router";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
 //删除用户
-
-
-
-
+const Delete_User = (index, row) =>{
+  axios.post("/user/delete",{
+    id:row.id
+  })
+      .then(res =>{
+        console.log(res)
+        proxy.$message({
+          message:'删除成功！',
+          type:"success"
+        });
+        getUserlist()
+      })
+}
 
 
 //注册弹窗
@@ -178,6 +188,7 @@ const Add_User = (AddForm) =>{
                 message:'账号注册成功，请登录！',
                 type:"success"
               });
+              getUserlist()
             }else {
               proxy.$message.error({
                 message:res.data.message
@@ -205,8 +216,17 @@ const Add_User = (AddForm) =>{
 const value = ref(true)
 const usersData =ref([])
 
-axios.post("/user/admin/list").then(({data}) =>{
-  usersData.value = data.data
+
+
+const getUserlist = () =>{
+  //获取用户信息数据
+  axios.post("/user/admin/list").then(({data}) =>{
+    usersData.value = data.data
+  })
+}
+
+onMounted(()=>{
+  getUserlist()
 })
 </script>
 
