@@ -1007,8 +1007,10 @@ a:hover{
 }
 
 .banner{
-  float: left;
-  width: 1536px;
+  /*float: left;*/
+  --width: 1519px;
+  width: var(--width) ;
+
   height: 300px;
   /*margin: 50px auto;*/
   position: relative;
@@ -1020,7 +1022,7 @@ a:hover{
 }
 .banner ul{
   list-style: none;
-  width: 6400px;
+  width: calc(var(--width) *4);
   position: absolute;
   padding: 0;
   margin: 0;
@@ -1029,15 +1031,17 @@ a:hover{
   animation: mymove 10s linear 1s infinite alternate;
 }
 .banner ul li{
-  width: 1600px;
+  width: var(--width) ;
   height: 300px;
   float: left;
+  overflow: hidden;
 }
+
 @keyframes mymove {
-  0%,20%{left: 0px;}
-  25%,45%{left: -1600px;}
-  50%,70%{left: -3200px;}
-  75%,100%{left: -4800px;}
+  0%,20%{left: 0;}
+  25%,45%{left:  calc(0px - var(--width));}
+  50%,70%{left:  calc(0px - (var(--width) * 2));}
+  75%,100%{left:  calc(0px - (var(--width) * 3));}
 }
 
 .main_container{
