@@ -62,7 +62,7 @@
         <div class="title" >
           <div style="float: left">{{item.title}}</div>
           <div style="float: right;cursor: pointer">
-            <Delete style="width: 1em; height: 1em; margin-right: 8px;color: maroon" />
+            <Delete @click="Delete_Book(item)" style="width: 1em; height: 1em; margin-right: 8px;color: maroon" />
           </div>
         </div>
         <div class="author">作者：{{item.author}}</div>
@@ -77,14 +77,35 @@
 
 <script setup>
 import {Plus} from '@element-plus/icons-vue'
-import {ref} from "vue";
+import {ref, getCurrentInstance, onMounted} from "vue";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
 const dialogFormVisible = ref(false)
 const books = ref([])
-axios.post("book/list").then(({data}) => {
-  books.value = data.data
+const { proxy } = getCurrentInstance();
+//删除书本
+const Delete_Book = (books) =>{
+
+  axios.post("/book/delete",{id:books.id})
+    .then(res =>{
+      proxy.$message({
+        message:'删除成功！',
+        type:"success"
+      });
+      getBooklist()
+    })
+}
+
+//获取所有书本信息
+const getBooklist = () =>{
+  axios.post("book/list").then(({data}) => {
+    books.value = data.data
+  })
+}
+
+onMounted(()=>{
+  getBooklist()
 })
 </script>
 
