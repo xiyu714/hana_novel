@@ -136,7 +136,7 @@ select created_time  from chapter where book_id = ? and id = ?
         .orderBy("created_time")
         .first()
     return success(ctx, {
-        chapter_id
+        chapter_id:chapter_id.id
     })
 } )
 
@@ -155,6 +155,6 @@ select created_time  from chapter where book_id = ? and id = ?
         .orderBy("created_time","desc")
         .first()
     return success(ctx, {
-        chapter_id
+        chapter_id: chapter_id.id
     })
 } )
