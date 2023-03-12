@@ -120,3 +120,41 @@ book_router.post("/book/inquire", async (ctx, next) =>{
         .where("title",title)
     return success(ctx,inquire)
 })
+
+//获取下一章节章节id
+book_router.post("/book/next_chapter_id", async(ctx, next) =>{
+    const { book_id, id} = ctx.request.body;
+
+    const chapter_id = await knex("chapter")
+        .select("id")
+        .where("book_id", book_id)
+        .whereRaw(`
+            created_time >  (
+select created_time  from chapter where book_id = ? and id = ?
+) 
+        `, [book_id, id])
+        .orderBy("created_time")
+        .first()
+    return success(ctx, {
+        chapter_id
+    })
+} )
+
+//获取上一章节章节id
+book_router.post("/book/last_chapter_id", async(ctx, next) =>{
+    const { book_id, id} = ctx.request.body;
+
+    const chapter_id = await knex("chapter")
+        .select("id")
+        .where("book_id", book_id)
+        .whereRaw(`
+            created_time <  (
+select created_time  from chapter where book_id = ? and id = ?
+) 
+        `, [book_id, id])
+        .orderBy("created_time","desc")
+        .first()
+    return success(ctx, {
+        chapter_id
+    })
+} )
