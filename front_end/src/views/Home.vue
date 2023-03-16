@@ -506,6 +506,10 @@
 </template>
 
 <script setup>
+import { useTitle } from '@vueuse/core'
+
+const title = useTitle("xi小说网")
+
 import { useRoute } from 'vue-router'
 import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";

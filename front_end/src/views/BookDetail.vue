@@ -71,6 +71,9 @@
 </template>
 
 <script setup>
+import { useTitle } from '@vueuse/core'
+
+const title = useTitle()
 import {ref} from "vue";
 import { ElMessage } from 'element-plus'
 import {axios} from "../api";
@@ -88,6 +91,7 @@ axios.post("book/details", {
   if(book_details.value === undefined) {
     ElMessage.error(respone.data.message)
   }
+  title.value = book_details.value.title
   isLoading.value = false;
 })
 
