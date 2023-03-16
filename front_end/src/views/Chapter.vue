@@ -9,10 +9,14 @@
       </div>
       <div v-html="book.content" style="font-size: 16px"></div>
 
-      <div style="margin-top: 80px;">
+      <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 <!--        v-if="lastChapter_id === undefined"-->
-        <button @click="lastChapter"  >上一章</button>
-<!--        <button @click="nextChapter">下一章</button>-->
+        <button @click="lastChapter" class="btn_last"  style="cursor: pointer;border-radius: 20px;
+              border: none;width: 150px;background-color: #f6f1e7;height: 30px;margin-right: 100px"  >
+          上一章</button>
+        <button style="cursor: pointer;border-radius: 20px;
+              border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">下一章</button>
+<!--        @click="nextChapter"-->
       </div>
     </div>
   </div>
@@ -20,7 +24,9 @@
 </template>
 
 <script setup>
+import { useTitle } from '@vueuse/core'
 
+const title = useTitle()
 import { useRoute} from "vue-router";
 import {axios} from "../api";
 import {nextTick, ref, watch} from "vue";
@@ -43,6 +49,7 @@ const get_book_content = () => axios.post("book/content", {
                                   book_data.content = ident + book_data.chapter.content.replaceAll("\n", "</br></br>" + ident);
 
                                   book.value = book_data;
+                                  title.value = book.value.chapter.title +"    "+book.value.title
                                 }).finally(() => {
                                   isLoading.value = false
                                 })
@@ -78,10 +85,8 @@ watch( () => route.params.chapter_id,
 </script>
 
 <style scoped>
-.noClick{
-  pointer-events:none
+.btn_last :hover{
+  background-color: #c0c4cc;
 }
-.Click{
-  cursor: pointer;
-}
+
 </style>
