@@ -1312,7 +1312,7 @@ a:hover{
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
 }
 .recommend_right{
   width: 250px;

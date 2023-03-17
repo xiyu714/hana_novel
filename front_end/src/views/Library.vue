@@ -176,9 +176,11 @@ axios.post("book/list").then(({data}) => {
 }
 .booklist_one_right .desc{
   width: 210px;
-  height: 50px;
+
   font-size: 12px;
   margin-top: 10px;
+  line-height: 16px;
+
   overflow: hidden;
   text-overflow: ellipsis;
   color: #999;
@@ -186,6 +188,6 @@ axios.post("book/list").then(({data}) => {
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 </style>
