@@ -97,8 +97,8 @@ watch( () => route.params.chapter_id,
 </script>
 
 <style scoped>
-.btn_last :hover{
-  background-color: #000000;
+.btn_last:hover{
+  background-color: #ccc !important;
 }
 
 </style>
