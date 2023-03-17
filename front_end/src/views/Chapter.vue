@@ -14,9 +14,13 @@
         <button @click="lastChapter" class="btn_last"  style="cursor: pointer;border-radius: 20px;
               border: none;width: 150px;background-color: #f6f1e7;height: 30px;margin-right: 100px"  >
           上一章</button>
-        <button style="cursor: pointer;border-radius: 20px;
-              border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">下一章</button>
-<!--        @click="nextChapter"-->
+        <button @click="nextChapter" style="cursor: pointer;border-radius: 20px;
+              border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">
+          下一章</button>
+
+
+
+
       </div>
     </div>
   </div>
@@ -57,7 +61,6 @@ const get_book_content = () => axios.post("book/content", {
 get_book_content()
 
 //上一章下一章
-const lastShow = ""
 const lastChapter_id = ref(undefined)
 
 const lastChapter = () =>{
@@ -65,13 +68,22 @@ const lastChapter = () =>{
     id: route.params.chapter_id,
     book_id: book_id
   }).then(res =>{
-    // console.log(chapter_id)
-    // console.log(res.data.data.chapter_id)
     lastChapter_id.value = res.data.data.chapter_id
 
-    // console.log(book_id)
-
       router.push({ path: `/book/${book_id}/${lastChapter_id.value}` })
+  })
+}
+
+const nextChapter_id = ref(undefined)
+
+const nextChapter = () =>{
+  axios.post("/book/next_chapter_id",{
+    id: route.params.chapter_id,
+    book_id: book_id
+  }).then(res =>{
+    nextChapter_id.value = res.data.data.chapter_id
+
+    router.push({ path: `/book/${book_id}/${nextChapter_id.value}` })
   })
 }
 
@@ -86,7 +98,7 @@ watch( () => route.params.chapter_id,
 
 <style scoped>
 .btn_last :hover{
-  background-color: #c0c4cc;
+  background-color: #000000;
 }
 
 </style>
