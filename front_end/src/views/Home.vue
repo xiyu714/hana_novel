@@ -1243,7 +1243,7 @@ a:hover{
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
 }
 
 .recommend_booklist_group{
@@ -1286,9 +1286,12 @@ a:hover{
   font-size: 18px;
   padding-top: 6px;
   cursor: pointer;
+  width: 150px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  word-wrap: normal;
+  overflow: hidden;
+
+
 }
 .booklist_one_right .author{
   font-size: 12px;
@@ -1299,7 +1302,7 @@ a:hover{
 }
 .booklist_one_right .desc{
   width: 150px;
-  height: 50px;
+  /*height: 50px;*/
   font-size: 12px;
   margin-top: 10px;
   overflow: hidden;
@@ -1309,7 +1312,7 @@ a:hover{
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
 }
 .recommend_right{
   width: 250px;
@@ -1490,7 +1493,7 @@ a:hover{
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
 }
 .man_rank{
   margin-top: 28px;
