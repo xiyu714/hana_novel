@@ -1,5 +1,5 @@
 <template>
-  <div class="flex_center" style="background-color: #eae4d7; ">
+  <div class="flex_center" style="background-color: #eae4d7;min-height: 100vh ">
     <div v-if="!isLoading" style="width: 55%;background-color: #f6f1e7;padding: 80px 60px 30px 60px">
       <div style="font-size: 24px;font-weight: bold;margin-bottom: 30px">{{book.chapter.title}}</div>
       <div class="flex" style="margin-bottom: 40px;font-size: 12px">
