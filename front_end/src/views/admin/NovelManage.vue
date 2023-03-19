@@ -156,7 +156,6 @@ onMounted(()=>{
 }
 .booklist_one_right .desc{
   width: 210px;
-  /*height: 50px;*/
   font-size: 12px;
   margin-top: 10px;
   overflow: hidden;
@@ -164,7 +163,7 @@ onMounted(()=>{
   color: #999;
   text-align: left;
 
-  line-height: 2px;
+  line-height: 17px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
