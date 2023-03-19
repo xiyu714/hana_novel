@@ -1,5 +1,13 @@
 <template>
   <div class="flex_center" style="background-color: #eae4d7;min-height: 100vh ">
+    <div style="position:relative;background-color: black;width:60px;height: 300px;top:30px;right:15px">
+<!--      58*60-->
+      <div style="width: 60px;height: 60px;background-color: blue;border-bottom: 1px solid #ccc">
+
+        <i class="iconfont icon-mulu" style="font-size: 30px"></i>
+      </div>
+
+    </div>
     <div v-if="!isLoading" style="width: 55%;background-color: #f6f1e7;padding: 80px 60px 30px 60px">
       <div style="font-size: 24px;font-weight: bold;margin-bottom: 30px">{{book.chapter.title}}</div>
       <div class="flex" style="margin-bottom: 40px;font-size: 12px">
@@ -23,11 +31,14 @@
 
       </div>
     </div>
+
   </div>
 
 </template>
 
 <script setup>
+
+
 import { useTitle } from '@vueuse/core'
 
 const title = useTitle()
