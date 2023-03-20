@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Library from "../views/Library.vue"
 import Ranking from "../views/Ranking.vue"
-import Sort from "../views/Sort.vue";
+import BookShelf from "../views/BookShelf.vue";
 import AuthorColumn from "../views/AuthorColumn.vue";
 import BookDetail from "../views/BookDetail.vue";
 import Admin from "../views/Admin.vue";
@@ -30,9 +30,9 @@ const router = createRouter({
           name:'ranking',
           component: Ranking
         },{
-          path:'/sort',
-          name:'sort',
-          component: Sort
+          path:'/bookshelf',
+          name:'bookshelf',
+          component: BookShelf
         },
         {
           path:'/authorcolumn',
