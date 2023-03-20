@@ -1,10 +1,22 @@
 <template>
-  <div class="flex_center" style="background-color: #eae4d7;min-height: 100vh ">
-    <div style="position:relative;background-color: black;width:60px;height: 300px;top:30px;right:15px">
-<!--      58*60-->
-      <div style="width: 60px;height: 60px;background-color: blue;border-bottom: 1px solid #ccc">
+  <div class="flex_center" style="background-color: #e8e2d5;min-height: 100vh ">
+    <div style="position:relative;background-color:#f6f1e7;width:60px;height: 280px;top:40px;right:15px">
 
-        <i class="iconfont icon-mulu" style="font-size: 30px"></i>
+      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+        <i class="iconfont icon-mulu" style="font-size: 30px;"></i>
+        <div class="icon_title" style="font-size: 12px;padding-top: 3px">目录</div>
+      </div>
+      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+        <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
+        <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
+      </div>
+      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+        <i class="iconfont icon-jiarushujia_01" style="font-size: 25px;"></i>
+        <div class="icon_title" style="font-size: 12px;padding-top: 5px">书架</div>
+      </div>
+      <div class="icon" @click="return_bookdetail" style="cursor:pointer;width: 60px;height: 60px;background-color: #f6f1e7;text-align: center;margin-top: 10px">
+        <i class="iconfont icon-fanhui" style="font-size: 23px;"></i>
+        <div class="icon_title" style="font-size: 12px;padding-top: 5px">返回</div>
       </div>
 
     </div>
@@ -18,16 +30,13 @@
       <div v-html="book.content" style="font-size: 16px"></div>
 
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
-<!--        v-if="lastChapter_id === undefined"-->
-        <button @click="lastChapter" class="btn_last"  style="cursor: pointer;border-radius: 20px;
+
+        <button v-if="lastChapter_id === undefined"  @click="lastChapter" class="btn_last"  style="cursor: pointer;border-radius: 20px;
               border: none;width: 150px;background-color: #f6f1e7;height: 30px;margin-right: 100px"  >
           上一章</button>
         <button @click="nextChapter" style="cursor: pointer;border-radius: 20px;
               border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">
           下一章</button>
-
-
-
 
       </div>
     </div>
@@ -111,5 +120,9 @@ watch( () => route.params.chapter_id,
 .btn_last:hover{
   background-color: #ccc !important;
 }
+.icon:hover{
+  color: #c45656 !important;
+}
+
 
 </style>
