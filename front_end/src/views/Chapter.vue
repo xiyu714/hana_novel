@@ -4,7 +4,11 @@
 
       <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-mulu" style="font-size: 30px;"></i>
-        <div class="icon_title" style="font-size: 12px;padding-top: 3px">目录</div>
+        <div class="icon_title" @click="show_list" style="font-size: 12px;padding-top: 3px">目录</div>
+<!--        详细目录-->
+        <div v-if="isshow_list === true" style="width: 90px;height: 90px;background-color: black" >
+
+        </div>
       </div>
       <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
@@ -12,7 +16,7 @@
       </div>
       <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-jiarushujia_01" style="font-size: 25px;"></i>
-        <div class="icon_title" style="font-size: 12px;padding-top: 5px">书架</div>
+        <div class="icon_title" @click="return_bookshelf"  style="font-size: 12px;padding-top: 5px">书架</div>
       </div>
       <div class="icon" @click="return_bookdetail" style="cursor:pointer;width: 60px;height: 60px;background-color: #f6f1e7;text-align: center;margin-top: 10px">
         <i class="iconfont icon-fanhui" style="font-size: 23px;"></i>
@@ -114,6 +118,30 @@ watch( () => route.params.chapter_id,
         get_book_content()
   }
 )
+//弹出目录
+const isshow_list = ref(false)
+const list_title = ref()
+
+const show_list = () =>{
+  axios.post("/book/details",{
+    id:book_id
+  }).then(res =>{
+    //不知道为什么
+    console.log(res.data.data.chapter)
+    list_title.value = res.data.data.chapter.title
+    console.log(list_title.value)
+  })
+}
+
+
+//返回书本详情页
+const return_bookdetail = () =>{
+  router.push({ path: `/book/${book_id}` })
+}
+//跳转到我的书架页面
+const return_bookshelf = () =>{
+  router.push({ path: `/bookshelf` })
+}
 </script>
 
 <style scoped>
