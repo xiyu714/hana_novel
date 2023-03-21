@@ -21,10 +21,11 @@ book_router.post('/book/list', async (ctx, next) => {
 
 //查找书籍详情内容 章节名
 book_router.post('/book/details', async (ctx, next) => {
-    let { id } = ctx.request.body;
+    let { id } = ctx.request.body; //获取前端请求的body中的id
+    //在book库中查询一个id = 传入的id
     let book = await knex("book")
         .where("id", id)
-        .first();
+        .first(); //只返回一个
     if(book !== undefined) {
         let chapter = await knex("chapter")
             .select("title")
