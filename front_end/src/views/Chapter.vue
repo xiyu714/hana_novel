@@ -2,14 +2,23 @@
   <div class="flex_center" style="background-color: #e8e2d5;min-height: 100vh ">
     <div style="position:relative;background-color:#f6f1e7;width:60px;height: 280px;top:40px;right:15px">
 
-      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+      <div @click="show_list" class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-mulu" style="font-size: 30px;"></i>
-        <div class="icon_title" @click="show_list" style="font-size: 12px;padding-top: 3px">目录</div>
-<!--        详细目录-->
-        <div v-if="isshow_list === true" style="width: 90px;height: 90px;background-color: black" >
+        <div class="icon_title"   style="font-size: 12px;padding-top: 3px;">目录</div>
+      </div>
+      <!--    v-if="isshow_list === true"    详细目录-->
+      <div   style="width: 800px;height: 350px;position: absolute;background-color: white;margin: -70px 0  0 80px;padding: 50px 0 0 20px" >
+        <div style="font-size: 18px;margin-bottom: 20px;">
+          <a style="border-bottom: 1px solid #ed4259;cursor: pointer;color: #c45656;font-weight: bold">目录</a>
 
         </div>
+        <div v-if="isshow_list === true"  v-for="item in chapter_list" >
+          <a @click="$router.push({path:`/book/${book_id}/${item.id}`})" style="cursor: pointer;">{{item.title}}</a>
+        </div>
+
       </div>
+
+
       <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
@@ -24,6 +33,11 @@
       </div>
 
     </div>
+
+
+
+
+
     <div v-if="!isLoading" style="width: 55%;background-color: #f6f1e7;padding: 80px 60px 30px 60px">
       <div style="font-size: 24px;font-weight: bold;margin-bottom: 30px">{{book.chapter.title}}</div>
       <div class="flex" style="margin-bottom: 40px;font-size: 12px">
@@ -119,17 +133,15 @@ watch( () => route.params.chapter_id,
   }
 )
 //弹出目录
-const isshow_list = ref(false)
-const list_title = ref()
+let isshow_list = ref(false)
+let chapter_list = ref(null)
 
 const show_list = () =>{
   axios.post("/book/details",{
     id:book_id
   }).then(res =>{
-    //不知道为什么
-    console.log(res.data.data.chapter)
-    list_title.value = res.data.data.chapter.title
-    console.log(list_title.value)
+    chapter_list.value = res.data.data.chapter
+    isshow_list.value = true
   })
 }
 
