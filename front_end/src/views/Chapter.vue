@@ -7,15 +7,15 @@
         <div class="icon_title"   style="font-size: 12px;padding-top: 3px;">目录</div>
       </div>
       <!--    v-if="isshow_list === true"    详细目录-->
-      <div   style="width: 800px;height: 350px;position: absolute;background-color: white;margin: -70px 0  0 80px;padding: 50px 0 0 20px" >
-        <div style="font-size: 18px;margin-bottom: 20px;">
-          <a style="border-bottom: 1px solid #ed4259;cursor: pointer;color: #c45656;font-weight: bold">目录</a>
-
+      <div   style="width: 800px;height: 370px;position: absolute;background-color: #fcfbf5;margin: -70px 0  0 80px;padding: 50px 0 0 20px;box-shadow: 2px 3px 9px #ccc" >
+        <div style="font-size: 18px;margin-bottom: 25px;">
+          <a style="border-bottom: 1px solid #ed4259;cursor: pointer;color: #ed4259;font-weight: bold">目录</a>
         </div>
-        <div v-if="isshow_list === true"  v-for="item in chapter_list" >
-          <a @click="$router.push({path:`/book/${book_id}/${item.id}`})" style="cursor: pointer;">{{item.title}}</a>
+        <div style="width: 800px;height: 325px;overflow-y: scroll;">
+          <div class="chapter_list" v-if="isshow_list === true"  v-for="item in chapter_list" style="border-top: 1px solid #e5e5e5;padding-top: 10px;display: inline-block;margin-bottom: 10px;width: 50%;line-height: 20px;height: 20px;">
+            <a @click="$router.push({path:`/book/${book_id}/${item.id}`})" style="cursor: pointer;color: #262626">{{item.title}}</a>
+          </div>
         </div>
-
       </div>
 
 
@@ -163,6 +163,8 @@ const return_bookshelf = () =>{
 .icon:hover{
   color: #c45656 !important;
 }
-
+.chapter_list>a:hover{
+  color: #ed4259 !important;
+}
 
 </style>
