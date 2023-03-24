@@ -1,13 +1,19 @@
 <template>
   <div class="flex_center" style="background-color: #e8e2d5;min-height: 100vh ">
-    <div style="position:relative;background-color:#f6f1e7;width:60px;height: 280px;top:40px;right:15px">
+    <div style="position:fixed;background-color:#f6f1e7;width:60px;height: 280px;top:40px;left:202px">
 
       <div @click="show_list" class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-mulu" style="font-size: 30px;"></i>
         <div class="icon_title"   style="font-size: 12px;padding-top: 3px;">目录</div>
       </div>
       <!--    v-if="isshow_list === true"    详细目录-->
-      <div   style="width: 800px;height: 370px;position: absolute;background-color: #fcfbf5;margin: -70px 0  0 80px;padding: 50px 0 0 20px;box-shadow: 2px 3px 9px #ccc" >
+
+      <div v-if="isshow_list === true" style="width: 800px;height: 370px;position: absolute;background-color: #fcfbf5;margin: -70px 0  0 80px;padding: 50px 0 0 20px;box-shadow: 2px 3px 9px #ccc" >
+<!--       关闭X-->
+        <div class="close_button" @click="isshow_list = false"  style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+          <el-icon><CloseBold /></el-icon>
+        </div>
+
         <div style="font-size: 18px;margin-bottom: 25px;">
           <a style="border-bottom: 1px solid #ed4259;cursor: pointer;color: #ed4259;font-weight: bold">目录</a>
         </div>
@@ -23,9 +29,9 @@
         <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
-      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+      <div class="icon" @click="return_bookshelf" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-jiarushujia_01" style="font-size: 25px;"></i>
-        <div class="icon_title" @click="return_bookshelf"  style="font-size: 12px;padding-top: 5px">书架</div>
+        <div class="icon_title"   style="font-size: 12px;padding-top: 5px">书架</div>
       </div>
       <div class="icon" @click="return_bookdetail" style="cursor:pointer;width: 60px;height: 60px;background-color: #f6f1e7;text-align: center;margin-top: 10px">
         <i class="iconfont icon-fanhui" style="font-size: 23px;"></i>
@@ -65,7 +71,7 @@
 
 <script setup>
 
-
+import {CloseBold} from '@element-plus/icons-vue'
 import { useTitle } from '@vueuse/core'
 
 const title = useTitle()
@@ -136,15 +142,21 @@ watch( () => route.params.chapter_id,
 let isshow_list = ref(false)
 let chapter_list = ref(null)
 
-const show_list = () =>{
-  axios.post("/book/details",{
-    id:book_id
-  }).then(res =>{
-    chapter_list.value = res.data.data.chapter
-    isshow_list.value = true
-  })
-}
 
+
+const show_list = () =>{
+  if (isshow_list.value == true){       //判断isshow_list.value的值是否为true
+    isshow_list.value = false            //若为true,则把false赋值给isshow_list.value
+  }else {                  //isshow_list.value == false  ;如果目录是关闭
+    axios.post("/book/details",{     //通过book_id 获取章节目录  并显示目录对话框
+      id:book_id
+    }).then(res =>{
+      chapter_list.value = res.data.data.chapter
+      isshow_list.value = true
+    })
+  }
+
+}
 
 //返回书本详情页
 const return_bookdetail = () =>{
