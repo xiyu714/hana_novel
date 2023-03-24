@@ -98,6 +98,7 @@ export async function web_craw_book(task_map, task_key) {
             const regex = /笔趣阁.*?\n/gms;
             innerHTML = innerHTML.replace(regex, "");
 
+
             章节列表Element.content = innerHTML
             章节列表Element.进度 = 50;
             await knex("chapter").insert({
@@ -105,6 +106,7 @@ export async function web_craw_book(task_map, task_key) {
                 book_id: bookId,
                 title: 章节列表Element.title,
                 content: 章节列表Element.content,
+                word_count: 章节列表Element.content.length,
                 created_time: new Date(),
                 updated_time: new Date()
             });

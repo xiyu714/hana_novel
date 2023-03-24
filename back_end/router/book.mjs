@@ -34,6 +34,14 @@ book_router.post('/book/details', async (ctx, next) => {
             .orderBy('updated_time', 'asc');
         book.chapter = chapter;
 
+        //根据书本id
+        let 字数 = await knex("chapter")
+            .selectRaw('sum(word_count) as wordTotal')
+            .where("book_id", id)
+            .first()
+
+        book.words_account = 字数
+
         await knex('book')
             .where('id',id)
             .increment('visit_count',1)

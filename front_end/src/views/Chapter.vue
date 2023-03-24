@@ -6,8 +6,8 @@
         <i class="iconfont icon-mulu" style="font-size: 30px;"></i>
         <div class="icon_title"   style="font-size: 12px;padding-top: 3px;">目录</div>
       </div>
-      <!--    v-if="isshow_list === true"    详细目录-->
 
+<!--详细目录-->
       <div v-if="isshow_list === true" style="width: 800px;height: 370px;position: absolute;background-color: #fcfbf5;margin: -70px 0  0 80px;padding: 50px 0 0 20px;box-shadow: 2px 3px 9px #ccc" >
 <!--       关闭X-->
         <div class="close_button" @click="isshow_list = false"  style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
