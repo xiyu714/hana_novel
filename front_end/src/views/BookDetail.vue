@@ -22,7 +22,7 @@
           </div>
           <div class="book_count">
             <div class="count_item">
-              <span>{{book_details.words_account}}</span>万字
+              <span>{{book_details.words_account.wordTotal}}</span>字
             </div>
             <div class="count_item" style="width: 2px;height: 20px;background-color: #fafafa;margin: 5px 20px 0 20px"></div>
             <div class="count_item">
