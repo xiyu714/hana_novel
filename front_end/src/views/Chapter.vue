@@ -19,7 +19,7 @@
         </div>
         <div style="width: 800px;height: 325px;overflow-y: scroll;">
           <div class="chapter_list" v-if="isshow_list === true"  v-for="item in chapter_list" style="border-top: 1px solid #e5e5e5;padding-top: 10px;display: inline-block;margin-bottom: 10px;width: 50%;line-height: 20px;height: 20px;">
-            <a @click="$router.push({path:`/book/${book_id}/${item.id}`})" style="cursor: pointer;color: #262626">{{item.title}}</a>
+            <a @click="jump_chapter(item.id)" style="cursor: pointer;color: #262626">{{item.title}}</a>
           </div>
         </div>
       </div>
@@ -39,7 +39,6 @@
       </div>
 
     </div>
-
 
 
 
@@ -141,9 +140,6 @@ watch( () => route.params.chapter_id,
 //弹出目录
 let isshow_list = ref(false)
 let chapter_list = ref(null)
-
-
-
 const show_list = () =>{
   if (isshow_list.value == true){       //判断isshow_list.value的值是否为true
     isshow_list.value = false            //若为true,则把false赋值给isshow_list.value
@@ -157,6 +153,12 @@ const show_list = () =>{
   }
 
 }
+//跳转到指定章节
+ const jump_chapter = (id) =>{
+   isshow_list.value = false
+   router.push({path:`/book/${book_id}/${id}`})
+
+ }
 
 //返回书本详情页
 const return_bookdetail = () =>{
