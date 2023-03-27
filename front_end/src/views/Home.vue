@@ -826,10 +826,10 @@ var NavList = reactive([
     name: "authorcolumn"
   },{
     title: '我的书架',
-    url:'/sort',
-    name: "sort"
+    url:'/bookshelf',
+    name: "bookshelf"
   },
-  // ,{
+  // ,{s
   //   title: '话题',
   //   url:'/'
   // }

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "Sort"
+  name: "BookShelf"
 }
 </script>
 
