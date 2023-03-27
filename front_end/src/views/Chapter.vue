@@ -29,6 +29,49 @@
         <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
+<!--      设置详情-->
+      <div style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
+
+        <div class="close_button"  style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+          <el-icon><CloseBold /></el-icon>
+        </div>
+        <div style="font-weight: bold;font-size: 18px;margin-bottom: 35px">设置</div>
+        <div>
+
+<!--          <ul>-->
+<!--            <li style="min-height: 40px;">-->
+<!--              <div style="display: inline;font-size: 14px;margin-right: 30px;margin-top: 20px">阅读主题</div>-->
+<!--              <span style="width: 40px;height: 40px;border-radius: 50%;background-color: #0050ea">-->
+<!--                <el-icon><Check /></el-icon>-->
+<!--              </span>-->
+<!--            </li>-->
+
+<!--          </ul>-->
+
+          <div style="margin-bottom: 30px;">
+            <div style="display: inline-block;margin-right: 30px;font-size: 14px">阅读主题</div>
+            <div style="display: inline-block;">
+              <span :style="{backgroundColor: active_bgColor}" style="display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #f9f7ed;margin-right: 20px;vertical-align: middle">
+                  <el-icon style="padding: 12px"><Check /></el-icon>
+              </span>
+              <span style="cursor: pointer;display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #f6edd4;margin-right: 20px;vertical-align: middle">
+
+              </span>
+              <span style="display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #e6e6e4;margin-right: 20px;vertical-align: middle">
+
+              </span>
+            </div>
+          </div>
+<!--          <div style="margin-bottom: 30px">正文字体</div>-->
+<!--          <div style="margin-bottom: 30px">字体大小</div>-->
+<!--          <div style="margin-bottom: 30px">间距设置</div>-->
+
+        </div>
+
+      </div>
+
+
+
       <div class="icon" @click="return_bookshelf" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-jiarushujia_01" style="font-size: 25px;"></i>
         <div class="icon_title"   style="font-size: 12px;padding-top: 5px">书架</div>
@@ -70,7 +113,7 @@
 
 <script setup>
 
-import {CloseBold} from '@element-plus/icons-vue'
+import {CloseBold,Check} from '@element-plus/icons-vue'
 import { useTitle } from '@vueuse/core'
 
 const title = useTitle()
@@ -160,6 +203,11 @@ const show_list = () =>{
 
  }
 
+//设置详情
+const active_bgColor = ref()
+
+
+
 //返回书本详情页
 const return_bookdetail = () =>{
   router.push({ path: `/book/${book_id}` })
@@ -180,5 +228,9 @@ const return_bookshelf = () =>{
 .chapter_list>a:hover{
   color: #ed4259 !important;
 }
+li,ul,ol{
+  list-style: none outside none;
 
+  padding: 0;
+}
 </style>
