@@ -1,5 +1,6 @@
 <template>
-  <div class="flex_center" style="background-color: #e8e2d5;min-height: 100vh ">
+<!-- background-color: #e8e2d5; -->
+  <div class="flex_center" :style="{backgroundColor:active_bgColor}"  style="min-height: 100vh ">
     <div style="position:fixed;background-color:#f6f1e7;width:60px;height: 280px;top:40px;left:202px">
 
       <div @click="show_list" class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
@@ -25,41 +26,27 @@
       </div>
 
 
-      <div class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
+      <div @click="show_install" class="icon" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-quanjushezhi_o" style="font-size: 30px;"></i>
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
 <!--      设置详情-->
-      <div style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
-
-        <div class="close_button"  style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
+      <div  style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
+<!--        v-if="isshow_install === true"-->
+        <div class="close_button" @click="isshow_install= false"   style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
           <el-icon><CloseBold /></el-icon>
         </div>
         <div style="font-weight: bold;font-size: 18px;margin-bottom: 35px">设置</div>
         <div>
 
-<!--          <ul>-->
-<!--            <li style="min-height: 40px;">-->
-<!--              <div style="display: inline;font-size: 14px;margin-right: 30px;margin-top: 20px">阅读主题</div>-->
-<!--              <span style="width: 40px;height: 40px;border-radius: 50%;background-color: #0050ea">-->
-<!--                <el-icon><Check /></el-icon>-->
-<!--              </span>-->
-<!--            </li>-->
 
-<!--          </ul>-->
-
-          <div style="margin-bottom: 30px;">
+          <div style="margin-bottom: 30px;" >
             <div style="display: inline-block;margin-right: 30px;font-size: 14px">阅读主题</div>
-            <div style="display: inline-block;">
-              <span :style="{backgroundColor: active_bgColor}" style="display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #f9f7ed;margin-right: 20px;vertical-align: middle">
-                  <el-icon style="padding: 12px"><Check /></el-icon>
+            <div style="display: inline-block;" v-for="item in color_list" >
+              <span :style="{backgroundColor:item}" @click="changeBgcolor(item)" style="cursor: pointer;display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;margin-right: 20px;vertical-align: middle">
+                  <el-icon v-if="item == active_bgColor" style="padding: 12px"><Check /></el-icon>
               </span>
-              <span style="cursor: pointer;display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #f6edd4;margin-right: 20px;vertical-align: middle">
 
-              </span>
-              <span style="display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;background-color: #e6e6e4;margin-right: 20px;vertical-align: middle">
-
-              </span>
             </div>
           </div>
 <!--          <div style="margin-bottom: 30px">正文字体</div>-->
@@ -119,7 +106,7 @@ import { useTitle } from '@vueuse/core'
 const title = useTitle()
 import { useRoute} from "vue-router";
 import {axios} from "../api";
-import {nextTick, ref, watch} from "vue";
+import {nextTick, reactive, ref, watch} from "vue";
 import {useRouter} from "vue-router"
 
 let router = useRouter();
@@ -204,7 +191,22 @@ const show_list = () =>{
  }
 
 //设置详情
-const active_bgColor = ref()
+
+let isshow_install = ref(false)
+const show_install = () =>{
+  if (isshow_install.value == true){
+    isshow_install.value = false
+  }else {
+    isshow_install.value = true
+  }
+}
+
+  //改变背景颜色
+  var color_list =reactive(['#e8e2d5','#dcc794','#d1e4d1','#d0d0d0','#101113'])
+  const active_bgColor = ref('#e8e2d5')
+  const changeBgcolor = (color_list) =>{
+    active_bgColor.value = color_list
+  }
 
 
 
