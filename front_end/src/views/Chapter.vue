@@ -49,7 +49,18 @@
 
             </div>
           </div>
-<!--          <div style="margin-bottom: 30px">正文字体</div>-->
+          <div style="margin-bottom: 30px">
+            <div style="display: inline-block;margin-right: 30px;font-size: 14px">正文字体</div>
+
+<!--            3.29-->
+
+            <div style="display: inline-block;border: 1px solid #000;width: 60px;height: 30px">
+              <div></div>
+            </div>
+
+
+
+          </div>
 <!--          <div style="margin-bottom: 30px">字体大小</div>-->
 <!--          <div style="margin-bottom: 30px">间距设置</div>-->
 
@@ -73,7 +84,7 @@
 
 
 
-    <div v-if="!isLoading" style="width: 55%;background-color: #f6f1e7;padding: 80px 60px 30px 60px">
+    <div v-if="!isLoading" style="width: 55%;background-color: rgba(246, 241, 231,0.5);padding: 80px 60px 30px 60px">
       <div style="font-size: 24px;font-weight: bold;margin-bottom: 30px">{{book.chapter.title}}</div>
       <div class="flex" style="margin-bottom: 40px;font-size: 12px">
         <div >{{book.title}}</div>
