@@ -31,8 +31,8 @@
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
 <!--      设置详情-->
-      <div  style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
-<!--        v-if="isshow_install === true"-->
+      <div  v-if="isshow_install === true" style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
+
         <div class="close_button" @click="isshow_install= false"   style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
           <el-icon><CloseBold /></el-icon>
         </div>
@@ -41,7 +41,7 @@
 
 
           <div style="margin-bottom: 30px;" >
-            <div style="display: inline-block;margin-right: 30px;font-size: 14px">阅读主题</div>
+            <div style="display: inline-block;margin-right: 20px;font-size: 14px">阅读主题</div>
             <div style="display: inline-block;" v-for="item in color_list" >
               <span :style="{backgroundColor:item}" @click="changeBgcolor(item)" style="cursor: pointer;display: inline-block;border: 1px solid #ccc;width: 40px;height: 40px;border-radius: 50%;margin-right: 20px;vertical-align: middle">
                   <el-icon v-if="item == active_bgColor" style="padding: 12px"><Check /></el-icon>
@@ -50,12 +50,10 @@
             </div>
           </div>
           <div style="margin-bottom: 30px">
-            <div style="display: inline-block;margin-right: 30px;font-size: 14px">正文字体</div>
+            <div style="display: inline-block;margin-right: 20px;font-size: 14px">正文字体</div>
 
-<!--            3.29-->
-
-            <div style="display: inline-block;border: 1px solid #000;width: 60px;height: 30px">
-              <div></div>
+            <div style="display: inline-block;">
+              <span style="display: inline-block;font-family: 微软雅黑;border: 1px solid #000;padding: 10px 15px">微软雅黑</span>
             </div>
 
 
@@ -95,13 +93,13 @@
 
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 
-        <button v-if="lastChapter_id === undefined"  @click="lastChapter" class="btn_last"  style="cursor: pointer;border-radius: 20px;
+        <button @click="lastChapter" class="btn_last" style="cursor: pointer;border-radius: 20px;
               border: none;width: 150px;background-color: #f6f1e7;height: 30px;margin-right: 100px"  >
           上一章</button>
         <button @click="nextChapter" style="cursor: pointer;border-radius: 20px;
               border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">
           下一章</button>
-
+{{lastChapter_id}}
       </div>
     </div>
 
@@ -119,6 +117,7 @@ import { useRoute} from "vue-router";
 import {axios} from "../api";
 import {nextTick, reactive, ref, watch} from "vue";
 import {useRouter} from "vue-router"
+import {ElMessage} from "element-plus";
 
 let router = useRouter();
 const route = useRoute()
@@ -145,6 +144,7 @@ const get_book_content = () => axios.post("book/content", {
 get_book_content()
 
 //上一章下一章
+//先有一个方法（判断上一章章节id是否存在）     点击事件（如果有上一章章节ID 则进行跳转）
 const lastChapter_id = ref(undefined)
 
 const lastChapter = () =>{
@@ -152,11 +152,19 @@ const lastChapter = () =>{
     id: route.params.chapter_id,
     book_id: book_id
   }).then(res =>{
+    if(res.data.status_code !== 200) {
+      ElMessage.error(res.data.message);
+      return;
+    }
     lastChapter_id.value = res.data.data.chapter_id
 
       router.push({ path: `/book/${book_id}/${lastChapter_id.value}` })
   })
 }
+
+
+// 要么，都是在点击的时候判断有没有下一章或者上一章 然后进行跳转
+// 要么，根据是否有上一章或者下一章，决定是否显示对应的按钮，按钮点击直接跳转
 
 const nextChapter_id = ref(undefined)
 
@@ -165,6 +173,10 @@ const nextChapter = () =>{
     id: route.params.chapter_id,
     book_id: book_id
   }).then(res =>{
+    if(res.data.status_code !== 200) {
+      ElMessage.error(res.data.message);
+      return;
+    }
     nextChapter_id.value = res.data.data.chapter_id
 
     router.push({ path: `/book/${book_id}/${nextChapter_id.value}` })
