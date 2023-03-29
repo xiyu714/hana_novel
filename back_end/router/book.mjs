@@ -144,9 +144,13 @@ select created_time  from chapter where book_id = ? and id = ?
         `, [book_id, id])
         .orderBy("created_time")
         .first()
-    return success(ctx, {
-        chapter_id:chapter_id.id
-    })
+    if(chapter_id) {
+        return success(ctx, {
+            chapter_id:chapter_id.id
+        })
+    } else {
+        return err(ctx, "没有下一章！")
+    }
 } )
 
 //获取上一章节章节id
@@ -163,7 +167,12 @@ select created_time  from chapter where book_id = ? and id = ?
         `, [book_id, id])
         .orderBy("created_time","desc")
         .first()
-    return success(ctx, {
-        chapter_id: chapter_id.id
-    })
+
+    if(chapter_id) {
+        return success(ctx, {
+            chapter_id:chapter_id.id
+        })
+    } else {
+        return err(ctx, "没有上一章！")
+    }
 } )
