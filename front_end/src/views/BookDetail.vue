@@ -22,16 +22,16 @@
           </div>
           <div class="book_count">
             <div class="count_item">
-              <span>{{book_details.words_account.wordTotal}}</span>字
+              <span>{{wordTotal_show}}</span>万字
             </div>
             <div class="count_item" style="width: 2px;height: 20px;background-color: #fafafa;margin: 5px 20px 0 20px"></div>
             <div class="count_item">
-              <span>351</span>万人在读
+              <span>{{book_details.visit_count}}</span>万人在读
             </div>
           </div>
           <div class="book_update">
-            最近更新：第1718章 深空中的精神病院
-            <span>2023-02-26 19:00</span>
+            最近更新：{{book_details.new_chapter.title}}
+            <span>{{(new Date(book_details.new_chapter.updated_time)).pattern("yyyy-MM-dd hh:mm:ss")}}</span>
           </div>
           <div class="book_button">
             <button @click="$router.push({ path: `/book/${$route.params.id}/${book_details.chapter[0].id}` })">开始阅读</button>
@@ -83,6 +83,7 @@ const route = useRoute()
 
 let book_details = ref(null);
 let isLoading = ref(true)
+let wordTotal_show = ref()
 
 axios.post("book/details", {
   id: route.params.id
@@ -91,6 +92,9 @@ axios.post("book/details", {
   if(book_details.value === undefined) {
     ElMessage.error(respone.data.message)
   }
+  console.log("book",book_details.value)
+  wordTotal_show.value = ((book_details.value.words_account.wordTotal)/10000).toFixed(2)
+  console.log("word",wordTotal_show.value)
   title.value = book_details.value.title
   isLoading.value = false;
 })
