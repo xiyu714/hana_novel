@@ -34,6 +34,16 @@ book_router.post('/book/details', async (ctx, next) => {
             .orderBy('updated_time', 'asc');
         book.chapter = chapter;
 
+        //找到书本最近更新的章节
+        let 最新章节 = await knex("chapter")
+            .select("title")
+            .select("updated_time")
+            .where("book_id", id)
+            .orderBy('updated_time', 'desc')
+            .first();
+        book.new_chapter = 最新章节;
+
+
         //根据书本id
         let 字数 = await knex("chapter")
             .selectRaw('sum(word_count) as wordTotal')
