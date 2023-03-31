@@ -31,7 +31,7 @@
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
 <!--      设置详情-->
-      <div  v-if="isshow_install === true" style="width: 400px;height: 500px;position: absolute;background-color: #fdfcf6;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
+      <div  v-if="isshow_install === true" style="width: 400px;height: 500px;position: absolute;background-color: #fbfaf4;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
 
         <div class="close_button" @click="isshow_install= false"   style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
           <el-icon><CloseBold /></el-icon>
@@ -49,15 +49,14 @@
 
             </div>
           </div>
+<!--          字体种类设置-->
           <div style="margin-bottom: 30px">
             <div style="display: inline-block;margin-right: 20px;font-size: 14px">正文字体</div>
-
-            <div style="display: inline-block;">
-              <span style="display: inline-block;font-family: 微软雅黑;border: 1px solid #000;padding: 10px 15px">微软雅黑</span>
+            <div style="display: inline-block;" v-for="item in font_family_list">
+              <span :style="{fontFamily:item}" @click="changeffamily(item)" :class="{ffamily_active: item == active_ffamily}" style="cursor: pointer;display: inline-block;margin-right: 20px;font-size: 14px;border: 1px solid #e3e3e1;padding: 10px 20px">
+                {{item}}
+              </span>
             </div>
-
-
-
           </div>
 <!--          <div style="margin-bottom: 30px">字体大小</div>-->
 <!--          <div style="margin-bottom: 30px">间距设置</div>-->
@@ -89,7 +88,8 @@
         <div style="margin: 0 10px">{{book.author}}</div>
         <div>{{(new Date(book.chapter.updated_time)).pattern("yyyy-MM-dd hh:mm:ss")}}</div>
       </div>
-      <div v-html="book.content" style="font-size: 16px"></div>
+
+      <div v-html="book.content" :style="{fontFamily:active_ffamily}" style="font-size: 16px;"></div>
 
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 
@@ -99,7 +99,7 @@
         <button @click="nextChapter" style="cursor: pointer;border-radius: 20px;
               border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">
           下一章</button>
-{{lastChapter_id}}
+{{active_ffamily}}
       </div>
     </div>
 
@@ -230,7 +230,13 @@ const show_install = () =>{
   const changeBgcolor = (color_list) =>{
     active_bgColor.value = color_list
   }
+  //改变字体种类
+  var font_family_list = reactive(['微软雅黑','宋体','楷体'])
+  const active_ffamily = ref('微软雅黑')
+  const changeffamily = (font_family_list) =>{
+    active_ffamily.value = font_family_list
 
+  }
 
 
 //返回书本详情页
@@ -257,5 +263,11 @@ li,ul,ol{
   list-style: none outside none;
 
   padding: 0;
+}
+
+.ffamily_active{
+  border: 1px solid red;
+  color: #c45656;
+  background-color: #fff0f2;
 }
 </style>
