@@ -31,7 +31,7 @@
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
 <!--      设置详情-->
-      <div  v-if="isshow_install === true" style="width: 400px;height: 500px;position: absolute;background-color: #fbfaf4;margin: -140px 0  0 80px;padding: 50px 0 0 30px;box-shadow: 2px 3px 9px #ccc">
+      <div  v-if="isshow_install === true" style="width: 400px;position: absolute;background-color: #fbfaf4;margin: -140px 0  0 80px;padding: 50px 0 50px 30px;box-shadow: 2px 3px 9px #ccc">
 
         <div class="close_button" @click="isshow_install= false"   style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
           <el-icon><CloseBold /></el-icon>
@@ -58,7 +58,19 @@
               </span>
             </div>
           </div>
-<!--          <div style="margin-bottom: 30px">字体大小</div>-->
+          <div style="margin-bottom: 30px">
+            <div style="display: inline-block;margin-right: 20px;font-size: 14px">字体大小</div>
+            <div style="display: inline-block;" >
+              <span style="width: 290px;padding: 10px 20px;border: 1px solid #e3e3e1;">
+                <span style="padding: 0 25px">减小</span>
+                <span style="padding: 0 25px">数值</span>
+                <span style="padding: 0 25px">增大</span>
+              </span>
+
+            </div>
+          </div>
+
+
 <!--          <div style="margin-bottom: 30px">间距设置</div>-->
 
         </div>
@@ -81,7 +93,7 @@
 
 
 
-    <div v-if="!isLoading" style="width: 55%;background-color: rgba(246, 241, 231,0.5);padding: 80px 60px 30px 60px">
+    <div v-if="!isLoading" :style="{fontFamily:active_ffamily}" style="width: 55%;background-color: rgba(246, 241, 231,0.5);padding: 80px 60px 30px 60px">
       <div style="font-size: 24px;font-weight: bold;margin-bottom: 30px">{{book.chapter.title}}</div>
       <div class="flex" style="margin-bottom: 40px;font-size: 12px">
         <div >{{book.title}}</div>
@@ -89,7 +101,7 @@
         <div>{{(new Date(book.chapter.updated_time)).pattern("yyyy-MM-dd hh:mm:ss")}}</div>
       </div>
 
-      <div v-html="book.content" :style="{fontFamily:active_ffamily}" style="font-size: 16px;"></div>
+      <div v-html="book.content"  style="font-size: 16px;"></div>
 
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 
@@ -99,7 +111,6 @@
         <button @click="nextChapter" style="cursor: pointer;border-radius: 20px;
               border: 1px solid #ff7300;width: 150px;height: 30px;background-color: #ff7300;">
           下一章</button>
-{{active_ffamily}}
       </div>
     </div>
 
