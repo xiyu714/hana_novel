@@ -25,6 +25,15 @@ export const knex = k({
     database: mysql_database,
   },
   debug: NODE_ENV !== 'production',
+  log: {
+    debug: (message) => {
+      // 忽略 task的debug输出
+      if(message.sql.startsWith("select * from `task`")) {
+        return;
+      }
+      console.log(message)
+    }
+  }
 });
 
 // 要注意不要覆盖源方法
