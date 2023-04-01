@@ -9,10 +9,30 @@ import { JSDOM } from "jsdom"
 import {knex} from "./config/knex.mjs";
 import {get_book_id, get_chapter_id} from "./id.mjs";
 
+let Axios = axios.create({
+    responseType: "arraybuffer"
+});
+
+Axios.interceptors.response.use(function (response) {
+    var ctype = response.headers["content-type"].toLowerCase();
+    response.data = ctype.includes("charset=gbk") || ctype.includes("charset=gb2312") ?
+        iconv.decode(response.data, 'gbk') :
+        iconv.decode(response.data, 'utf-8');
+    return response;
+})
+
+async function get_document(book_url) {
+    // 获取页面内容
+    let response = await Axios.get(book_url)
+    // 获取jsdom
+    let dom = new JSDOM(response.data);
+    let document = dom.window.document;
+    return document;
+}
+
 let baseUrl = "https://www.xbiquge.so/book/";
 async function get_book_details(book_url) {
-    let dom = await JSDOM.fromURL(book_url);
-    let document = dom.window.document;
+    let document = await get_document(book_url);
     let book = {};
     // 获取小说封面URL
     book.封面_URL = document.querySelector("#fmimg > img").getAttribute("src");
@@ -43,30 +63,6 @@ async function get_book_details(book_url) {
     }
     return book
 }
-export async function get_and_save_book(book_id) {
-    let bookDetails = await get_book_details(baseUrl + book_id);
-    let bookId = get_book_id();
-    await knex("book").insert({
-        id: bookId,
-        title: bookDetails.标题,
-        description: bookDetails.简介,
-        cover_url: bookDetails.封面_URL,
-        author: bookDetails.作者名,
-        created_time: new Date(),
-        updated_time: new Date()
-    })
-    for (let 章节 of bookDetails.章节列表) {
-        await knex("chapter").insert({
-            id: get_chapter_id(),
-            book_id: bookId,
-            title: 章节.title,
-            content: 章节.content,
-            created_time: new Date(),
-            updated_time: new Date()
-        });
-    }
-}
-
 
 export async function web_get_book_details(book_id) {
     return await get_book_details(baseUrl + book_id);
@@ -90,8 +86,7 @@ export async function web_craw_book(task_map, task_key) {
         for (let 章节列表Element of task.章节列表) {
             章节列表Element.进度 = 25;
             // 爬取小说内容
-            let dom = await JSDOM.fromURL(章节列表Element.url);
-            let 小说内容_document = dom.window.document;
+            let 小说内容_document = await get_document(章节列表Element.url);
             let innerHTML = 小说内容_document.querySelector("#content").innerHTML;
             innerHTML = innerHTML.replaceAll("&nbsp;&nbsp;", " ");
             innerHTML = innerHTML.replaceAll("<br><br>", "\n");
@@ -122,21 +117,8 @@ export async function web_craw_book(task_map, task_key) {
 }
 
 async function main() {
-    await Promise.all([
-        get_and_save_book("14399"),
-        get_and_save_book("54591"),
-        get_and_save_book("50506"),
-        get_and_save_book("49848"),
-
-    ])
 }
 
-// 用于测试
-async function test_main() {
-    let bookDetails = await get_book_details( baseUrl + "52201");
-    console.log(bookDetails)
-}
-
-// await main()
+await main()
 
 
