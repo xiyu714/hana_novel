@@ -58,15 +58,16 @@
               </span>
             </div>
           </div>
+<!--          字体大小设置-->
           <div style="margin-bottom: 30px">
             <div style="display: inline-block;margin-right: 20px;font-size: 14px">字体大小</div>
             <div style="display: inline-block;" >
-              <span style="width: 290px;padding: 10px 20px;border: 1px solid #e3e3e1;">
-                <span style="padding: 0 25px">减小</span>
-                <span style="padding: 0 25px">数值</span>
-                <span style="padding: 0 25px">增大</span>
-              </span>
+              <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;">
+                <span @click="fsize_decrease" class="size_decrease" style="padding: 0 30px;cursor: pointer" >减小</span>
 
+                <span :style="{fontSize: active_fsize}" style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_fsize}}</span>
+                <span @click="fsize_increase" class="size_increase" style="padding: 0 30px;cursor: pointer">增大</span>
+              </span>
             </div>
           </div>
 
@@ -78,11 +79,12 @@
       </div>
 
 
-
+<!--返回我的书架-->
       <div class="icon" @click="return_bookshelf" style="cursor:pointer;width: 60px;height: 59px;background-color: #f6f1e7;border-bottom: 1px solid #ccc;text-align: center;margin-top: 10px">
         <i class="iconfont icon-jiarushujia_01" style="font-size: 25px;"></i>
         <div class="icon_title"   style="font-size: 12px;padding-top: 5px">书架</div>
       </div>
+<!--      返回书本详情页-->
       <div class="icon" @click="return_bookdetail" style="cursor:pointer;width: 60px;height: 60px;background-color: #f6f1e7;text-align: center;margin-top: 10px">
         <i class="iconfont icon-fanhui" style="font-size: 23px;"></i>
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">返回</div>
@@ -101,8 +103,7 @@
         <div>{{(new Date(book.chapter.updated_time)).pattern("yyyy-MM-dd hh:mm:ss")}}</div>
       </div>
 
-      <div v-html="book.content"  style="font-size: 16px;"></div>
-
+      <div v-html="book.content"  :style="{fontSize: active_fsize + 'px'}" ></div>
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 
         <button @click="lastChapter" class="btn_last" style="cursor: pointer;border-radius: 20px;
@@ -248,6 +249,20 @@ const show_install = () =>{
     active_ffamily.value = font_family_list
 
   }
+  //修改字体大小
+  let active_fsize = ref('16')
+  const fsize_decrease = () =>{
+    if (active_fsize.value > 10){
+      active_fsize.value = active_fsize.value -2
+      console.log(active_fsize.value)
+    }
+  }
+  const fsize_increase = () =>{
+  if(active_fsize.value < 50){
+    active_fsize.value = active_fsize.value +2
+    console.log(active_fsize.value)
+  }
+  }
 
 
 //返回书本详情页
@@ -280,5 +295,11 @@ li,ul,ol{
   border: 1px solid red;
   color: #c45656;
   background-color: #fff0f2;
+}
+.size_decrease:hover{
+  color: #c45656;
+}
+.size_increase:hover{
+  color: #c45656;
 }
 </style>
