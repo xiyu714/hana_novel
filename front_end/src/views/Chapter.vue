@@ -65,14 +65,24 @@
               <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;">
                 <span @click="fsize_decrease" class="size_decrease" style="padding: 0 30px;cursor: pointer" >减小</span>
 
-                <span :style="{fontSize: active_fsize}" style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_fsize}}</span>
+                <span style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_fsize}}</span>
                 <span @click="fsize_increase" class="size_increase" style="padding: 0 30px;cursor: pointer">增大</span>
               </span>
             </div>
           </div>
+<!--行间距设置-->
 
+          <div style="margin-bottom: 30px">
+            <div style="display: inline-block;margin-right: 20px;font-size: 14px">间距设置</div>
+            <div style="display: inline-block;" >
+              <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;">
+                <span @click="lheight_decrease" class="size_decrease" style="padding: 0 30px;cursor: pointer" >减小</span>
 
-<!--          <div style="margin-bottom: 30px">间距设置</div>-->
+                <span style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_lheight}}</span>
+                <span @click="lheight_increase" class="size_increase" style="padding: 0 30px;cursor: pointer">增大</span>
+              </span>
+            </div>
+          </div>
 
         </div>
 
@@ -103,7 +113,7 @@
         <div>{{(new Date(book.chapter.updated_time)).pattern("yyyy-MM-dd hh:mm:ss")}}</div>
       </div>
 
-      <div v-html="book.content"  :style="{fontSize: active_fsize + 'px'}" ></div>
+      <div v-html="book.content"  :style="{fontSize: active_fsize + 'px',lineHeight:active_lheight}" ></div>
       <div style="margin-top: 80px;width:55%;padding-left: 25%;padding-right: 25%">
 
         <button @click="lastChapter" class="btn_last" style="cursor: pointer;border-radius: 20px;
@@ -250,7 +260,7 @@ const show_install = () =>{
 
   }
   //修改字体大小
-  let active_fsize = ref('16')
+  let active_fsize = ref(16)
   const fsize_decrease = () =>{
     if (active_fsize.value > 10){
       active_fsize.value = active_fsize.value -2
@@ -262,6 +272,20 @@ const show_install = () =>{
     active_fsize.value = active_fsize.value +2
     console.log(active_fsize.value)
   }
+  }
+  //修改行间距
+  let active_lheight = ref(2)
+  const lheight_decrease = () =>{
+    if (active_lheight.value > 1){
+      active_lheight.value = active_lheight.value - 1
+      console.log(active_lheight.value)
+    }
+  }
+  const lheight_increase = () =>{
+    if(active_lheight.value < 8){
+      active_lheight.value = active_lheight.value + 1
+      console.log(active_lheight.value)
+    }
   }
 
 
