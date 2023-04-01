@@ -31,7 +31,7 @@
         <div class="icon_title" style="font-size: 12px;padding-top: 5px">设置</div>
       </div>
 <!--      设置详情-->
-      <div  v-if="isshow_install === true" style="width: 400px;position: absolute;background-color: #fbfaf4;margin: -140px 0  0 80px;padding: 50px 0 50px 30px;box-shadow: 2px 3px 9px #ccc">
+      <div  v-if="isshow_install === true" style="user-select:none;width: 400px;position: absolute;background-color: #fbfaf4;margin: -140px 0  0 80px;padding: 50px 0 50px 30px;box-shadow: 2px 3px 9px #ccc">
 
         <div class="close_button" @click="isshow_install= false"   style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
           <el-icon><CloseBold /></el-icon>
@@ -59,13 +59,13 @@
             </div>
           </div>
 <!--          字体大小设置-->
-          <div style="margin-bottom: 30px">
+          <div style="margin-bottom: 40px">
             <div style="display: inline-block;margin-right: 20px;font-size: 14px">字体大小</div>
             <div style="display: inline-block;" >
-              <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;">
+              <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;user-select:none">
                 <span @click="fsize_decrease" class="size_decrease" style="padding: 0 30px;cursor: pointer" >减小</span>
 
-                <span style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_fsize}}</span>
+                <span style="padding: 0 30px;color: #a6a6a6;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_fsize}}</span>
                 <span @click="fsize_increase" class="size_increase" style="padding: 0 30px;cursor: pointer">增大</span>
               </span>
             </div>
@@ -78,7 +78,7 @@
               <span style="width: 290px;padding: 10px 0;border: 1px solid #e3e3e1;">
                 <span @click="lheight_decrease" class="size_decrease" style="padding: 0 30px;cursor: pointer" >减小</span>
 
-                <span style="padding: 0 30px;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_lheight}}</span>
+                <span style="padding: 0 30px;color: #a6a6a6;border-left: 1px solid #ccc;border-right: 1px solid #ccc">{{active_lheight}}</span>
                 <span @click="lheight_increase" class="size_increase" style="padding: 0 30px;cursor: pointer">增大</span>
               </span>
             </div>
