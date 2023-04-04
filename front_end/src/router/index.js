@@ -12,6 +12,9 @@ import UserManage from "../views/admin/UserManage.vue";
 import AuthorManage from "../views/admin/AuthorMange.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
 import NovelManage from "../views/admin/NovelManage.vue";
+import HistoryBook from "../views/bookshelf/HistoryBook.vue";
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,7 +35,13 @@ const router = createRouter({
         },{
           path:'/bookshelf',
           name:'bookshelf',
-          component: BookShelf
+          component: BookShelf,
+          children:[
+            {
+              path:'historybook',
+              component: HistoryBook
+            },
+          ]
         },
         {
           path:'/authorcolumn',
