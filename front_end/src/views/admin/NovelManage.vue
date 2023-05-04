@@ -42,8 +42,9 @@
     <div style="display: inline">
       <el-input
         style="width: 300px"
+        v-model="likebook"
       ></el-input>
-      <el-button type="primary">搜索</el-button>
+      <el-button type="primary" @click="getBooklist">搜索</el-button>
     </div>
   </div>
 
@@ -97,9 +98,13 @@ const Delete_Book = (books) =>{
     })
 }
 
-//获取所有书本信息
+//获取所有书本信息  +  搜索功能
+const likebook = ref()
+
 const getBooklist = () =>{
-  axios.post("book/list").then(({data}) => {
+  axios.post("book/list",{
+    likebook:likebook.value
+  }).then(({data}) => {
     books.value = data.data
   })
 }

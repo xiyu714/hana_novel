@@ -12,11 +12,19 @@ book_router.get('/', (ctx, next) => {
 })
 
 // 添加一个路由
-//查找书籍列表
+//查找书籍列表  +   搜索功能
 book_router.post('/book/list', async (ctx, next) => {
-    let books = await knex("book").select();
-    success(ctx, books)
-    return next()
+    const {likebook} = ctx.request.body;
+    let books = {}
+    if (likebook == undefined){
+        books = await knex("book").select();
+    }else {
+        books = await knex("book").where('title','like','%'+likebook+'%')
+            .select()
+    }
+    // success(ctx, books)
+    // return next()
+    return success(ctx, books)
 })
 
 //查找书籍详情内容 章节名
