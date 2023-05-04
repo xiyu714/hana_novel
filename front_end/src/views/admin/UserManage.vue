@@ -2,8 +2,8 @@
   <div style="margin-bottom: 15px;height: 30px">
     <div style="float: left">
       <el-input style="width: 300px;margin-right: 12px" placeholder="请输入用户名"
-                v-model="userquery"></el-input>
-      <el-button type="primary" @click="searchUserlist">
+                v-model="likeUsername"></el-input>
+      <el-button type="primary" @click="getUserlist">
         搜索
       </el-button>
     </div>
@@ -154,15 +154,15 @@ import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
 //搜索功能
-const userquery = ref()
-
-const searchUserlist = () =>{
-  axios.post("/user/inquire",{
-    name:userquery.value
-  }).then(res =>{
-
-  })
-}
+const likeUsername = ref()
+//
+// const searchUserlist = () =>{
+//   axios.post("/user/admin/list",{
+//     name:likeUsername.value
+//   }).then(res =>{
+//
+//   })
+// }
 
 
 //编辑用户
@@ -251,7 +251,9 @@ const usersData =ref([])
 
 const getUserlist = () =>{
   //获取用户信息数据
-  axios.post("/user/admin/list").then(({data}) =>{
+  axios.post("/user/admin/list",{
+    likeUsername:likeUsername.value
+  }).then(({data}) =>{
     usersData.value = data.data
   })
 }

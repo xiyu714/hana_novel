@@ -8,11 +8,21 @@ import {get_user_id} from "../id.mjs";
 const saltRounds = 10;
 export let user_router = Router().loadMethods();
 
+//获取用户列表
 user_router.post("/user/admin/list", async (ctx, next) => {
-    return success(ctx, await knex('user').select());
+    const {likeUsername} = ctx.request.body;
+
+    let like = {}
+    if (likeUsername == undefined){
+       like = await knex('user').select()
+    }else {
+        like = await knex('user').where('name','like','%' + likeUsername + '%').select()
+    }
+    return success(ctx, like);
 })
 
 user_router.post("/user/register", async (ctx, next) => {
+        //从body中取出与这些变量同名的属性  并赋值给这些变量
         const { name, email, password } = ctx.request.body;
         // 用户是否注册
         if (await knex('user').where('name', name).isExist()) {
