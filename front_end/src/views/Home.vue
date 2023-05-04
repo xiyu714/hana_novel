@@ -13,8 +13,8 @@
       </div>
       <div class="header_icon">
         <div class="search">
-          <input placeholder="请输入书名或者作者名" />
-          <span class="icon-search">
+          <input placeholder="请输入书名或者作者名" v-model="searchText"/>
+          <span class="icon-search" @click="search">
             <el-icon ><Search /></el-icon>
           </span>
         </div>
@@ -524,6 +524,13 @@ const route = useRoute()
 
 const { proxy } = getCurrentInstance();
 //数据
+
+//搜索功能
+const searchText = ref()
+const search = () =>{
+  console.log(searchText.value)
+}
+
 
 //退出登录
 const logout = async () =>{
@@ -1389,7 +1396,6 @@ a:hover{
   display: flex;
   width: 72px;
   height: 72px;
-
 }
 .author_bottom{
   position: absolute;
