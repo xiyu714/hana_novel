@@ -1,12 +1,10 @@
 <template>
   <div style="margin-bottom: 15px;height: 30px">
     <div style="float: left">
-      <el-input
-          style="width: 300px;margin-right: 12px"
-      ></el-input>
-      <el-button type="primary">
+      <el-input style="width: 300px;margin-right: 12px" placeholder="请输入用户名"
+                v-model="userquery"></el-input>
+      <el-button type="primary" @click="searchUserlist">
         搜索
-
       </el-button>
     </div>
     <div style="float: right">
@@ -15,7 +13,7 @@
       </el-button>
       <el-button type="primary" @click="dialogAddUser = true">添加用户</el-button>
 <!--      添加用户弹窗-->
-      <el-dialog v-model="dialogAddUser" title="添加用户">
+      <el-dialog v-model="dialogAddUser" >
         <el-form
             ref="AddForm"
             label-width="90px"
@@ -119,20 +117,26 @@
         style="width: 100%;"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="用户ID" width="120" />
-      <el-table-column prop="name" label="用户名" width="120" />
-      <el-table-column prop="email" label="邮箱" width="120"/>
+      <el-table-column prop="id" label="用户ID" width="150" />
+      <el-table-column prop="name" label="用户名" width="150" />
+      <el-table-column prop="email" label="邮箱" width="180"/>
 <!--      <el-table-column prop="permission" label="用户权限" width="180" />-->
-      <el-table-column prop="avatar" label="头像url"  />
+      <el-table-column prop="avatar" label="头像" width="70" >
+        <template #default="scope">
+          <div style="display: flex;align-items: center">
+            <img :src="scope.row.avatar" style="width: 32px;height: 32px;border-radius: 50%;">
+          </div>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="permission" label="用户状态" width="180" >
 
       </el-table-column>
       <el-table-column prop="created_time" label="创建时间" width="220" />
 
-      <el-table-column fixed="right" width="200" label="操作">
+      <el-table-column fixed="right"  label="操作">
         <template #default="scope">
-          <el-button style="padding: 3px;width: 70px;margin-right: 10px" type="primary">编辑</el-button>
+          <el-button style="padding: 3px;width: 70px;margin-right: 10px" @click="dialogAddUser = true;Edit_User(scope.$index, scope.row)" type="primary">编辑</el-button>
           <el-button style="padding: 3px;width: 70px" type="danger" @click="Delete_User(scope.$index, scope.row)">删除</el-button>
         </template>
 
@@ -149,13 +153,40 @@ import {useRoute} from "vue-router";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
+//搜索功能
+const userquery = ref()
+
+const searchUserlist = () =>{
+  axios.post("/user/inquire",{
+    name:userquery.value
+  }).then(res =>{
+
+  })
+}
+
+
+//编辑用户
+const Edit_User = (scope,AddUser) =>{
+  axios.post("/user/edit",{
+    id:scope.row.id,
+    name:scope.row.name,
+    email:scope.row.email
+  }).then(res =>{
+    proxy.$message({
+      message:'编辑成功！',
+      type:"success"
+    });
+  })
+
+}
+
+
 //删除用户
 const Delete_User = (index, row) =>{
   axios.post("/user/delete",{
     id:row.id
   })
       .then(res =>{
-        console.log(res)
         proxy.$message({
           message:'删除成功！',
           type:"success"
