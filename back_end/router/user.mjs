@@ -45,7 +45,7 @@ user_router.post("/user/login", async (ctx, next) => {
     ctx.session.set("user", user);
     return success(ctx, user);
 })
-
+//查询用户的基本信息
 user_router.post("/user/base_info", async (ctx, next) => {
     let session_user = ctx.session.get("user");
     if (!session_user) {
