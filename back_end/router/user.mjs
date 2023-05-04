@@ -10,6 +10,7 @@ export let user_router = Router().loadMethods();
 
 //获取用户列表
 user_router.post("/user/admin/list", async (ctx, next) => {
+    //ctx.request.body是从前端传过来的,likeUsername是自己定义的变量(同名属性才可以)，是body取出与它同名的属性并赋值给它的
     const {likeUsername} = ctx.request.body;
 
     let like = {}

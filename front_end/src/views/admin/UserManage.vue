@@ -154,7 +154,7 @@ import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
 //搜索功能
-const likeUsername = ref()
+// const likeUsername = ref()
 //
 // const searchUserlist = () =>{
 //   axios.post("/user/admin/list",{
@@ -248,12 +248,15 @@ const value = ref(true)
 const usersData =ref([])
 
 
+const likeUsername = ref()
 
 const getUserlist = () =>{
   //获取用户信息数据
   axios.post("/user/admin/list",{
+    //给后端传likeUsername的值（搜索值）
     likeUsername:likeUsername.value
   }).then(({data}) =>{
+    //从后端传过来的数据赋值给列表
     usersData.value = data.data
   })
 }
