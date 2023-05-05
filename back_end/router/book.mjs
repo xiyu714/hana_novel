@@ -12,20 +12,13 @@ book_router.get('/', (ctx, next) => {
 })
 
 // 添加一个路由
-//查找书籍列表  +   搜索功能
+//查找书籍列表
 book_router.post('/book/list', async (ctx, next) => {
-    const {likebook} = ctx.request.body;
-    let books = {}
-    if (likebook == undefined){
-        books = await knex("book").select();
-    }else {
-        books = await knex("book").where('title','like','%'+likebook+'%')
-            .select()
-    }
-    // success(ctx, books)
-    // return next()
-    return success(ctx, books)
+    let books = await knex("book").select();
+    success(ctx, books)
+    return next()
 })
+
 
 //查找书籍详情内容 章节名
 book_router.post('/book/details', async (ctx, next) => {
@@ -138,13 +131,14 @@ book_router.post("/book/delete", async (ctx, next) =>{
     return success(ctx,{})
 })
 
-//查找小说 书名
+//查找小说 书名  作者名
 book_router.post("/book/inquire", async (ctx, next) =>{
-    const {title} = ctx.request.body;
+    const {likebook} = ctx.request.body;
 
     const inquire = await knex('book')
         .select()
-        .where("title",title)
+        .where("title","like","%"+likebook+"%")
+        .orWhere("author","like","%"+likebook+"%")
     return success(ctx,inquire)
 })
 
