@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import {useRoute} from "vue-router";
 import {axios} from "../api";
 
@@ -90,13 +90,15 @@ const books = ref([])
 
 //搜索
 const likebook = route.query.likebook
-axios.post('/book/inquire',{
-  likebook:likebook
-}).then(res =>{
-  books.value = res.data.data
-    console.log(res.data.data)
-})
-
+const searchBook = () =>{
+  axios.post('/book/inquire',{
+    likebook:likebook
+  }).then(res =>{
+    books.value = res.data.data
+      console.log(res.data.data)
+  })
+}
+onMounted(searchBook)
 
 axios.post("book/list").then(({data}) => {
   books.value = data.data;
