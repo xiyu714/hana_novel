@@ -9,7 +9,6 @@ import Admin from "../views/Admin.vue";
 import Chapter from "../views/Chapter.vue";
 import Author from "../views/Author.vue";
 import UserManage from "../views/admin/UserManage.vue";
-import AuthorManage from "../views/admin/AuthorMange.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
 import NovelManage from "../views/admin/NovelManage.vue";
 import HistoryBook from "../views/bookshelf/HistoryBook.vue";
@@ -63,10 +62,6 @@ const router = createRouter({
       name: 'admin',
       component: Admin,
       children:[
-        {
-          path:'author_manage',
-          component: AuthorManage
-        },
         {
           path:'user_manage',
           component: UserManage
