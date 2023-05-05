@@ -24,10 +24,10 @@
               <el-menu-item index="3">小说分类管理</el-menu-item>
             </el-sub-menu>
 
-            <el-menu-item index="/author_manage">
-              <el-icon><icon-menu /></el-icon>
-              <span>作家管理</span>
-            </el-menu-item>
+<!--            <el-menu-item index="/author_manage">-->
+<!--              <el-icon><icon-menu /></el-icon>-->
+<!--              <span>作家管理</span>-->
+<!--            </el-menu-item>-->
             <el-menu-item index="/user_manage">
               <el-icon><icon-menu /></el-icon>
               <span>用户管理</span>
