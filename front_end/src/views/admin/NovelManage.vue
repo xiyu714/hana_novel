@@ -43,8 +43,10 @@
       <el-input
         style="width: 300px"
         v-model="likebook"
+        placeholder="请输入书名"
+        @keyup.enter.native="searchBook"
       ></el-input>
-      <el-button type="primary" @click="getBooklist">搜索</el-button>
+      <el-button type="primary" @click="searchBook">搜索</el-button>
     </div>
   </div>
 
@@ -85,6 +87,17 @@ import {Delete} from '@element-plus/icons-vue'
 const dialogFormVisible = ref(false)
 const books = ref([])
 const { proxy } = getCurrentInstance();
+
+//搜索书籍
+const likebook = ref()
+const searchBook = () =>{
+  axios.post("/book/inquire",{
+    likebook:likebook.value
+  }).then(({data}) =>{
+    books.value = data.data
+  })
+}
+
 //删除书本
 const Delete_Book = (books) =>{
 
@@ -98,13 +111,10 @@ const Delete_Book = (books) =>{
     })
 }
 
-//获取所有书本信息  +  搜索功能
-const likebook = ref()
+//获取所有书本信息
 
 const getBooklist = () =>{
-  axios.post("book/list",{
-    likebook:likebook.value
-  }).then(({data}) => {
+  axios.post("book/list").then(({data}) => {
     books.value = data.data
   })
 }
