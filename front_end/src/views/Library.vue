@@ -67,8 +67,6 @@ import {axios} from "../api";
 //   console.log(`current page: ${val}`)
 // }
 
-
-
 const route = useRoute()
 const blocklist = ref([
   {
@@ -89,6 +87,17 @@ const blocklist = ref([
   }
 ])
 const books = ref([])
+
+//搜索
+const likebook = route.query.likebook
+axios.post('/book/inquire',{
+  likebook:likebook
+}).then(res =>{
+  books.value = res.data.data
+    console.log(res.data.data)
+})
+
+
 axios.post("book/list").then(({data}) => {
   books.value = data.data;
 })

@@ -13,8 +13,8 @@
       </div>
       <div class="header_icon">
         <div class="search">
-          <input placeholder="请输入书名或者作者名" v-model="searchText"/>
-          <span class="icon-search" @click="search">
+          <input placeholder="请输入书名或者作者名" v-model="likebook" @keyup.enter.native="searchBook"/>
+          <span class="icon-search" @click="searchBook">
             <el-icon ><Search /></el-icon>
           </span>
         </div>
@@ -510,6 +510,7 @@ import { useTitle } from '@vueuse/core'
 
 const title = useTitle("xi小说网")
 
+import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 import {reactive, ref,getCurrentInstance} from "vue";
 import {axios} from "../api";
@@ -517,18 +518,24 @@ import Dialog from "../component/Dialog.vue";
 import {useGlobalStore} from "../store";
 import {Search,ArrowRightBold,ArrowRight,CaretBottom} from '@element-plus/icons-vue'
 
+
 const globalStore = useGlobalStore();
 
-
+const router = useRouter()
 const route = useRoute()
 
 const { proxy } = getCurrentInstance();
 //数据
 
 //搜索功能
-const searchText = ref()
-const search = () =>{
-  console.log(searchText.value)
+const likebook = ref()
+const searchBook = () =>{
+  axios.post('/book/inquire',{
+    likebook:likebook.value
+  }).then(res =>{
+    //query:{参数名：参数值}
+    router.push({path:'/library',query:{likebook:likebook.value}})
+  })
 }
 
 
