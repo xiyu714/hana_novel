@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {useRoute} from "vue-router";
 import {axios} from "../api";
 
@@ -90,19 +90,31 @@ const books = ref([])
 
 //搜索
 const likebook = route.query.likebook
-const searchBook = () =>{
-  axios.post('/book/inquire',{
-    likebook:likebook
-  }).then(res =>{
-    books.value = res.data.data
+
+const searchBook = () => {
+  if(route.query.likebook == undefined){
+    axios.post("book/list").then(({data}) => {
+      books.value = data.data;
+    })
+  }else {
+    axios.post('/book/inquire',{
+      likebook:route.query.likebook
+    }).then(res =>{
+      books.value = res.data.data
       console.log(res.data.data)
-  })
+    })
+  }
 }
+//route.query.likebook 路由传入的参数值
+watch(()=> route.query.likebook,
+    searchBook
+)
+
+
 onMounted(searchBook)
 
-axios.post("book/list").then(({data}) => {
-  books.value = data.data;
-})
+
+
 </script>
 
 <style scoped>
