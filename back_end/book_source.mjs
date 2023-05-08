@@ -30,7 +30,7 @@ async function get_document(book_url) {
     return document;
 }
 
-let baseUrl = "https://www.xbiquge.so/book/";
+let baseUrl = "https://www.xbiquge.tw/book/";
 async function get_book_details(book_url) {
     let document = await get_document(book_url);
     let book = {};
