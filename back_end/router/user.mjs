@@ -11,15 +11,22 @@ export let user_router = Router().loadMethods();
 //获取用户列表
 user_router.post("/user/admin/list", async (ctx, next) => {
     //ctx.request.body是从前端传过来的,likeUsername是自己定义的变量(同名属性才可以)，是body取出与它同名的属性并赋值给它的
-    const {likeUsername} = ctx.request.body;
-
+    const {likeUsername, currentPage, pageSize} = ctx.request.body;
     let like = {}
+    let total = {}
     if (likeUsername == undefined){
-       like = await knex('user').select()
+         total = await knex('user').countValue()
+
+        //查询当前页面显示的数据 offset:偏移量
+        like = await knex('user').limit(pageSize).offset((currentPage-1) * pageSize).select()
+        like.total = total
     }else {
         like = await knex('user').where('name','like','%' + likeUsername + '%').select()
     }
-    return success(ctx, like);
+    return success(ctx, {
+        like,
+        total
+    });
 })
 
 user_router.post("/user/register", async (ctx, next) => {

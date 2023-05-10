@@ -8,9 +8,9 @@
       </el-button>
     </div>
     <div style="float: right">
-      <el-button type="success">
-        导出数据
-      </el-button>
+<!--      <el-button type="danger" @click="alldelete">-->
+<!--        批量删除-->
+<!--      </el-button>-->
       <el-button type="primary" @click="dialogAddUser = true">添加用户</el-button>
 <!--      添加用户弹窗-->
       <el-dialog v-model="dialogAddUser" >
@@ -119,7 +119,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="用户ID" width="150" />
       <el-table-column prop="name" label="用户名" width="150" />
-      <el-table-column prop="email" label="邮箱" width="180"/>
+      <el-table-column prop="email" label="邮箱" />
 <!--      <el-table-column prop="permission" label="用户权限" width="180" />-->
       <el-table-column prop="avatar" label="头像" width="70" >
         <template #default="scope">
@@ -129,10 +129,10 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="permission" label="用户状态" width="180" >
+<!--      <el-table-column prop="permission" label="用户状态" width="180" >-->
 
-      </el-table-column>
-      <el-table-column prop="created_time" label="创建时间" width="220" />
+<!--      </el-table-column>-->
+      <el-table-column prop="created_time" label="创建时间"  />
 
       <el-table-column fixed="right"  label="操作">
         <template #default="scope">
@@ -142,9 +142,23 @@
 
       </el-table-column>
     </el-table>
-<!--    编辑弹窗-->
 
+<!--  分页  -->
+         <!--分页组件-->
+    <div style="margin-top: 10px">
+      <el-pagination
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[5, 10, 15]"
+          background
+          layout=" total, ->,sizes,prev, pager, next, jumper"
+          :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
+
 </template>
 
 <script setup>
@@ -152,6 +166,26 @@ import {reactive, ref, getCurrentInstance, onMounted} from "vue";
 import {useRoute} from "vue-router";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
+
+//分页
+
+const currentPage = ref() //当前位于哪页
+const pageSize = ref(5)  //一页显示几条
+const total = ref(0)  //总数
+
+//监听page size改变的事件
+const handleSizeChange = (val) => {
+  console.log(`${val} items per page`)
+  pageSize.value = val
+  getUserlist()
+}
+//监听当前页数改变的事件
+const handleCurrentChange = (val) => {
+  console.log(`current page: ${val}`)
+  currentPage.value = val
+  getUserlist()
+
+}
 
 //搜索功能
 // const likeUsername = ref()
@@ -254,12 +288,21 @@ const getUserlist = () =>{
   //获取用户信息数据
   axios.post("/user/admin/list",{
     //给后端传likeUsername的值（搜索值）
-    likeUsername:likeUsername.value
+    likeUsername:likeUsername.value,
+    currentPage:currentPage.value,
+    pageSize:pageSize.value
   }).then(({data}) =>{
     //从后端传过来的数据赋值给列表
-    usersData.value = data.data
+    console.log(data.data.like)
+    usersData.value = data.data.like
+    //获取总数据长度
+    total.value = data.data.total
   })
 }
+
+
+
+
 
 onMounted(()=>{
   getUserlist()
