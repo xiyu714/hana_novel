@@ -47,6 +47,8 @@ const _extends = {
   },
   // 接收一个where查询，返回一个Number
   async countValue() {
+    // COUNT() 函数返回匹配指定条件的行数。FIRST() 函数返回检索和解析查询中的第一条记录（相当于只获取第一条记录）。
+    //只返回行数值
     const row = await this.count('* as count').first();
     return row.count;
   },
