@@ -14,8 +14,21 @@ book_router.get('/', (ctx, next) => {
 // 添加一个路由
 //查找书籍列表
 book_router.post('/book/list', async (ctx, next) => {
-    let books = await knex("book").select();
-    success(ctx, books)
+    const {currentPage, pageSize} = ctx.request.body;
+    let total = {}
+    let books = {}
+    if(currentPage == undefined && pageSize == undefined){
+        books = await knex("book").select()
+    }else {
+        //查询当前页面显示的书籍数据
+        books = await knex("book").limit(pageSize).offset((currentPage-1) * pageSize).select()
+    }
+    //获取书本总数
+     total = await knex("book").countValue()
+    success(ctx, {
+        books,
+        total
+    })
     return next()
 })
 
