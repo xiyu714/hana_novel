@@ -40,7 +40,7 @@
         </div>
       </div>
       <!--    分页-->
-      <div style="margin-top: 10px">
+      <div style="margin-top: 50px">
         <el-pagination
             style="justify-content: center;"
             v-model:current-page="currentPage"
