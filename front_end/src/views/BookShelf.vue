@@ -3,14 +3,16 @@
   <div v-else style="background-color: #f7f6f2;height: 100%;width: 100%">
   <div style="margin: 0 13% 0 13%;padding-top: 40px;height: 800px">
 <!--    导航-->
-    <div style="float:left;width: 200px;">
+    <div class="nav" style="float:left;width: 200px;">
       <ul style="padding: 0;margin: 0;list-style-type: none">
-        <li style="padding: 10px 0 10px 30px;margin: 0;" >
+        <li @click="isShelf = true,$router.push({ path: `/bookshelf` })" :class="{active: isShelf}"
+            style="padding: 10px 0 10px 30px;margin: 0;" >
             <span >
               <router-link to="/bookshelf">书架详情</router-link>
             </span>
         </li>
-        <li style="padding: 10px 0 10px 30px;margin-top: 10px;" >
+        <li @click="isShelf = false,$router.push({ path: `/bookshelf/historybook` })" :class="{active: !isShelf}"
+            style="padding: 10px 0 10px 30px;margin-top: 10px;" >
             <span>
               <router-link to="/bookshelf/historybook">最近阅读</router-link>
             </span>
@@ -22,26 +24,30 @@
       <div v-if="$route.path === '/bookshelf'">
 <!--        搜索框-->
         <div style="display: inline">
-          <el-input style="width: 300px" placeholder="请输入书本名或作者名搜索"></el-input>
-          <el-button type="primary">搜索</el-button>
+          <el-input v-model="likebook_title" style="width: 300px;margin-right: 5px" placeholder="请输入书本名搜索"></el-input>
+          <el-button @click="get_userlist" type="primary" style="margin-right: 220px">搜索</el-button>
 
 <!--          编辑-->
 
+          <el-button type="primary">编辑</el-button>
+          <el-button type="danger">删除</el-button>
+          <el-button type="success">完成</el-button>
 
         </div>
 <!--    书架 书本详情-->
+        <div>
         <div style="display: inline-block;margin-top: 20px">
 
-          <div style="display: inline-block;cursor: pointer;margin:0 30px 20px 0;text-align: center" v-for="item in books"
-               @click="$router.push({ path: `/book/${item.id}` }) ">
+          <div style="display: inline-block;cursor: pointer;margin:0 30px 20px 0;text-align: center"
+               v-for="item in books"
+               @click="$router.push({ path: `/book/${item.book_id}` })">
 
               <img style="width: 140px;height: 180px;border-radius: 3px" :src="item.cover_url">
               <div>{{item.title}}</div>
-              <div>1章/章</div>
+              <div>{{ item.chapter_location }}章/章</div>
 
           </div>
-
-
+        </div>
 
         </div>
       </div>
@@ -53,13 +59,18 @@
 </template>
 
 <script setup>
-import {getCurrentInstance, ref} from "vue";
+import {getCurrentInstance, onMounted, ref} from "vue";
 import {axios} from "../api";
 import {useGlobalStore} from "../store";
-
-
+let isShelf = ref(true)
+const books = ref([])
 const { proxy } = getCurrentInstance();
 const globalStore = useGlobalStore();
+
+const likebook_title = ref()
+
+
+
 //判断用户有没有登录
 if(globalStore.user === undefined){
   proxy.$message({
@@ -68,11 +79,20 @@ if(globalStore.user === undefined){
   });
 }
 
+const get_userlist = () => {
+  axios.post("/book/userlist",{
+    user_id: globalStore.user.id,
+    likebook_title:likebook_title.value
+  }).then(({data}) => {
+    // books.value = data.data;
+    books.value = data.data
+    console.log("111",books.value)
+  })
+}
 
-const books = ref([])
 
-axios.post("book/list").then(({data}) => {
-  books.value = data.data;
+onMounted(()=>{
+  get_userlist()
 })
 
 
@@ -81,4 +101,9 @@ axios.post("book/list").then(({data}) => {
 
 <style scoped>
 
+.active{
+  background-color: #ffffff;
+  border: 1px solid #e0deda;
+  border-radius: 5px;
+}
 </style>
