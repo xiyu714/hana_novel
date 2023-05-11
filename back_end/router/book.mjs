@@ -188,3 +188,28 @@ select created_time  from chapter where book_id = ? and id = ?
         return err(ctx, "没有上一章！")
     }
 } )
+
+
+
+//书架
+//遍历该用户书架中的书
+book_router.post("/book/userlist",async (ctx, next) => {
+    const {user_id} = ctx.request.body
+    let user_books = await knex("bookshelf").where("user_id",user_id).select();
+    success(ctx, user_books)
+    return next()
+})
+
+//用户往书架中添加书籍
+book_router.post("/book/useradd",async (ctx, next) =>{
+    const {user_id,book_id} = ctx.request.body
+    let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id})
+
+    return success(ctx, user_insert_book)
+})
+
+//用户从书架中移走书籍
+
+
+//在书架中搜索
+
