@@ -17,7 +17,7 @@ book_router.post('/book/list', async (ctx, next) => {
     const {currentPage, pageSize} = ctx.request.body;
     let total = {}
     let books = {}
-    if(currentPage == undefined && pageSize == undefined){
+    if(currentPage === undefined && pageSize === undefined){
         books = await knex("book").select()
     }else {
         //查询当前页面显示的书籍数据
@@ -207,8 +207,20 @@ select created_time  from chapter where book_id = ? and id = ?
 //书架
 //遍历该用户书架中的书
 book_router.post("/book/userlist",async (ctx, next) => {
-    const {user_id} = ctx.request.body
-    let user_books = await knex("bookshelf").where("user_id",user_id).select();
+    const {likebook_title,user_id} = ctx.request.body
+    let user_books = {}
+    if(likebook_title == undefined){
+        user_books = await knex("bookshelf")
+            .join("book","bookshelf.book_id",'=',"book.id")
+            .where("user_id",user_id)
+            .select()
+    }else {
+        user_books = await knex("bookshelf")
+            .join("book","bookshelf.book_id",'=',"book.id")
+            .where("user_id",user_id)
+            .where('title','like','%' + likebook_title + '%')
+            .select()
+    }
     success(ctx, user_books)
     return next()
 })
@@ -216,9 +228,16 @@ book_router.post("/book/userlist",async (ctx, next) => {
 //用户往书架中添加书籍
 book_router.post("/book/useradd",async (ctx, next) =>{
     const {user_id,book_id} = ctx.request.body
-    let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id})
+    const is_exist = await knex("bookshelf").where({user_id:user_id,book_id:book_id}).isExist()
+    if(is_exist){
+        return err(ctx,"该书已在书架中")
+    }else {
+        let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id})
+        return success(ctx, user_insert_book)
+    }
 
-    return success(ctx, user_insert_book)
+
+
 })
 
 //用户从书架中移走书籍
