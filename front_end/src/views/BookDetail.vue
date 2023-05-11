@@ -35,7 +35,7 @@
           </div>
           <div class="book_button">
             <button @click="$router.push({ path: `/book/${$route.params.id}/${book_details.chapter[0].id}` })">开始阅读</button>
-            <button>加入书架</button>
+            <button @click="add_bookshelf">加入书架</button>
           </div>
         </div>
       </div>
@@ -72,14 +72,39 @@
 
 <script setup>
 import { useTitle } from '@vueuse/core'
-
+import {useGlobalStore} from "../store";
 const title = useTitle()
-import {ref} from "vue";
+import {getCurrentInstance, ref} from "vue";
 import { ElMessage } from 'element-plus'
 import {axios} from "../api";
 import {useRoute} from "vue-router";
 
 const route = useRoute()
+
+const globalStore = useGlobalStore();
+const { proxy } = getCurrentInstance();
+//加入书架
+const add_bookshelf = () =>{
+axios.post("/book/useradd",{
+  user_id:globalStore.user.id,
+  book_id:route.params.id
+}).then(res =>{
+  if(res.data.status_code === 200){
+    proxy.$message({
+      message:'添加成功',
+      type:"success"
+    });
+  } else {
+    proxy.$message({
+      message:'书架中已有此书',
+      type:"error"
+    });
+  }
+
+})
+}
+
+
 
 let book_details = ref(null);
 let isLoading = ref(true)
