@@ -644,11 +644,17 @@ const confirmPass2 = (rule,value, callback) =>{
     }
 }
 
+const currentPage = ref() //当前位于哪页
+const pageSize = ref(12)  //一页显示几条
 
 let books = ref([])
 let isLoading = ref(true)
-axios.post("book/list").then(({data}) => {
-  books.value = data.data;
+axios.post("book/list",{
+  currentPage:currentPage.value,
+  pageSize:pageSize.value
+}).then(({data}) => {
+  books.value = data.data.books;
+  console.log(books.value)
 }).finally(() => isLoading.value = false)
 
 

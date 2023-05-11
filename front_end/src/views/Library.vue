@@ -39,6 +39,20 @@
           </div>
         </div>
       </div>
+      <!--    分页-->
+      <div style="margin-top: 10px">
+        <el-pagination
+            style="justify-content: center;"
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[12, 24, 36]"
+            background
+            layout=" total, sizes,prev, pager, next, jumper"
+            :total="total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+        />
+      </div>
 
     </div>
 
@@ -55,17 +69,7 @@ import {onMounted, ref, watch} from 'vue'
 import {useRoute} from "vue-router";
 import {axios} from "../api";
 
-//分页
-// const currentPage1 = ref(5)
-// const small = ref(false)
-// const background = ref(false)
-// const disabled = ref(false)
-// const handleSizeChange = (val) => {
-//   console.log(`${val} items per page`)
-// }
-// const handleCurrentChange = (val) => {
-//   console.log(`current page: ${val}`)
-// }
+
 
 const route = useRoute()
 const blocklist = ref([
@@ -88,13 +92,36 @@ const blocklist = ref([
 ])
 const books = ref([])
 
-//搜索
-const likebook = route.query.likebook
+//分页
 
+const currentPage = ref() //当前位于哪页
+const pageSize = ref(12)  //一页显示几条
+const total = ref(0)  //总数
+
+//监听page size改变的事件
+const handleSizeChange = (val) => {
+  console.log(`${val} items per page`)
+  pageSize.value = val
+  searchBook()
+}
+//监听当前页数改变的事件
+const handleCurrentChange = (val) => {
+  console.log(`current page: ${val}`)
+  currentPage.value = val
+  searchBook()
+
+}
+
+
+//搜索
 const searchBook = () => {
   if(route.query.likebook == undefined){
-    axios.post("book/list").then(({data}) => {
-      books.value = data.data;
+    axios.post("book/list",{
+      currentPage:currentPage.value,
+      pageSize:pageSize.value
+    }).then(({data}) => {
+      books.value = data.data.books
+      total.value = data.data.total
     })
   }else {
     axios.post('/book/inquire',{

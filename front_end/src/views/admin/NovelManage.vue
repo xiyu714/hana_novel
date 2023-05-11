@@ -72,6 +72,20 @@
         <div class="desc">{{item.description}}</div>
       </div>
     </div>
+<!--    分页-->
+    <div style="margin-top: 10px">
+      <el-pagination
+          style="justify-content: center;"
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[12, 24, 36]"
+          background
+          layout=" total, sizes,prev, pager, next, jumper"
+          :total="total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 
 
@@ -111,11 +125,34 @@ const Delete_Book = (books) =>{
     })
 }
 
-//获取所有书本信息
+//分页
 
+const currentPage = ref() //当前位于哪页
+const pageSize = ref(12)  //一页显示几条
+const total = ref(0)  //总数
+
+//监听page size改变的事件
+const handleSizeChange = (val) => {
+  console.log(`${val} items per page`)
+  pageSize.value = val
+  getBooklist()
+}
+//监听当前页数改变的事件
+const handleCurrentChange = (val) => {
+  console.log(`current page: ${val}`)
+  currentPage.value = val
+  getBooklist()
+
+}
+
+//获取所有书本信息
 const getBooklist = () =>{
-  axios.post("book/list").then(({data}) => {
-    books.value = data.data
+  axios.post("book/list",{
+    currentPage:currentPage.value,
+    pageSize:pageSize.value
+  }).then(({data}) => {
+    books.value = data.data.books
+    total.value = data.data.total
   })
 }
 
@@ -130,7 +167,7 @@ onMounted(()=>{
   display: inline-block;
   vertical-align: top;
   position: relative;
-  cursor: pointer;
+  /*cursor: pointer;*/
   /*margin-right: 22px;*/
   margin-top: 40px;
   margin-left: 20px;
@@ -150,13 +187,13 @@ onMounted(()=>{
   float: left;
   width: 210px;
   height: 130px;
-  cursor: pointer;
+  /*cursor: pointer;*/
   /*background-color: darkgreen;*/
   padding-left: 20px;
 }
 .booklist_one_right .title{
   font-size: 18px;
-  cursor: pointer;
+  /*cursor: pointer;*/
   text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
