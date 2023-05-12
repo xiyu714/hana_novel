@@ -85,23 +85,31 @@ const globalStore = useGlobalStore();
 const { proxy } = getCurrentInstance();
 //加入书架
 const add_bookshelf = () =>{
-axios.post("/book/useradd",{
-  user_id:globalStore.user.id,
-  book_id:route.params.id
-}).then(res =>{
-  if(res.data.status_code === 200){
+  if(globalStore.user === undefined){
     proxy.$message({
-      message:'添加成功',
-      type:"success"
-    });
-  } else {
-    proxy.$message({
-      message:'书架中已有此书',
+      message:'请先登录',
       type:"error"
     });
+  }else {
+    axios.post("/book/useradd",{
+      user_id:globalStore.user.id,
+      book_id:route.params.id
+    }).then(res =>{
+      if(res.data.status_code === 200){
+        proxy.$message({
+          message:'添加成功',
+          type:"success"
+        });
+      } else {
+        proxy.$message({
+          message:'书架中已有此书',
+          type:"error"
+        });
+      }
+
+    })
   }
 
-})
 }
 
 
