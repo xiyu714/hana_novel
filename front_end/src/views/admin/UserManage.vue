@@ -8,9 +8,6 @@
       </el-button>
     </div>
     <div style="float: right">
-<!--      <el-button type="danger" @click="alldelete">-->
-<!--        批量删除-->
-<!--      </el-button>-->
       <el-button type="primary" @click="dialogAddUser = true">添加用户</el-button>
 <!--      添加用户弹窗-->
       <el-dialog v-model="dialogAddUser" >
