@@ -136,12 +136,69 @@
 
       <el-table-column fixed="right"  label="操作">
         <template #default="scope">
-          <el-button style="padding: 3px;width: 70px;margin-right: 10px" @click="dialogAddUser = true;Edit_User(scope.$index, scope.row)" type="primary">编辑</el-button>
+
+          <el-button style="padding: 3px;width: 70px;margin-right: 10px"
+                     @click="dialogEditUser = true;currentUser = scope.row;"
+                     type="primary">编辑</el-button>
           <el-button style="padding: 3px;width: 70px" type="danger" @click="Delete_User(scope.$index, scope.row)">删除</el-button>
         </template>
 
       </el-table-column>
     </el-table>
+<!--编辑用户的弹窗-->
+    <el-dialog v-model="dialogEditUser" >
+      <el-form
+          ref="AddForm"
+          label-width="90px"
+          :model="currentUser"
+          class="demo-dynamic"
+      >
+        <el-form-item
+            prop="name"
+            label="用户名:"
+            :rules="[
+                      {
+                        required: true,
+                        message: '请输入用户名',
+                        trigger: 'blur',
+                      }
+                    ]"
+        >
+          <el-input style="width: 220px;" v-model="currentUser.name" placeholder="请输入用户名"/>
+        </el-form-item>
+        <el-form-item
+            prop="email"
+            label="邮箱:"
+            :rules="[
+                      {
+                        required: true,
+                        message: '请输入邮箱',
+                        trigger: 'blur',
+                      },
+                      {
+                        type: 'email',
+                        message: '请输入正确的邮箱格式',
+                        trigger: ['blur', 'change'],
+                      },
+                    ]"
+        >
+          <el-input style="width: 220px;" v-model="currentUser.email" placeholder="请输入邮箱"/>
+        </el-form-item>
+
+
+      </el-form>
+
+      <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogEditUser = false">取消</el-button>
+            <el-button type="primary" @click="dialogEditUser = false;Edit_User(currentUser)" >
+              完成编辑
+            </el-button>
+          </span>
+      </template>
+
+    </el-dialog>
+
 
 <!--  分页  -->
          <!--分页组件-->
@@ -200,12 +257,17 @@ const handleCurrentChange = (val) => {
 
 
 //编辑用户
-const Edit_User = (scope,AddUser) =>{
+const currentUser =ref()
+const dialogEditUser = ref(false)
+
+const Edit_User = (currentUser) =>{
+  console.log(dialogEditUser)
   axios.post("/user/edit",{
-    id:scope.row.id,
-    name:scope.row.name,
-    email:scope.row.email
+    id: currentUser.id,
+    name: currentUser.name,
+    email:currentUser.email
   }).then(res =>{
+            getUserlist()
     proxy.$message({
       message:'编辑成功！',
       type:"success"

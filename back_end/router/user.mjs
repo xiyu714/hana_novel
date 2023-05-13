@@ -92,16 +92,16 @@ user_router.post("/user/logout", async (ctx, next) => {
 user_router.post("/user/edit", async (ctx, next) =>{
     const {id,name,email} = ctx.request.body;
 
-    await knex('user')
-        .update({
-            name: name,
-            email: email,
-            updated_time: new Date()
-        })
-        .where("id",id)
+    const edit = await knex('user')
+                .update({
+                    name: name,
+                    email: email,
+                    updated_time: new Date()
+                })
+                .where("id",id)
 
     return success(ctx,{
-
+        edit
     })
 
 })
