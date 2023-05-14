@@ -213,11 +213,13 @@ book_router.post("/book/userlist",async (ctx, next) => {
         user_books = await knex("bookshelf")
             .join("book","bookshelf.book_id",'=',"book.id")
             .where("user_id",user_id)
+            .where("exist_bookshelf","exist" )
             .select()
     }else {
         user_books = await knex("bookshelf")
             .join("book","bookshelf.book_id",'=',"book.id")
             .where("user_id",user_id)
+            .where("exist_bookshelf","exist" )
             .where('title','like','%' + likebook_title + '%')
             .select()
     }
@@ -228,19 +230,38 @@ book_router.post("/book/userlist",async (ctx, next) => {
 //用户往书架中添加书籍
 book_router.post("/book/useradd",async (ctx, next) =>{
     const {user_id,book_id} = ctx.request.body
+
     const is_exist = await knex("bookshelf").where({user_id:user_id,book_id:book_id}).isExist()
+    const exist = await knex("bookshelf").where({user_id:user_id,book_id:book_id})
+                                        .where("exist_bookshelf","exist").isExist()
+//在数据库中找到 + exist ->在书架中；
+//在数据库中找到 无exist  ->添加过但被删除   只需exist_bookshelf修改为exist
     if(is_exist){
-        return err(ctx,"该书已在书架中")
+        if(exist){
+            return err(ctx,"该书已在书架中")
+        }else {
+            let user_insert_book = await knex("bookshelf").where({user_id:user_id,book_id:book_id})
+                                .update("exist_bookshelf","exist")
+            return success(ctx,user_insert_book)
+        }
     }else {
-        let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id})
+        let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id,exist_bookshelf:"exist"})
         return success(ctx, user_insert_book)
     }
-
-
-
 })
 
-//用户从书架中移走书籍
+//用户从书架中移走书籍(批量删除)
+book_router.post("/book/alldelete",async (ctx, next) =>{
+    const {user_id,book_idList} = ctx.request.body
+
+    for(let i = 0;i<book_idList.length;i++){
+        await knex("bookshelf").where({user_id:user_id,book_id:book_idList[i]})
+                            .update("exist_bookshelf","")
+
+    }
+    return success(ctx,book_idList)
+
+})
 
 
 //在书架中搜索
