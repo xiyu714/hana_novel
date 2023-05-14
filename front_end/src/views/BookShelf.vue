@@ -25,19 +25,19 @@
 <!--        搜索框-->
         <div style="display: inline">
           <el-input v-model="likebook_title" style="width: 300px;margin-right: 5px" placeholder="请输入书本名搜索"></el-input>
-          <el-button @click="get_userlist" type="primary" style="margin-right: 220px">搜索</el-button>
+          <el-button @click="get_userlist" type="primary" style="margin-right: 200px">搜索</el-button>
 
 <!--          编辑-->
           <el-button  type="primary" @click="isEdit = true">编辑</el-button>
           <div v-if="isEdit === true" style="display: inline-block;margin-left: 18px">
-            <el-button type="danger">删除</el-button>
+            <el-button type="danger" @click="delete_item">删除<span v-if="book_idList.length > 0">（已选中{{book_idList.length}}）</span></el-button>
             <el-button type="success" @click="isEdit = false">完成</el-button>
           </div>
         </div>
 <!--    书架 书本详情-->
         <div>
         <div style="display: inline-block;margin-top: 20px">
-          {{book_idList}}
+<!--          {{book_idList}}-->
           <div style="display: inline-block;cursor: pointer;margin:0 30px 20px 0;text-align: center"
                v-for="(item,index) in books"
                 @click="book_item = item;enter_bookdetail(book_item)">
@@ -56,7 +56,7 @@
               </div>
               <div>{{item.title}}</div>
               <div>{{ item.chapter_location }}章/章</div>
-            {{item.book_id}}
+<!--            {{item.book_id}}-->
           </div>
         </div>
 
@@ -96,6 +96,15 @@ const change_iconcolor = (book_id_item) => {
   } else {
     book_idList.value.push(book_id_item.book_id);
   }
+}
+
+const delete_item = () =>{
+  axios.post("/book/alldelete",{
+    user_id:globalStore.user.id,
+    book_idList:book_idList.value
+  }).then(res=>{
+    get_userlist()
+  })
 }
 
 
