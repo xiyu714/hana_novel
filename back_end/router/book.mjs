@@ -285,3 +285,22 @@ book_router.post("/book/alldelete",async (ctx, next) =>{
 //
 // })
 
+
+//标签管理
+//测试
+book_router.post("/book/updatetag",async (ctx, next) =>{
+    const {book_id,tag} = ctx.request.body
+
+    let t_tag = await knex("book").where('id',book_id).update({tag:JSON.stringify(tag)})
+
+    return success(ctx,t_tag)
+})
+
+//测试(未完成)
+book_router.post("/book/searchtag",async (ctx, next) =>{
+    const {book_id,tag} = ctx.request.body
+
+    let t_tag = await knex("book").whereRaw()
+
+    return success(ctx,t_tag)
+})
