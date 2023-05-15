@@ -34,7 +34,7 @@
               </div>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>Action 1</el-dropdown-item>
+<!--                  <el-dropdown-item>Action 1</el-dropdown-item>-->
                   <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -1570,7 +1570,6 @@ a:hover{
 
 
 .footer{
-  margin-top: 40px;
   width: 100%;
   height: 60px;
   text-align: center;
