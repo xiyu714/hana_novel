@@ -300,7 +300,7 @@ book_router.post("/book/updatetag",async (ctx, next) =>{
 book_router.post("/book/searchtag",async (ctx, next) =>{
     const {book_id,tag} = ctx.request.body
 
-    let t_tag = await knex("book").whereRaw()
+    let t_tag = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).select();
 
     return success(ctx,t_tag)
 })
