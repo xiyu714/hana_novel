@@ -12,6 +12,7 @@ import UserManage from "../views/admin/UserManage.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
 import NovelManage from "../views/admin/NovelManage.vue";
 import HistoryBook from "../views/bookshelf/HistoryBook.vue";
+import TagnovelManage from "../views/admin/TagnovelManage.vue";
 
 
 
@@ -73,6 +74,9 @@ const router = createRouter({
         {
           path:'novel_manage',
           component: NovelManage
+        },{
+          path:'tagnovel_manage',
+          component: TagnovelManage
         }
       ]
     },{

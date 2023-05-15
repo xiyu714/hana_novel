@@ -82,7 +82,7 @@
               </template>
               <el-menu-item index="/addnovel_manage">添加小说</el-menu-item>
               <el-menu-item index="/novel_manage">小说增删改查</el-menu-item>
-              <el-menu-item index="3">小说分类管理</el-menu-item>
+              <el-menu-item index="/tagnovel_manage">小说标签管理</el-menu-item>
             </el-sub-menu>
 
             <el-menu-item index="/user_manage">
