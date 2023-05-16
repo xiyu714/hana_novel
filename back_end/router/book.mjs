@@ -298,9 +298,12 @@ book_router.post("/book/updatetag",async (ctx, next) =>{
 
 //测试(未完成)
 book_router.post("/book/searchtag",async (ctx, next) =>{
-    const {book_id,tag} = ctx.request.body
+    const {tag} = ctx.request.body
 
     let t_tag = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).select();
-
-    return success(ctx,t_tag)
+    let total = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).countValue();
+    return success(ctx,{
+        t_tag,
+        total
+    })
 })
