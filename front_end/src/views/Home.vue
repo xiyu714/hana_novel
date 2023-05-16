@@ -308,30 +308,6 @@
           </div>
         </div>
       </div>
-<!--      新锐作家-->
-      <div class="author_block">
-        <p class="recommend_left_title">新锐作家</p>
-        <div class="author_wrapper">
-          <div class="authorlist">
-            <div class="author_item" v-for="item in Authorlist"
-                 @click="$router.push({ path: `/author/${item.name}` }) "
-            >
-              <span class="author_avatar">
-<!--                <img src="https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image">-->
-                <img :src="item.url">
-              </span>
-
-              <div class="author_bottom" :style="item.bgColor">
-<!--                <div class="author_name">燕北</div>-->
-<!--                <div class="author_desc">代表作《口袋里海风》</div>-->
-                <div class="author_name">{{item.name}}</div>
-                <div class="author_desc">{{item.desc}}</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
 <!--      男频精选-->
       <div class="man">
         <div class="man_list">
@@ -708,59 +684,6 @@ var manranklist = reactive([
     title:'都市无敌傻医',
     rank:'10',
     bgColor:'background-color:rgb(204, 204, 204)'
-  }
-])
-var Authorlist = reactive([
-  {
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(248, 247, 241)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(241, 248, 242)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(248, 242, 240)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(243, 246, 250)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(249, 248, 247)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(241, 248, 242)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(248, 247, 241)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(248, 242, 240)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(243, 246, 250)'
-  },{
-    url:'https://p3-novel.byteimg.com/novel-static/9341a9be27c0350f7c9db985989156f7~tplv-noop.image',
-    name:'燕北',
-    desc:'代表作 《天神殿》',
-    bgColor:'background-color:rgb(243, 246, 250)'
   }
 ])
 var weeklist = reactive([
@@ -1371,15 +1294,7 @@ a:hover{
   overflow: hidden;
   margin: 0 auto;
 }
-.authorlist{
-  position: relative;
-  width: 1830px;
-  height: 180px;
-  top: 0;
-  right: 0;
-  margin-top: 30px;
-  animation: authormove 10s infinite alternate;
-}
+
 .author_item{
   width: 168px;
   height: 180px;

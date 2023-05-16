@@ -3,11 +3,9 @@ import Home from '../views/Home.vue'
 import Library from "../views/Library.vue"
 import Ranking from "../views/Ranking.vue"
 import BookShelf from "../views/BookShelf.vue";
-import AuthorColumn from "../views/AuthorColumn.vue";
 import BookDetail from "../views/BookDetail.vue";
 import Admin from "../views/Admin.vue";
 import Chapter from "../views/Chapter.vue";
-import Author from "../views/Author.vue";
 import UserManage from "../views/admin/UserManage.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
 import NovelManage from "../views/admin/NovelManage.vue";
@@ -44,18 +42,9 @@ const router = createRouter({
           ]
         },
         {
-          path:'/authorcolumn',
-          name:'authorcolumn',
-          component: AuthorColumn
-        },
-        {
           path: '/book/:id',
           name: 'book',
           component: BookDetail,
-        },{
-          path:'/author/:id',
-          name:'author',
-          component:Author
         }
       ]
     },{
