@@ -14,11 +14,11 @@
               著
             </div>
           </div>
-          <div class="book_type">
-            <div class="block_item">读者</div>
-            <div class="block_item">全部</div>
-            <div class="block_item">全部</div>
-            <div class="block_item">全部</div>
+          <div class="book_type" >
+            <span v-for="(i,index) in book_details.tag">
+              <el-tag style="margin-right: 10px" size="large">{{book_details.tag[index]}}</el-tag>
+            </span>
+
           </div>
           <div class="book_count">
             <div class="count_item">
