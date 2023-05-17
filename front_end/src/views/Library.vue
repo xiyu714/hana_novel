@@ -17,9 +17,8 @@
     <div class="library_main" style="margin-top: 50px;">
       <div class="main_type">
         <div class="type" style="border-bottom: 1px solid #999999">
-          <div class="type_title">最热</div>
-          <div class="type_title">最新</div>
-          <div class="type_title">字数</div>
+          <div class="type_title" @click="hot_sort">最热</div>
+          <div class="type_title" @click="new_sort">最新</div>
         </div>
       </div>
 <!--      具体书本-->
@@ -56,11 +55,6 @@
 
     </div>
 
-
-
-
-
-
   </div>
 </template>
 
@@ -92,6 +86,30 @@ const blocklist = ref([
 ])
 const books = ref([])
 
+//最新
+const new_sort = () => {
+  axios.post("/book/new_sort",{
+    currentPage:currentPage.value,
+    pageSize:pageSize.value
+  }).then(res =>{
+    books.value = res.data.data.new_sort
+    total.value = res.data.data.total
+  })
+}
+
+
+//最热
+const hot_sort = () => {
+  axios.post("/book/hot_sort",{
+    currentPage:currentPage.value,
+    pageSize:pageSize.value
+  }).then(res =>{
+    books.value = res.data.data.hot
+    total.value = res.data.data.total
+  })
+}
+
+
 //分页
 
 const currentPage = ref() //当前位于哪页
@@ -116,12 +134,12 @@ const handleCurrentChange = (val) => {
 //搜索
 const searchBook = () => {
   if(route.query.likebook == undefined){
-    axios.post("book/list",{
+    axios.post("/book/hot_sort",{
       currentPage:currentPage.value,
       pageSize:pageSize.value
-    }).then(({data}) => {
-      books.value = data.data.books
-      total.value = data.data.total
+    }).then(res =>{
+      books.value = res.data.data.hot
+      total.value = res.data.data.total
     })
   }else {
     axios.post('/book/inquire',{
@@ -168,7 +186,7 @@ onMounted(searchBook)
 
 .type_title{
   display: inline-block;
-  margin:10px 20px;
+  margin:10px 40px;
   font-size: 14px;
   cursor: pointer;
 }

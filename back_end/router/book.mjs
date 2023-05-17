@@ -202,6 +202,51 @@ select created_time  from chapter where book_id = ? and id = ?
     }
 } )
 
+//最新
+book_router.post("/book/new_sort",async (ctx, next) => {
+    const {currentPage, pageSize} = ctx.request.body;
+    let total = {}
+    let new_sort = {}
+    if(currentPage === undefined && pageSize === undefined){
+        new_sort = await knex("book").orderBy("updated_time","desc").select()
+    }
+    else {
+        //查询当前页面显示的书籍数据
+        new_sort = await knex("book").limit(pageSize).offset((currentPage-1) * pageSize).orderBy("updated_time","desc").select()
+    }
+    //获取书本总数
+    total = await knex("book").countValue()
+    success(ctx, {
+        new_sort,
+        total
+    })
+    return next()
+})
+
+//查找点击量
+book_router.post("/book/hot_sort",async (ctx, next) => {
+    const {currentPage, pageSize} = ctx.request.body;
+    let total = {}
+    let hot = {}
+    if(currentPage === undefined && pageSize === undefined){
+        hot = await knex("book").orderBy("visit_count","desc").select()
+    }
+    else {
+        //查询当前页面显示的书籍数据
+        hot = await knex("book").limit(pageSize).offset((currentPage-1) * pageSize).orderBy("visit_count","desc").select()
+    }
+    //获取书本总数
+    total = await knex("book").countValue()
+    success(ctx, {
+        hot,
+        total
+    })
+    return next()
+})
+
+
+
+
 
 
 //书架
