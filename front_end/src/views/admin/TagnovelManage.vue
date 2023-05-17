@@ -36,7 +36,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="author" label="作者" width="150" align="center"/>
-      <el-table-column prop="tag" label="标签" align="center" >
+      <el-table-column prop="tag" label="标签" align="center" width="400" >
         <template #default="scope">
 
           <span  v-for=" (item,index) in scope.row.tag">
@@ -45,17 +45,18 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="visit_count" label="访问量" width="100" align="center" />
+
       <el-table-column fixed="right"  label="操作" align="center">
         <template #default="scope">
           <el-button style="padding: 3px;width: 70px;margin-right: 10px"
                       @click="dialogEditTag = true;currentTag = scope.row"
                      type="primary">编辑</el-button>
-          <el-button style="padding: 3px;width: 70px" type="danger">删除</el-button>
+<!--          <el-button style="padding: 3px;width: 70px" type="danger" @click="currentTag = scope.row;delete_book(currentTag)">删除</el-button>-->
         </template>
       </el-table-column>
+      <el-table-column prop="created_time" label="创建时间" align="center"/>
+      <el-table-column prop="visit_count" label="访问量"  align="center" />
     </el-table>
-
     <!--编辑书本标签的弹窗-->
     <el-dialog v-model="dialogEditTag" >
       <el-form
@@ -155,6 +156,20 @@
 import {getCurrentInstance, onMounted, ref} from "vue";
 import {axios} from "../../api";
 const { proxy } = getCurrentInstance();
+
+//删除书本
+// const delete_book = (currentTag) => {
+//   console.log(currentTag.value)
+//   axios.post("/book/delete",{id:currentTag.value.id})
+//       .then(res =>{
+//         proxy.$message({
+//           message:'删除成功！',
+//           type:"success"
+//         });
+//         getTaglist()
+//       })
+// }
+
 
 //查找标签对应的书籍
 const like_tag = ref()
