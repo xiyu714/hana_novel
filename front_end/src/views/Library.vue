@@ -19,6 +19,7 @@
                                check_tag = check_tag.filter(e => e != childitem);
                              }
                            }"
+                           @click="click_tag"
                             style="margin-right: 10px">
              {{ childitem.replace(/^.*?-/, "") }}
              </el-check-tag>
@@ -84,28 +85,37 @@ const route = useRoute()
 const blocklist = ref([
   {
     title:"读者",
-    tags:["1-全部","男生","女生"]
+    tags:["男频","女频"]
   },
   {
     title:"分类",
-    tags:["2-全部","全部","全部"]
+    tags:["都市","玄幻","历史","网游","修真","科幻"]
   },
   {
     title:"状态",
-    tags:["3-全部","连载中","已完结"]
+    tags:["连载中","已完结"]
   },
   {
     title:"字数",
-    tags:["全部","30万以下","30-50万","50-100万","100-200万","200万以上"]
+    tags:["30万以下","30-50万","50-100万","100-200万","200万以上"]
   }
 ])
 
 //选择标签
 const checked = ref(false)
 const check_tag = ref([])
-const click_tag = (val) => {
- checked.value = val
+const click_tag = () => {
+  console.log("valuesa",check_tag.value)
+  axios.post("/book/scalptag",{
+    check_tag:check_tag.value,
+    currentPage:currentPage.value,
+    pageSize:pageSize.value
+  }).then(res =>{
+    books.value = res.data.data.c_tag
+    total.value = res.data.data.total
+  })
 }
+
 
 
 
