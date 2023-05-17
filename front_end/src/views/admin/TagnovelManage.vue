@@ -3,10 +3,11 @@
     <div style="float: left">
       <el-input style="width: 300px;margin-right: 12px" placeholder="请输入标签名..."
                 v-model="like_tag"
+                @keyup.enter="getsearchlist"
                 ></el-input>
       <el-button type="primary"
                  @click="getsearchlist"
-                 @keyup.enter="getsearchlist">
+                 >
         搜索
       </el-button>
     </div>
@@ -158,12 +159,23 @@ const { proxy } = getCurrentInstance();
 //查找标签对应的书籍
 const like_tag = ref()
 const getsearchlist = () => {
-  axios.post("/book/searchtag",{
-    tag:like_tag.value
-  }).then(res=>{
-    console.log(res.data.data)
+  if((like_tag.value !== undefined) && (like_tag.value.length !== 0)){
+    // getTaglist()
+    console.log("value2",like_tag.value)
+    axios.post("/book/searchtag",{
+      tag:like_tag.value,
+      currentPage:currentPage.value,
+      pageSize:pageSize.value
+    }).then(res=>{
+      console.log("ews",res.data.data.t_tag)
+      tagsData.value = res.data.data.t_tag
+//获取总数据长度
+      total.value = res.data.data.total
+    })
+  } else{
+    getTaglist()
+  }
 
-  })
 }
 
 

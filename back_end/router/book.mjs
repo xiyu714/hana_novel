@@ -298,10 +298,17 @@ book_router.post("/book/updatetag",async (ctx, next) =>{
 
 //测试(未完成)
 book_router.post("/book/searchtag",async (ctx, next) =>{
-    const {tag} = ctx.request.body
+    const {tag,currentPage, pageSize} = ctx.request.body
 
-    let t_tag = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).select();
-    let total = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).countValue();
+    let total = {}
+    let t_tag = {}
+    if(currentPage === undefined && pageSize === undefined){
+        t_tag = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).select();
+    }else{
+        t_tag = await knex("book").limit(pageSize).offset((currentPage-1) * pageSize).whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).select();
+    }
+
+    total = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${tag}"')`).countValue();
     return success(ctx,{
         t_tag,
         total
