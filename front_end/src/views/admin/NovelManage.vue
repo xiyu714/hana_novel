@@ -2,40 +2,10 @@
   <div>
   <!--  左边-->
     <div style="display: inline;margin-right: 330px">
-      <el-button type="primary" @click="dialogFormVisible = true">
+      <el-button type="primary" @click="$router.push({path:`/admin/addnovel_manage`})">
         <el-icon style="margin:0 5px 0 -5px"><Plus /></el-icon>
         添加书籍
       </el-button>
-<!--      添加书籍弹窗-->
-      <el-dialog v-model="dialogFormVisible" title="添加书籍">
-        <el-form
-            label-width="auto"
-        >
-
-          <el-form-item label="书本id:" >
-            <el-input  type="text" autocomplete="off" style="width: 200px;margin-right: 30px" />
-            <el-button type="primary">获取基本信息</el-button>
-          </el-form-item>
-        </el-form>
-
-<!--        添加书本id:-->
-<!--        <el-input-->
-<!--            placeholder="输入id爬取"-->
-
-<!--        ></el-input>-->
-
-
-
-        <template #footer>
-          <span class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">
-              确认
-            </el-button>
-          </span>
-        </template>
-      </el-dialog>
-
 
     </div>
 <!--    搜索框-->
@@ -98,7 +68,7 @@ import {ref, getCurrentInstance, onMounted} from "vue";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
-const dialogFormVisible = ref(false)
+// const dialogFormVisible = ref(false)
 const books = ref([])
 const { proxy } = getCurrentInstance();
 

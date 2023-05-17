@@ -764,10 +764,6 @@ var NavList = reactive([
     url:'/ranking',
     name: "ranking"
   },{
-    title: '作家专区',
-    url:'/authorcolumn',
-    name: "authorcolumn"
-  },{
     title: '我的书架',
     url:'/bookshelf',
     name: "bookshelf"
@@ -842,7 +838,7 @@ function register(){
 .header_nav ul li{
   float: left;
   /*width: 90px;*/
-  margin-right: 50px;
+  margin-right: 100px;
 }
 
 .nav_a{
