@@ -175,7 +175,12 @@ const inputValue = ref()
 
 //添加标签
 const showInput = () => {
+  if(currentTag.value.tag == null){
+    currentTag.value.tag = ref([])
+    console.log(currentTag.value.tag)
+  }
   inputVisible.value = true
+
 }
 
 const handleInputConfirm = () => {
@@ -234,7 +239,7 @@ const handleCurrentChange = (val) => {
 
 const tagsData =ref([])
 
-//遍历所有小说标签信息
+//遍历所有小说
 const getTaglist = () =>{
   axios.post("/book/list",{
     currentPage:currentPage.value,
