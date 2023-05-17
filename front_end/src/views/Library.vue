@@ -6,8 +6,23 @@
         <div class="block_condition" >
           <div class="block_title">{{item.title}}：</div>
           <span v-for="childitem in item.tags" >
-<!--        :class="{block_active}"    -->
-          	<div class="block_item"  >{{childitem}}</div>
+
+<!--          	<div class="block_item" @click="click_tag" >{{childitem}}</div>-->
+             <el-check-tag :checked="check_tag.includes(childitem)"
+                           @change="(status) => {
+                             // status 是新的状态
+                             if(status) {
+                               if(!check_tag.includes(childitem)) {
+                                 check_tag.push(childitem)
+                               }
+                             } else {
+                               check_tag = check_tag.filter(e => e != childitem);
+                             }
+                           }"
+                            style="margin-right: 10px">
+             {{ childitem.replace(/^.*?-/, "") }}
+             </el-check-tag>
+<!--      :class="{block_active}"      {{childitem}}-->
           </span>
         </div>
       </div>
@@ -64,27 +79,35 @@ import {useRoute} from "vue-router";
 import {axios} from "../api";
 
 
-
+const books = ref([])
 const route = useRoute()
 const blocklist = ref([
   {
     title:"读者",
-    tags:["全部","男生","女生"]
+    tags:["1-全部","男生","女生"]
   },
   {
     title:"分类",
-    tags:["全部","全部","全部"]
+    tags:["2-全部","全部","全部"]
   },
   {
     title:"状态",
-    tags:["全部","连载中","已完结"]
+    tags:["3-全部","连载中","已完结"]
   },
   {
     title:"字数",
     tags:["全部","30万以下","30-50万","50-100万","100-200万","200万以上"]
   }
 ])
-const books = ref([])
+
+//选择标签
+const checked = ref(false)
+const check_tag = ref([])
+const click_tag = (val) => {
+ checked.value = val
+}
+
+
 
 //最新
 const new_sort = () => {
