@@ -359,3 +359,26 @@ book_router.post("/book/searchtag",async (ctx, next) =>{
         total
     })
 })
+
+//书库标签筛选
+book_router.post("/book/scalptag",async (ctx,next) =>{
+    const {check_tag,currentPage, pageSize} = ctx.request.body
+
+    let total = {}
+    let c_tag = {}
+    let knex_builder = knex("book");
+    if(currentPage === undefined && pageSize === undefined){
+    }else{
+        knex_builder.limit(pageSize).offset((currentPage-1) * pageSize)
+    }
+    for(let xtag of check_tag) {
+        knex_builder.whereRaw(`JSON_CONTAINS(tag, '"${xtag}"')`)
+    }
+    c_tag = await knex_builder.select();
+
+    total = await knex("book").whereRaw(`JSON_CONTAINS(tag, '"${check_tag}"')`).countValue();
+    return success(ctx,{
+        c_tag,
+        total
+    })
+})
