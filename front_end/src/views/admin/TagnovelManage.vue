@@ -155,6 +155,9 @@
 <script setup>
 import {getCurrentInstance, onMounted, ref} from "vue";
 import {axios} from "../../api";
+import { useTitle } from '@vueuse/core'
+
+const title = useTitle("小说标签管理-小说后台管理")
 const { proxy } = getCurrentInstance();
 
 //删除书本

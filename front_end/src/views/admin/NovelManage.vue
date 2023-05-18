@@ -25,8 +25,8 @@
   <div class="main_block" style="display: inline-block;
       width: 100%;">
 
-    <div class="booklist_one" v-for="item in books">
-<!--         @click="$router.push({ path: `/book/${item.id}` }) "-->
+    <div class="booklist_one" v-for="item in books"         @click="$router.push({ path: `/book/${item.id}` }) ">
+
 
       <div class="booklist_one_left">
         <img :src="item.cover_url">
@@ -67,7 +67,9 @@ import {Plus} from '@element-plus/icons-vue'
 import {ref, getCurrentInstance, onMounted} from "vue";
 import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
+import { useTitle } from '@vueuse/core'
 
+const title = useTitle("小说管理-小说后台管理")
 // const dialogFormVisible = ref(false)
 const books = ref([])
 const { proxy } = getCurrentInstance();

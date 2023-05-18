@@ -222,7 +222,9 @@ import {axios} from "../../api";
 import {Delete} from '@element-plus/icons-vue'
 
 //分页
+import { useTitle } from '@vueuse/core'
 
+const title = useTitle("用户管理-小说后台管理")
 const currentPage = ref() //当前位于哪页
 const pageSize = ref(5)  //一页显示几条
 const total = ref(0)  //总数
