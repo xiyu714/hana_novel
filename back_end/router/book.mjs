@@ -279,6 +279,25 @@ book_router.post("/book/userlist",async (ctx, next) => {
     return next()
 })
 
+// 获取阅读记录
+book_router.post("/book/history",async (ctx, next) => {
+    const {user_id} = ctx.request.body
+    // 可以获取到阅读的最新章节 id，以及标题
+    let bookShelfList = await knex("bookshelf")
+        .where("user_id",user_id)
+        .orderBy("book_id", "desc")
+        .select();
+    for(let bookShelf of bookShelfList) {
+        // 查询基本信息
+        bookShelf.base_info = await knex("book")
+            .where("id", bookShelf.book_id)
+            .first();
+        // 查询 总共多少章，当前在那一章
+        // 名字是什么
+    }
+    success(ctx, bookShelfList)
+})
+
 //用户往书架中添加书籍
 book_router.post("/book/useradd",async (ctx, next) =>{
     const {user_id,book_id} = ctx.request.body
