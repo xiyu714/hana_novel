@@ -293,6 +293,23 @@ book_router.post("/book/history",async (ctx, next) => {
             .where("id", bookShelf.book_id)
             .first();
         // 查询 总共多少章，当前在那一章
+        bookShelf.chapter_info = {}
+        bookShelf.chapter_info.total = await knex("chapter")
+            .where("book_id", bookShelf.book_id)
+            .countValue();
+        // 如果当前阅读记录章节不为空
+        bookShelf.chapter_info.current_chapter_id = bookShelf.chapter_location;
+        if(bookShelf.chapter_location != undefined) {
+            bookShelf.chapter_info.name = (
+                await knex("chapter")
+                    .where("book_id", bookShelf.book_id)
+                    .where("id", bookShelf.chapter_location)
+                    .select("title")
+                    .first()
+            ).title
+
+        }
+
         // 名字是什么
     }
     success(ctx, bookShelfList)
