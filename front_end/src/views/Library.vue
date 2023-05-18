@@ -92,7 +92,7 @@ const blocklist = ref([
   },
   {
     title:"分类",
-    tags:["都市","玄幻","历史","网游","修真","科幻"]
+    tags:["都市","玄幻","历史","网游","修真","科幻","重生"]
   },
   {
     title:"状态",
@@ -108,15 +108,20 @@ const blocklist = ref([
 const checked = ref(false)
 const check_tag = ref([])
 const click_tag = () => {
-  console.log("valuesa",check_tag.value)
-  axios.post("/book/scalptag",{
-    check_tag:check_tag.value,
-    currentPage:currentPage.value,
-    pageSize:pageSize.value
-  }).then(res =>{
-    books.value = res.data.data.c_tag
-    total.value = res.data.data.total
-  })
+  if(check_tag.value.length === 0){
+    searchBook()
+  }else{
+    console.log("valuesa",check_tag.value)
+    axios.post("/book/scalptag",{
+      check_tag:check_tag.value,
+      currentPage:currentPage.value,
+      pageSize:pageSize.value
+    }).then(res =>{
+      books.value = res.data.data.c_tag
+      total.value = res.data.data.total
+    })
+  }
+
 }
 
 
