@@ -71,6 +71,9 @@ book_router.post('/book/details', async (ctx, next) => {
             .increment('visit_count',1)
 
         success(ctx, book)
+        // 如果用户登录了，还会更新 阅读记录
+        await updateHistoryWithCtx(ctx, id, undefined);
+
     } else {
         err(ctx, "不能找到对应的书籍！")
     }
@@ -94,6 +97,8 @@ book_router.post('/book/content', async (ctx, next) => {
         .first()
     book.chapter = chapter
     success(ctx, book)
+    // 如果用户登录了，还会更新 阅读记录
+    await updateHistoryWithCtx(ctx, book_id, id);
     return next()
 })
 //爬取书籍（未完成）
@@ -288,14 +293,55 @@ book_router.post("/book/useradd",async (ctx, next) =>{
             return err(ctx,"该书已在书架中")
         }else {
             let user_insert_book = await knex("bookshelf").where({user_id:user_id,book_id:book_id})
-                                .update("exist_bookshelf","exist")
+                                .update("exist_bookshelf","exist").update("updated_time", new Date())
             return success(ctx,user_insert_book)
         }
     }else {
-        let user_insert_book = await knex("bookshelf").insert({user_id: user_id,book_id: book_id,exist_bookshelf:"exist"})
+        let user_insert_book = await knex("bookshelf").insert({
+            user_id: user_id,
+            book_id: book_id,
+            exist_bookshelf:"exist",
+            created_time: new Date(),
+            updated_time: new Date()
+        })
         return success(ctx, user_insert_book)
     }
 })
+
+// 更新历史记录
+book_router.post("/book/updateHistory",async (ctx, next) =>{
+    const {user_id,book_id, chapter_location} = ctx.request.body
+    return success(ctx, await updateHistory(user_id,book_id, chapter_location));
+})
+
+let updateHistoryWithCtx = async (ctx, book_id, chapter_location) => {
+    let session_user = ctx.session.get("user");
+    if(session_user === undefined) {
+        return;
+    }
+    await updateHistory(session_user.id, book_id, chapter_location)
+}
+
+let updateHistory = async (user_id, book_id, chapter_location) => {
+    // 如果有就更新时间，没有创建
+    const is_exist = await knex("bookshelf").where({user_id:user_id,book_id:book_id}).isExist();
+    let user_insert_book;
+    if(is_exist) {
+        user_insert_book = await knex("bookshelf")
+            .where({user_id:user_id,book_id:book_id})
+            .update("updated_time", new Date())
+            .update("chapter_location", chapter_location)
+    } else {
+        user_insert_book = await knex("bookshelf").insert({
+            user_id: user_id,
+            book_id: book_id,
+            chapter_location,
+            created_time: new Date(),
+            updated_time: new Date()
+        })
+    }
+    return user_insert_book;
+}
 
 //用户从书架中移走书籍(批量删除)
 book_router.post("/book/alldelete",async (ctx, next) =>{
