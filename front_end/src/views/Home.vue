@@ -297,11 +297,12 @@
         <div class="recommend_right">
           <p class="recommend_left_title">本周推荐</p>
           <div class="recommend_weeklist_group">
-            <div class="weeklist_one" v-for="item in weeklist"
-                 @click="$router.push({ path: `/book/${item.title}` }) "
+            <div class="weeklist_one" v-for="item in books.slice(1,10)"
+                 @click="$router.push({ path: `/book/${item.id}` }) "
             >
-              <span>{{item.type}}</span>
               <a>{{item.title}}</a>
+              <span style="padding-left: -30px">{{item.author}}</span>
+
             </div>
           </div>
         </div>
@@ -311,15 +312,14 @@
         <div class="man_list">
           <p class="recommend_left_title">男频精选</p>
           <div class="manlist">
-
-            <div class="manlist_item" v-for="item in booklist1" @click="$router.push({ path: `/book/${item.title}` }) ">
+            <div class="manlist_item" v-for="item in books.slice(11, 17)" @click="$router.push({ path: `/book/${item.id}` }) ">
               <div class="manlist_item_top">
-                <img :src="item.url">
+                <img :src="item.cover_url">
               </div>
               <div class="manlist_item_bottom">
                 <div class="title">{{ item.title }}</div>
                 <div class="author">{{ item.author }}</div>
-                <div class="desc">{{ item.desc }}</div>
+                <div class="desc">{{ item.description }}</div>
               </div>
             </div>
           </div>
@@ -328,17 +328,17 @@
         <div class="man_rank">
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
+              周收藏榜
               <a>
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist"
-                   @click="$router.push({ path: `/book/${item.title}` }) "
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
               >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(191, 44, 36)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -349,17 +349,17 @@
 
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
+              周点击榜
               <a href="#">
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist"
-                   @click="$router.push({ path: `/book/${item.title}` }) "
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
               >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(230, 114, 37)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -370,17 +370,17 @@
 
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
+              潜力作品表
               <a href="#">
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist"
-                   @click="$router.push({ path: `/book/${item.title}` }) "
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
               >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(230, 191, 37)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -396,14 +396,14 @@
           <p class="recommend_left_title">女频精选</p>
           <div class="manlist">
 
-            <div class="manlist_item" v-for="item in booklist1" >
+            <div class="manlist_item" v-for="item in books.slice(0, 6)" >
               <div class="manlist_item_top">
-                <img :src="item.url">
+                <img :src="item.cover_url">
               </div>
               <div class="manlist_item_bottom">
                 <div class="title">{{ item.title }}</div>
                 <div class="author">{{ item.author }}</div>
-                <div class="desc">{{ item.desc }}</div>
+                <div class="desc">{{ item.description }}</div>
               </div>
             </div>
           </div>
@@ -412,15 +412,17 @@
         <div class="man_rank">
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
-              <a href="#">
+              周收藏榜
+              <a>
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
+              >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(191, 44, 36)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -431,15 +433,17 @@
 
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
+              周点击榜
               <a href="#">
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
+              >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(230, 114, 37)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -450,15 +454,17 @@
 
           <div class="man_rank_block">
             <div class="rank_block_title">
-              都市榜
+              潜力作品表
               <a href="#">
                 更多
               </a>
             </div>
             <div class="rank_booklist">
-              <div class="rank_item" v-for="item in manranklist">
+              <div class="rank_item" v-for="item in books.slice(17, 27)"
+                   @click="$router.push({ path: `/book/${item.id}` }) "
+              >
                 <a>
-                  <div class="rank" :style="item.bgColor">{{ item.rank }}</div>
+                  <div class="rank" style="background-color:rgb(230, 191, 37)"></div>
                   <span class="rank_item_title">
                     {{ item.title }}
                   </span>
@@ -491,6 +497,7 @@ import {axios} from "../api";
 import Dialog from "../component/Dialog.vue";
 import {useGlobalStore} from "../store";
 import {Search,ArrowRightBold,ArrowRight,CaretBottom} from '@element-plus/icons-vue'
+import {ElMessage} from "element-plus";
 
 
 const globalStore = useGlobalStore();
@@ -558,7 +565,7 @@ const login_in = (loginForm) =>{
           // 关闭
           dialog.value.dialog_visible = false
         }else {
-
+          ElMessage.error(res.data.message)
         }
       })
     }
@@ -619,7 +626,7 @@ const confirmPass2 = (rule,value, callback) =>{
 }
 
 const currentPage = ref() //当前位于哪页
-const pageSize = ref(12)  //一页显示几条
+const pageSize = ref()  //一页显示几条
 
 let books = ref([])
 let isLoading = ref(true)
@@ -631,122 +638,6 @@ axios.post("book/list",{
   console.log(books.value)
 }).finally(() => isLoading.value = false)
 
-
-var manranklist = reactive([
-  {
-    title:'都市无敌傻医',
-    rank:'1',
-    bgColor:'background-color:rgb(191, 44, 36)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'2',
-    bgColor:'background-color:rgb(230, 114, 37)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'3',
-    bgColor:'background-color:rgb(230, 191, 37)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'4',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'5',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'6',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'7',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'8',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'9',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  },
-  {
-    title:'都市无敌傻医',
-    rank:'10',
-    bgColor:'background-color:rgb(204, 204, 204)'
-  }
-])
-var weeklist = reactive([
-  {
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  },{
-    title:'啊热哈日哈热键埃尔加',
-    type:'阿哈尔'
-  }
-])
-var booklist1 = reactive([
-  {
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  },{
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  },{
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  },{
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  },{
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  },{
-    title:'反骨',
-    url:'https://p1-tt.byteimg.com/img/novel-pic/cfedd22da7b04e2692957c005c533ef9~180x234.jpg',
-    author:'Aarhus',
-    desc:'案件改哈甲方根据卡拉改变回家萨芬故该规范客流高'
-  }
-])
 var NavList = reactive([
   {
     title:'首页',
@@ -765,16 +656,8 @@ var NavList = reactive([
     title: '我的书架',
     url:'/bookshelf',
     name: "bookshelf"
-  },
-  // ,{s
-  //   title: '话题',
-  //   url:'/'
-  // }
+  }
 ])
-
-
-//方法
-
 
 
 //登录

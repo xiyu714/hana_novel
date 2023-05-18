@@ -54,10 +54,10 @@ user_router.post("/user/login", async (ctx, next) => {
     const { name, password } = ctx.request.body;
     const user = await knex('user').where({ name }).first();
     if (!user) {
-        return this.error('用户不存在');
+        return err(ctx,'用户不存在');
     }
     if (!await bcrypt.compare(password, user.password)) {
-        return this.error('密码不正确');
+        return err(ctx,'密码不正确');
     }
 
     ctx.session.set("user", user);
@@ -75,7 +75,7 @@ user_router.post("/user/adminlogin",async (ctx, next) =>{
     if (!await bcrypt.compare(password, user.password)) {
         return err(ctx,'密码不正确');
     }
-    ctx.session.set("user", user);
+    // ctx.session.set("user", user);
     return success(ctx, user);
 })
 
