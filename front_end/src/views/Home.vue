@@ -488,7 +488,7 @@
 <script setup>
 import { useTitle } from '@vueuse/core'
 
-const title = useTitle("小说网")
+const title = useTitle("hana小说网")
 
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'

@@ -25,10 +25,10 @@
   <div class="main_block" style="display: inline-block;
       width: 100%;">
 
-    <div class="booklist_one" v-for="item in books"         @click="$router.push({ path: `/book/${item.id}` }) ">
+    <div class="booklist_one" v-for="item in books"         >
 
 
-      <div class="booklist_one_left">
+      <div class="booklist_one_left" @click="$router.push({ path: `/book/${item.id}` }) ">
         <img :src="item.cover_url">
       </div>
       <div class="booklist_one_right">

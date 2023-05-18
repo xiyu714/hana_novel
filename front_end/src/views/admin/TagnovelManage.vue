@@ -271,11 +271,11 @@ const tagsData =ref([])
 
 //遍历所有小说
 const getTaglist = () =>{
-  axios.post("/book/list",{
+  axios.post("/book/new_sort",{
     currentPage:currentPage.value,
     pageSize:pageSize.value
   }).then(res =>{
-    tagsData.value = res.data.data.books
+    tagsData.value = res.data.data.new_sort
     //获取总数据长度
     total.value = res.data.data.total
     console.log(tagsData.value)
