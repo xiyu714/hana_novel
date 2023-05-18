@@ -42,7 +42,7 @@ user_router.post("/user/register", async (ctx, next) => {
 
         await knex('user').insert({
             id: userId,
-            name, email, password: hash_password, created_time: new Date(), permission: '[]',
+            name, email, password: hash_password, created_time: new Date(), permission: '0',
             avatar: '/statics/default_avatar.png',
         })
         return success(ctx, {
@@ -63,6 +63,23 @@ user_router.post("/user/login", async (ctx, next) => {
     ctx.session.set("user", user);
     return success(ctx, user);
 })
+
+//管理员登录
+user_router.post("/user/adminlogin",async (ctx, next) =>{
+    const { name, password } = ctx.request.body;
+    const user = await knex('user').where('name',name).where('permission',1).first();
+
+    if (!user) {
+        return err(ctx, '用户不存在');
+    }
+    if (!await bcrypt.compare(password, user.password)) {
+        return err(ctx,'密码不正确');
+    }
+    ctx.session.set("user", user);
+    return success(ctx, user);
+})
+
+
 //查询用户的基本信息
 user_router.post("/user/base_info", async (ctx, next) => {
     let session_user = ctx.session.get("user");

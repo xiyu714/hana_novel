@@ -81,7 +81,7 @@
                 <span>小说管理</span>
               </template>
               <el-menu-item index="/addnovel_manage">添加小说</el-menu-item>
-              <el-menu-item index="/novel_manage">小说增删改查</el-menu-item>
+              <el-menu-item index="/novel_manage">小说管理（删查）</el-menu-item>
               <el-menu-item index="/tagnovel_manage">小说标签管理</el-menu-item>
             </el-sub-menu>
 
@@ -117,7 +117,10 @@ import {
 } from '@element-plus/icons-vue'
 import {useGlobalStore} from "../store";
 import {axios} from "../api";
+import { useTitle } from '@vueuse/core'
+import {ElMessage} from "element-plus";
 
+const title = useTitle("小说后台管理")
 let router = useRouter();
 const route = useRoute()
 
@@ -148,7 +151,7 @@ let isLogin = ref(true)
 const login_in = (loginForm) =>{
   loginForm.validate((valid) =>{
     if(valid){
-      axios.post("/user/login",loginUser)
+      axios.post("/user/adminlogin",loginUser)
           .then(res =>{
             if(res.data.status_code === 200){
               loginForm.resetFields()
@@ -160,6 +163,8 @@ const login_in = (loginForm) =>{
               globalStore.user = res.data.data
               // 关闭
               // dialog.value.dialog_visible = false
+            }else {
+              ElMessage.error(res.data.message)
             }
           })
     }
