@@ -74,7 +74,9 @@
 <script setup>
 import {axios} from "../api";
 import {onMounted, reactive, ref} from "vue";
+import { useTitle } from '@vueuse/core'
 
+const title = useTitle("排行榜-小说网")
 var manranklist = reactive([
   {
     rank:'1',

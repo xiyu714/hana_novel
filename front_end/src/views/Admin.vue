@@ -4,7 +4,7 @@
         <div style="display: flex; cursor: pointer" >
           <div class="login"
                style="padding-bottom: 8px;padding-top: 10px;padding-left: 10px;color: chocolate;">
-            登录</div>
+            小说后台登录</div>
         </div>
         <div v-if="isLogin" class="dialog_desc" style=" margin-top: 10px;margin-left: 40px">
           <el-form

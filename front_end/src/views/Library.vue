@@ -21,7 +21,8 @@
                            }"
                            @click="click_tag"
                             style="margin-right: 10px">
-             {{ childitem.replace(/^.*?-/, "") }}
+<!--             {{ childitem.replace(/^.*?-/, "") }}-->
+               {{childitem}}
              </el-check-tag>
 <!--      :class="{block_active}"      {{childitem}}-->
           </span>
@@ -79,7 +80,9 @@ import {onMounted, ref, watch} from 'vue'
 import {useRoute} from "vue-router";
 import {axios} from "../api";
 
+import { useTitle } from '@vueuse/core'
 
+const title = useTitle("书库-小说网")
 const books = ref([])
 const route = useRoute()
 const blocklist = ref([

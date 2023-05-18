@@ -75,6 +75,10 @@ import {getCurrentInstance, onMounted, reactive, ref} from "vue";
 import {axios} from "../api";
 import {useGlobalStore} from "../store";
 import { useRouter } from "vue-router";
+
+import { useTitle } from '@vueuse/core'
+
+const title = useTitle("我的书架-小说网")
 let isShelf = ref(true)
 const books = ref([])
 const { proxy } = getCurrentInstance();

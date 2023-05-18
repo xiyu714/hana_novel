@@ -220,17 +220,15 @@
       <div class="notice_left">
         <div class="notice_left_woman">
           <div class="woman_bg">
-            <div class="woman_title">
+            <div class="woman_title" @click="$router.push({path:`/library`});">
               <p>女生专区</p>
-
                 <el-icon size="20"><ArrowRightBold /></el-icon>
-
             </div>
           </div>
         </div>
         <div class="notice_left_man">
           <div class="man_bg">
-            <div class="man_title">
+            <div class="man_title"  @click="$router.push({path:`/library`});">
               <p>男生专区</p>
               <el-icon size="20"><ArrowRightBold /></el-icon>
             </div>
@@ -484,7 +482,7 @@
 <script setup>
 import { useTitle } from '@vueuse/core'
 
-const title = useTitle("xi小说网")
+const title = useTitle("小说网")
 
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
