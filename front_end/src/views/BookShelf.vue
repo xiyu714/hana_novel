@@ -11,12 +11,7 @@
               <router-link to="/bookshelf">书架详情</router-link>
             </span>
         </li>
-        <li @click="isShelf = false,$router.push({ path: `/bookshelf/historybook` })" :class="{active: !isShelf}"
-            style="padding: 10px 0 10px 30px;margin-top: 10px;" >
-            <span>
-              <router-link to="/bookshelf/historybook">最近阅读</router-link>
-            </span>
-        </li>
+
 
       </ul>
     </div>
@@ -30,7 +25,7 @@
 <!--          编辑-->
           <el-button  type="primary" @click="isEdit = true">编辑</el-button>
           <div v-if="isEdit === true" style="display: inline-block;margin-left: 18px">
-            <el-button type="danger" @click="delete_item">删除<span v-if="book_idList.length > 0">（已选中{{book_idList.length}}）</span></el-button>
+            <el-button type="danger" @click="delete_item">删除</el-button>
             <el-button type="success" @click="isEdit = false">完成</el-button>
           </div>
         </div>
@@ -54,8 +49,8 @@
                            @click="change_iconcolor(item)"><CircleCheckFilled /></el-icon>
                 </div>
               </div>
-              <div>{{item.title}}</div>
-              <div>{{ item.chapter_location }}章/章</div>
+              <div style="margin-top: 3px">{{item.title}}</div>
+<!--              <div>{{ item.chapter_location }}章/章</div>-->
 <!--            {{item.book_id}}-->
           </div>
         </div>

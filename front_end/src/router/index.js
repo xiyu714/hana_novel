@@ -9,7 +9,6 @@ import Chapter from "../views/Chapter.vue";
 import UserManage from "../views/admin/UserManage.vue";
 import AddnovelManage from "../views/admin/AddnovelManage.vue";
 import NovelManage from "../views/admin/NovelManage.vue";
-import HistoryBook from "../views/bookshelf/HistoryBook.vue";
 import TagnovelManage from "../views/admin/TagnovelManage.vue";
 
 
@@ -34,12 +33,6 @@ const router = createRouter({
           path:'/bookshelf',
           name:'bookshelf',
           component: BookShelf,
-          children:[
-            {
-              path:'historybook',
-              component: HistoryBook
-            },
-          ]
         },
         {
           path: '/book/:id',

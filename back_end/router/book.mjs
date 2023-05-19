@@ -392,25 +392,6 @@ book_router.post("/book/alldelete",async (ctx, next) =>{
 
 })
 
-//书架中书本阅读记录
-// book_router.post("/book/records",async (ctx,next) =>{
-//     const {user_id} = ctx.request.body;
-//
-//     //获取书架中所有书本id
-//     let book_list = await knex("bookshelf").where("user_id",user_id)
-//             .column("book_id")
-//             .select()
-//     //查找章节总数
-//     for(let i=0;i<book_list.length;i++){
-//         let count = await knex("chapter").where("book_id",book_list[i].book_id).countValue()
-//         book_list[i].chapter_count = count
-//     }
-//     //获取当前阅读章节id
-//
-//
-//     return success(ctx,book_list)
-//
-// })
 
 
 //标签管理
